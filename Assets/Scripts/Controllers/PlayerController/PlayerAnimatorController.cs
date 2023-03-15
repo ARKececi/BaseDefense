@@ -27,10 +27,10 @@ namespace Controllers
 
         private bool _pistolIdle;
         private Vector3 _moveInput;
-        private Vector3 _lookInput;
         private float _acceleration;
         private float _deceleration;
         private bool _trigger;
+        private bool _aimTrigger;
 
         private PlayerBaseState _currentState;
         private PlayerBaseState _playerPistolIdleState;
@@ -53,7 +53,8 @@ namespace Controllers
             _playerRifleAimingState = new PlayerRifleAimingState();
             _playerReloadState = new PlayerReloadState();
             _playerAngelMovement = new AngelMovement();
-            
+
+            _aimTrigger = false;
             _acceleration = 3;
             _deceleration = 3;
         }
@@ -62,7 +63,7 @@ namespace Controllers
         {
             if (_moveInput != Vector3.zero)
             {
-                if (_lookInput != Vector3.zero)
+                if (_aimTrigger)
                 {
                     PlayerAngelMovementInputParams();
                     if (_trigger)
@@ -83,7 +84,7 @@ namespace Controllers
             }
             else
             {
-                if (_lookInput != Vector3.zero)
+                if (_aimTrigger)
                 {
                     if (_trigger)
                     {
@@ -119,7 +120,6 @@ namespace Controllers
         public void InputController( InputParams inputParams)
         {
             _moveInput = inputParams.MoveValues;
-            _lookInput = inputParams.LookValues;
         }
         
         private void WeaponIdleState()
@@ -154,10 +154,10 @@ namespace Controllers
         {
             _velocityZ = transform.eulerAngles.y switch
             {
-                >= 0 and <= 90 => (_moveInput.z + _moveInput.x),
-                >= 91 and <= 180 => (_moveInput.x + (-_moveInput.z)),
-                >= 181 and <= 270 => (-_moveInput.z) + (-_moveInput.x),
-                >= 271 and <= 360 => (-_moveInput.x) + (_moveInput.z),
+                >= 0 and <= 90 => (Mathf.Abs(2*_moveInput.z) + Mathf.Abs(2*_moveInput.x)),
+                >= 91 and <= 180 => (Mathf.Abs(2*_moveInput.x) + Mathf.Abs(2*_moveInput.z)),
+                >= 181 and <= 270 => Mathf.Abs(2*_moveInput.z) + Mathf.Abs(2*_moveInput.x),
+                >= 271 and <= 360 => Mathf.Abs(2*_moveInput.x) + Mathf.Abs(2*_moveInput.z),
                 _ => _velocityZ
             };
         }

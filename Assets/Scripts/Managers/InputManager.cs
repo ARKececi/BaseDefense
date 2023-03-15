@@ -18,7 +18,6 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private Joystick moveJoystick;
-        [SerializeField] private Joystick lookJoystick;
         [SerializeField] private bool isReadyForTouch, isFirstTimeTouchTaken;
 
         #endregion
@@ -28,7 +27,6 @@ namespace Managers
         private bool _isTouching; 
         private Vector3 _joystickPos;
         private Vector3 _moveVector;
-        private Vector3 _lookVector;
         private InputData _inputData;
         private EndOfDraggingCommand _endOfDraggingCommand;
         private StartOfDraggingCommand _startOfDraggingCommand;
@@ -58,12 +56,9 @@ namespace Managers
         {
             _joystickPos = new Vector3(moveJoystick.Horizontal, 0, moveJoystick.Vertical);
             _moveVector = _joystickPos;
-            _joystickPos = new Vector3(lookJoystick.Horizontal, 0, lookJoystick.Vertical);
-            _lookVector = _joystickPos;
             InputSignals.Instance.onInputDragged?.Invoke(new InputParams
             {
                 MoveValues = _moveVector,
-                LookValues = _lookVector
             });
         }
 

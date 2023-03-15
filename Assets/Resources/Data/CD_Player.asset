@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: CD_Player
   m_EditorClassIdentifier: 
   PlayerData:
-    MovementSide: 5
-    MoveSpeed: 5
+    MoveSpeed: 3

@@ -20,7 +20,6 @@ namespace Controllers
         #region Private Variables
         
         private Vector3 _moveInput;
-        private Vector3 _lookInput;
         private PlayerData _playerData;
 
         #endregion
@@ -49,23 +48,15 @@ namespace Controllers
         public void InputController( InputParams inputParams)
         {
             _moveInput = inputParams.MoveValues;
-            _lookInput = inputParams.LookValues;
         }
 
         private void Move()
         {
-            move.velocity = new Vector3(_moveInput.x * _playerData.MovementSide, move.velocity.y, _moveInput.z * _playerData.MovementSide);
+            move.velocity = new Vector3(_moveInput.x * _playerData.MoveSpeed, move.velocity.y, _moveInput.z * _playerData.MoveSpeed);
             Vector3 direction = Vector3.forward * _moveInput.z + Vector3.right * _moveInput.x;
-            if (_lookInput != Vector3.zero)
+            if (direction != Vector3.zero)
             {
-                character.transform.localRotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(_lookInput), 6 * Time.deltaTime);
-            }
-            else
-            {
-                if (direction != Vector3.zero)
-                {
-                    character.transform.localRotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(direction), 6 * Time.deltaTime);
-                }
+                character.transform.localRotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(direction), 6 * Time.deltaTime);
             }
         }
         public void Stop()
