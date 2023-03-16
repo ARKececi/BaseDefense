@@ -14,6 +14,7 @@ namespace Controllers
 
         public float _velocityX;
         public float _velocityZ;
+        public bool AimTrigger;
 
         #endregion
 
@@ -30,7 +31,6 @@ namespace Controllers
         private float _acceleration;
         private float _deceleration;
         private bool _trigger;
-        private bool _aimTrigger;
 
         private PlayerBaseState _currentState;
         private PlayerBaseState _playerPistolIdleState;
@@ -54,7 +54,7 @@ namespace Controllers
             _playerReloadState = new PlayerReloadState();
             _playerAngelMovement = new AngelMovement();
 
-            _aimTrigger = false;
+            AimTrigger = false;
             _acceleration = 3;
             _deceleration = 3;
         }
@@ -63,7 +63,7 @@ namespace Controllers
         {
             if (_moveInput != Vector3.zero)
             {
-                if (_aimTrigger)
+                if (AimTrigger)
                 {
                     PlayerAngelMovementInputParams();
                     if (_trigger)
@@ -84,7 +84,7 @@ namespace Controllers
             }
             else
             {
-                if (_aimTrigger)
+                if (AimTrigger)
                 {
                     if (_trigger)
                     {
@@ -251,6 +251,11 @@ namespace Controllers
                     _velocityZ += Time.fixedDeltaTime * _deceleration;   
                 }
             }
+        }
+
+        public void OnAimTrigger(bool status)
+        {
+            AimTrigger = status;
         }
     }
 }

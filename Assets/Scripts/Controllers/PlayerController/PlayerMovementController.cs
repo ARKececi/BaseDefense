@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Data.UnityObject;
 using Data.ValueObject;
 using Keys;
@@ -9,8 +10,15 @@ namespace Controllers
     {
         #region Self Variables
 
+        #region Public Variables
+
+        public List<GameObject> Enemy;
+
+        #endregion
+
         #region Serialized Variables
 
+        [SerializeField] private PlayerAnimatorController playerAnimatorController;
         [SerializeField] private Rigidbody move;
         [SerializeField] private GameObject character;
         [SerializeField] private bool _isReadyToMove, _isReadyToPlay;
@@ -23,7 +31,7 @@ namespace Controllers
         private PlayerData _playerData;
 
         #endregion
-
+        
         #endregion
 
         #region SubscribedMethods
@@ -54,9 +62,16 @@ namespace Controllers
         {
             move.velocity = new Vector3(_moveInput.x * _playerData.MoveSpeed, move.velocity.y, _moveInput.z * _playerData.MoveSpeed);
             Vector3 direction = Vector3.forward * _moveInput.z + Vector3.right * _moveInput.x;
-            if (direction != Vector3.zero)
+            if (Enemy.Count != 0)
             {
-                character.transform.localRotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(direction), 6 * Time.deltaTime);
+                transform.LookAt(Enemy[0].gameObject.transform);
+            }
+            else
+            {
+                if (direction != Vector3.zero)
+                {
+                    character.transform.localRotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(direction), 6 * Time.deltaTime);
+                }
             }
         }
         public void Stop()
@@ -75,6 +90,13 @@ namespace Controllers
             {
                 Stop();
             }
+        }
+
+        public void AddEnemy(Collider enemy)
+        {
+            Enemy.Add(enemy.gameObject);
+            playerAnimatorController.OnAimTrigger(true);
+            
         }
     }
 }
