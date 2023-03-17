@@ -22,5 +22,13 @@ namespace Controllers
                 playerMovementController.AddEnemy(other);
             }
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Enemy"))
+            {
+                playerMovementController.RemoveEnemy(other);
+            }
+        }
     }
 }

@@ -68,6 +68,7 @@ namespace Controllers
             }
             else
             {
+                playerAnimatorController.OnAimTrigger(false);
                 if (direction != Vector3.zero)
                 {
                     character.transform.localRotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(direction), 6 * Time.deltaTime);
@@ -96,7 +97,11 @@ namespace Controllers
         {
             Enemy.Add(enemy.gameObject);
             playerAnimatorController.OnAimTrigger(true);
-            
+        }
+
+        public void RemoveEnemy(Collider enemy)
+        {
+            Enemy.Remove(enemy.gameObject);
         }
     }
 }
