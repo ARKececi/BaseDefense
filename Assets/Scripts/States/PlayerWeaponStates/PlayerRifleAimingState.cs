@@ -13,6 +13,8 @@ namespace States.PlayerStates
             playerState.GetAnimator().SetBool("RifleIdle", false);
             playerState.GetAnimator().SetBool("PistolIdleAim", false);
             playerState.GetAnimator().SetBool("RifleIdleAim", true);
+            playerState.GetAnimator().SetBool("Idle", false);
+            playerState.GetAnimator().SetBool("Walking", false);
         }
 
         public override void UpdateState(PlayerAnimatorController playerState)

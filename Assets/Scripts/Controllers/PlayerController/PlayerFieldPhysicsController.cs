@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class PlayerPhysicsController : MonoBehaviour
+    public class PlayerFieldPhysicsController : MonoBehaviour
     {
         #region Self Variables
 

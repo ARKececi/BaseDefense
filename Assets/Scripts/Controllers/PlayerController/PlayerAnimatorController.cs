@@ -31,6 +31,7 @@ namespace Controllers
         private float _acceleration;
         private float _deceleration;
         private bool _trigger;
+        private bool _safehouse;
 
         private PlayerBaseState _currentState;
         private PlayerBaseState _playerPistolIdleState;
@@ -38,6 +39,8 @@ namespace Controllers
         private PlayerBaseState _playerRifleIdleState;
         private PlayerBaseState _playerRifleAimingState;
         private PlayerBaseState _playerReloadState;
+        private PlayerBaseState _playerIdleState;
+        private PlayerBaseState _playerWalkingState;
 
         private PlayerBaseState _playerAngelMovement;
 
@@ -53,52 +56,72 @@ namespace Controllers
             _playerRifleAimingState = new PlayerRifleAimingState();
             _playerReloadState = new PlayerReloadState();
             _playerAngelMovement = new AngelMovement();
+            _playerIdleState = new PlayerIdleState();
+            _playerWalkingState = new PlayerWalkingState();
 
             AimTrigger = false;
             _acceleration = 3;
             _deceleration = 3;
+            _safehouse = true;
         }
 
         private void Update()
         {
             if (_moveInput != Vector3.zero)
             {
-                if (AimTrigger)
+                if (_safehouse)
                 {
-                    PlayerAngelMovementInputParams();
-                    if (_trigger)
-                    {
-                        WeaponAimingState();
-                    }
-                    _trigger = false;
+                    PlayerWalkingState();
+                    PlayerAngelMovement();
                 }
                 else
                 {
-                    PlayerAngelMovement();
-                    if (!_trigger)
+                    if (AimTrigger)
                     {
-                        WeaponIdleState();
+                        PlayerAngelMovementInputParams();
+                        if (_trigger)
+                        {
+                            WeaponAimingState();
+                        }
+                        _trigger = false;
                     }
-                    _trigger = true;
+                    else
+                    {
+                        PlayerAngelMovement();
+                        if (!_trigger)
+                        {
+                            WeaponIdleState();
+                        }
+                        _trigger = true;
+                    }
                 }
             }
             else
             {
-                if (AimTrigger)
+                if (_safehouse)
                 {
-                    if (_trigger)
-                    {
-                        WeaponAimingState();
-                    }
-                    _trigger = false;
+                    PlayerIdleState();
+                    PlayerAngelMovement();
                 }
                 else
                 {
-                    if (!_trigger)
+                    
+                    if (AimTrigger)
                     {
-                        WeaponIdleState();
+                        if (_trigger)
+                        {
+                            WeaponAimingState();
+                        }
+                        _trigger = false;
                     }
-                    _trigger = true;
+                    else
+                    {
+                        if (!_trigger)
+                        {
+                            WeaponIdleState();
+                        }
+                        _trigger = true;
+                    }
                 }
                 VelocityXZero();
                 VelocityZZero();
@@ -110,6 +133,18 @@ namespace Controllers
         {
             return animator;
         }
+
+        public void SafeHouse()
+        {
+            if (_safehouse)
+            {
+                _safehouse = false;
+            }
+            else
+            {
+                _safehouse = true;
+            }
+        }
         
         public void PistolIdleBool(bool PistolIdle)
         {
@@ -120,6 +155,18 @@ namespace Controllers
         public void InputController( InputParams inputParams)
         {
             _moveInput = inputParams.MoveValues;
+        }
+
+        private void PlayerWalkingState()
+        {
+            _currentState = _playerWalkingState;
+            _currentState.EnterState(this);
+        }
+
+        private void PlayerIdleState()
+        {
+            _currentState = _playerIdleState;
+            _currentState.EnterState(this);
         }
         
         private void WeaponIdleState()

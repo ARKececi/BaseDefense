@@ -1,0 +1,26 @@
+using System;
+using UnityEngine;
+
+namespace Controllers
+{
+    public class PlayerPhysics : MonoBehaviour
+    {
+        #region Self Variables
+
+        #region Serialized Variables
+
+        [SerializeField] private PlayerAnimatorController playerAnimatorController;
+
+        #endregion
+
+        #endregion
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("SafeHouse"))
+            {
+                playerAnimatorController.SafeHouse();
+            }
+        }
+    }
+}
