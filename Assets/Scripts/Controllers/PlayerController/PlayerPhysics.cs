@@ -15,7 +15,7 @@ namespace Controllers
 
         #endregion
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("SafeHouse"))
             {

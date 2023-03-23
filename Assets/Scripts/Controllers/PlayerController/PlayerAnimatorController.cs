@@ -73,6 +73,7 @@ namespace Controllers
                 {
                     PlayerWalkingState();
                     PlayerAngelMovement();
+                    _trigger = false;
                 }
                 else
                 {
@@ -102,6 +103,7 @@ namespace Controllers
                 {
                     PlayerIdleState();
                     PlayerAngelMovement();
+                    _trigger = false;
                 }
                 else
                 {
