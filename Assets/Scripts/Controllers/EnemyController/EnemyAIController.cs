@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace Controllers.EnemyController
 {
-    public class EnemyAI : MonoBehaviour
+    public class EnemyAIController : MonoBehaviour
     {
         #region Self Variables
 
