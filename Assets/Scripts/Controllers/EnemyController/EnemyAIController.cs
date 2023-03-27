@@ -1,4 +1,5 @@
 using System;
+using Signals;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -25,7 +26,7 @@ namespace Controllers.EnemyController
 
         private void Start()
         {
-            
+            Target = EnemySignals.Instance.onEnemyTarget?.Invoke();
         }
 
         private void Update()

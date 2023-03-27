@@ -29,6 +29,10 @@ namespace Controllers.EnemyController
         {
             _enemyWalkingState = new EnemyWalkingState();
             _enemyFightState = new EnemyFightState();
+        }
+
+        private void Start()
+        {
             Walking();
         }
 

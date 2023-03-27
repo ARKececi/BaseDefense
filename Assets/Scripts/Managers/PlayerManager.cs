@@ -29,6 +29,7 @@ namespace Managers
             InputSignals.Instance.onInputDragged += playerAnimatorController.InputController;
             InputSignals.Instance.onInputReleased += playerMovementController.DeactiveMovement;
             InputSignals.Instance.onInputTaken += playerMovementController.EnableMovement;
+            EnemySignals.Instance.onEnemyTarget += OnPlayer;
         }
 
         private void UnsubscribeEvents()
@@ -37,6 +38,7 @@ namespace Managers
             InputSignals.Instance.onInputDragged -= playerAnimatorController.InputController;
             InputSignals.Instance.onInputReleased -= playerMovementController.DeactiveMovement;
             InputSignals.Instance.onInputTaken -= playerMovementController.EnableMovement;
+            EnemySignals.Instance.onEnemyTarget -= OnPlayer;
         }
 
         private void OnDisable()
@@ -45,5 +47,10 @@ namespace Managers
         }
         
         #endregion
+
+        private Transform OnPlayer()
+        {
+            return transform;
+        }
     }
 }
