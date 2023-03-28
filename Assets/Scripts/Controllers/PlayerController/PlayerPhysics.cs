@@ -1,4 +1,5 @@
 using System;
+using Signals;
 using UnityEngine;
 
 namespace Controllers
@@ -20,6 +21,7 @@ namespace Controllers
             if (other.CompareTag("SafeHouse"))
             {
                 playerAnimatorController.SafeHouse();
+                PlayerSignals.Instance.onTargetWall?.Invoke();
             }
         }
     }

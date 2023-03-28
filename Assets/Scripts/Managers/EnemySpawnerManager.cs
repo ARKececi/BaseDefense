@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Signals;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Controllers
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawnerManager : MonoBehaviour
     {
         #region Self Variables
 
@@ -19,6 +21,7 @@ namespace Controllers
 
         #region Serialized Variables
 
+        [SerializeField] private List<GameObject> wall;
         [SerializeField] private List<GameObject> enemyList;
         [SerializeField] private GameObject enemySpawnDot;
 
@@ -31,6 +34,30 @@ namespace Controllers
 
         #endregion
 
+        #endregion
+        
+        #region Event Subscription
+
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            EnemySignals.Instance.onWall += OnWall;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            EnemySignals.Instance.onWall -= OnWall;
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
+        
         #endregion
 
         private void Awake()
@@ -60,10 +87,13 @@ namespace Controllers
 
         private void Spawner()
         {
+            int enemyPositionX = Random.Range(-10, 10);
             GameObject enemy = enemyPool[0];
             activeEnemy.Add(enemy);
             enemyPool.Remove(enemy);
-            enemy.transform.position = enemySpawnDot.transform.position;
+            var position = enemySpawnDot.transform.position;
+            enemy.transform.position = new Vector3(enemyPositionX, position.y,
+                position.z);
             enemy.SetActive(true);
         }
         
@@ -78,6 +108,11 @@ namespace Controllers
                 }
                 _timer -= UnityEngine.Time.deltaTime;
             }
+        }
+
+        public List<GameObject> OnWall()
+        {
+            return wall;
         }
     }
 }
