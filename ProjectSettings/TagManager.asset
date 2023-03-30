@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - SafeHouse
   - Target
+  - Money
+  - Plane
+  - Collected
   layers:
   - Default
   - TransparentFX

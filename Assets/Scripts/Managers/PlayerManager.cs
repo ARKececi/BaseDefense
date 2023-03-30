@@ -12,6 +12,7 @@ namespace Managers
 
         [SerializeField] private PlayerMovementController playerMovementController;
         [SerializeField] private PlayerAnimatorController playerAnimatorController;
+        [SerializeField] private StackController stackController;
 
         #endregion
 
@@ -30,6 +31,7 @@ namespace Managers
             InputSignals.Instance.onInputReleased += playerMovementController.DeactiveMovement;
             InputSignals.Instance.onInputTaken += playerMovementController.EnableMovement;
             EnemySignals.Instance.onEnemyTarget += OnPlayer;
+            PlayerSignals.Instance.onSafeHouse += stackController.RemoveMoney;
         }
 
         private void UnsubscribeEvents()
@@ -39,6 +41,7 @@ namespace Managers
             InputSignals.Instance.onInputReleased -= playerMovementController.DeactiveMovement;
             InputSignals.Instance.onInputTaken -= playerMovementController.EnableMovement;
             EnemySignals.Instance.onEnemyTarget -= OnPlayer;
+            PlayerSignals.Instance.onSafeHouse -= stackController.RemoveMoney;
         }
 
         private void OnDisable()

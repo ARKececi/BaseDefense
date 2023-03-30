@@ -7,5 +7,6 @@ namespace Signals
     public class PlayerSignals : MonoSingleton<PlayerSignals>
     {
         public UnityAction onTargetWall = delegate { };
+        public UnityAction onSafeHouse = delegate { };
     }
 }
