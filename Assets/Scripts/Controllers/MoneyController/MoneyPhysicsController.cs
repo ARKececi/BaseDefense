@@ -19,7 +19,7 @@ namespace Controllers
         {
             if (other.CompareTag("Plane"))
             {
-                moneyController.transform.gameObject.SetActive(false);
+                //moneyController.transform.gameObject.SetActive(false);
             }
 
             if (other.CompareTag("Player"))

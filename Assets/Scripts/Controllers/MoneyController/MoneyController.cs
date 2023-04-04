@@ -15,11 +15,6 @@ namespace Controllers
 
         #endregion
 
-        public void onRigidbodyOn()
-        {
-            rigidbody.isKinematic = false;
-        }
-
         public void ColliderTrigger()
         {
             collider.isTrigger = true;

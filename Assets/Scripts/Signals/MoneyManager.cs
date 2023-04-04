@@ -24,12 +24,12 @@ namespace Signals
 
         private void SubscribeEvents()
         {
-            PlayerSignals.Instance.onSafeHouse += moneyController.onRigidbodyOn;
+
         }
 
         private void UnsubscribeEvents()
         {
-            PlayerSignals.Instance.onSafeHouse -= moneyController.onRigidbodyOn;
+
         }
 
         private void OnDisable()
