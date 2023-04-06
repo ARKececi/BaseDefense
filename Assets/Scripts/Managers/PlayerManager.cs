@@ -13,7 +13,8 @@ namespace Managers
         [SerializeField] private PlayerMovementController playerMovementController;
         [SerializeField] private PlayerAnimatorController playerAnimatorController;
         [SerializeField] private StackController stackController;
-
+        [SerializeField] private GameObject arm;
+        
         #endregion
 
         #endregion
@@ -54,6 +55,11 @@ namespace Managers
         private Transform OnPlayer()
         {
             return transform;
+        }
+
+        private GameObject OnArm()
+        {
+            return arm;
         }
     }
 }
