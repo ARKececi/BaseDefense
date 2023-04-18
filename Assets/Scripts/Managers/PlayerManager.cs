@@ -33,6 +33,7 @@ namespace Managers
             InputSignals.Instance.onInputTaken += playerMovementController.EnableMovement;
             EnemySignals.Instance.onEnemyTarget += OnPlayer;
             PlayerSignals.Instance.onSafeHouse += stackController.RemoveMoney;
+            WeaponSignals.Instance.onArm += OnArm;
         }
 
         private void UnsubscribeEvents()
@@ -43,6 +44,7 @@ namespace Managers
             InputSignals.Instance.onInputTaken -= playerMovementController.EnableMovement;
             EnemySignals.Instance.onEnemyTarget -= OnPlayer;
             PlayerSignals.Instance.onSafeHouse -= stackController.RemoveMoney;
+            WeaponSignals.Instance.onArm -= OnArm;
         }
 
         private void OnDisable()
