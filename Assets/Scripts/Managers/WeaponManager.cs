@@ -1,6 +1,7 @@
 using System;
 using Data.UnityObject;
 using Data.ValueObject;
+using Enums;
 using Signals;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -55,14 +56,27 @@ namespace Managers
         {
             foreach (var Weapon in WeaponData)
             {
-                GameObject weapon = Instantiate(Weapon.Value.Weapon);
-                weapon.transform.SetParent(weaponBag.transform);
-                if (Weapon.Key == "Pistol")
+                GameObject weapon = Instantiate(Weapon.Value.Weapon, weaponBag.transform, true);
+                if (Weapon.Value.WeaponType == WeaponType.Pistol)
                 {
-                    weapon.transform.localPosition = new Vector3(0.0363f, 0.0439f, -0.0151f);
-                    weapon.transform.localRotation = Quaternion.Euler(-81.122f, 118.543f, 65.58f);
+                    weapon.transform.SetParent(weaponBag.transform.GetChild(0));
+                    weapon.transform.localPosition = new Vector3(0, 0, -0);
+                    weapon.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    weapon.SetActive(false);
+                }
+                else if (Weapon.Value.WeaponType == WeaponType.Rifle)
+                {
+                    weapon.transform.SetParent(weaponBag.transform.GetChild(1));
+                    weapon.transform.localPosition = new Vector3(0, 0, -0);
+                    weapon.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    weapon.SetActive(false);
                 }
             }
+        }
+
+        private void WeaponSetActive()
+        {
+            
         }
     }
 }
