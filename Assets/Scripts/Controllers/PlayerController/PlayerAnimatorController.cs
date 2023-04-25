@@ -47,7 +47,7 @@ namespace Controllers
         #endregion
 
         #endregion
-        
+
         private void Awake()
         {
             _playerPistolIdleState = new PlayerPistolIdleState();
@@ -151,7 +151,6 @@ namespace Controllers
         public void PistolIdleBool(bool PistolIdle)
         {
             _pistolIdle = PistolIdle;
-            WeaponIdleState();
         }
         
         public void InputController( InputParams inputParams)

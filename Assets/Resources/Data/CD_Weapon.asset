@@ -15,7 +15,7 @@ MonoBehaviour:
   WeaponDatas:
     m_Keys:
     - M250
-    - Magnum
+    - Revolver
     - AK-47
     m_Values:
     - WeaponType: 2

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Data.UnityObject;
 using Data.ValueObject;
 using Enums;
@@ -15,6 +16,8 @@ namespace Managers
         #region Public Variables
 
         public SerializedDictionary<string, WeaponData> WeaponData;
+        public List<GameObject> Weapons;
+        public List<string> _weaponsName;
 
         #endregion
 
@@ -28,6 +31,7 @@ namespace Managers
         #region Private Variables
 
         private GameObject _weaponPoint;
+        private GameObject _weapon;
 
         #endregion
 
@@ -37,6 +41,7 @@ namespace Managers
         {
             WeaponData = GetWeaponData();
             WeaponInstantiate();
+            SetWeaponFunction(Weapons[0]);
         }
 
         private void Start()
@@ -57,6 +62,7 @@ namespace Managers
             foreach (var Weapon in WeaponData)
             {
                 GameObject weapon = Instantiate(Weapon.Value.Weapon, weaponBag.transform, true);
+                Weapons.Add(weapon);
                 if (Weapon.Value.WeaponType == WeaponType.Pistol)
                 {
                     weapon.transform.SetParent(weaponBag.transform.GetChild(0));
@@ -71,6 +77,21 @@ namespace Managers
                     weapon.transform.localRotation = Quaternion.Euler(0, 0, 0);
                     weapon.SetActive(false);
                 }
+                _weaponsName.Add(Weapon.Key);
+                
+            }
+        }
+
+        private void SetWeaponFunction(GameObject Weapon)
+        {
+            _weapon = Weapon;
+            if (WeaponData[_weaponsName[Weapons.IndexOf(_weapon)]].WeaponType == WeaponType.Pistol)
+            {
+                WeaponSignals.Instance.onWeaponAnimation?.Invoke(true);
+            }
+            else
+            {
+                WeaponSignals.Instance.onWeaponAnimation?.Invoke(false);
             }
         }
 

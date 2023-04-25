@@ -34,6 +34,7 @@ namespace Managers
             EnemySignals.Instance.onEnemyTarget += OnPlayer;
             PlayerSignals.Instance.onSafeHouse += stackController.RemoveMoney;
             WeaponSignals.Instance.onArm += OnArm;
+            WeaponSignals.Instance.onWeaponAnimation += playerAnimatorController.PistolIdleBool;
         }
 
         private void UnsubscribeEvents()
@@ -45,6 +46,7 @@ namespace Managers
             EnemySignals.Instance.onEnemyTarget -= OnPlayer;
             PlayerSignals.Instance.onSafeHouse -= stackController.RemoveMoney;
             WeaponSignals.Instance.onArm -= OnArm;
+            WeaponSignals.Instance.onWeaponAnimation -= playerAnimatorController.PistolIdleBool;
         }
 
         private void OnDisable()
