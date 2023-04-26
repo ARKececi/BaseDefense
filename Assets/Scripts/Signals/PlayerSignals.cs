@@ -8,5 +8,6 @@ namespace Signals
     {
         public UnityAction onTargetWall = delegate { };
         public UnityAction onSafeHouse = delegate { };
+        public UnityAction<bool> onWeaponActive = delegate { };
     }
 }

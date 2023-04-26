@@ -136,16 +136,9 @@ namespace Controllers
             return animator;
         }
 
-        public void SafeHouse()
+        public void SafeHouse(bool safebool)
         {
-            if (_safehouse)
-            {
-                _safehouse = false;
-            }
-            else
-            {
-                _safehouse = true;
-            }
+            _safehouse = safebool;
         }
         
         public void PistolIdleBool(bool PistolIdle)

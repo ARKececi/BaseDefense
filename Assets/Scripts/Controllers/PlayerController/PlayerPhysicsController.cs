@@ -23,13 +23,20 @@ namespace Controllers
             {
                 stackController.AddMoney(other.gameObject);
             }
+
+            if (other.CompareTag("SafeHouse"))
+            {
+                playerAnimatorController.SafeHouse(true);
+                PlayerSignals.Instance.onWeaponActive?.Invoke(false);
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("SafeHouse"))
             {
-                playerAnimatorController.SafeHouse();
+                playerAnimatorController.SafeHouse(false);
+                PlayerSignals.Instance.onWeaponActive?.Invoke(true);
                 PlayerSignals.Instance.onTargetWall?.Invoke();
                 PlayerSignals.Instance.onSafeHouse?.Invoke();
             }
