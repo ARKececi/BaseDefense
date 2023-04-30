@@ -9,5 +9,8 @@ namespace Signals
     {
         public Func<GameObject> onArm = delegate { return null; };
         public UnityAction<bool> onWeaponAnimation = delegate { };
+        public Func<bool> onEnemyTrigger = delegate { return false; };
+        public Func<Rigidbody> onBulletExit = delegate { return null; };
+        public UnityAction<Rigidbody> onBulletEntry = delegate { };
     }
 }

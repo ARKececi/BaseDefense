@@ -19,7 +19,7 @@ MonoBehaviour:
     - AK-47
     m_Values:
     - WeaponType: 2
-      FlicTime: 0.5
+      FlicTime: 2
       Weapon: {fileID: 2986922479471474074, guid: 0d02d33752c1a4447b9e34b7206681e0, type: 3}
     - WeaponType: 2
       FlicTime: 1

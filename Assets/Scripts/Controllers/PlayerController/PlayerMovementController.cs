@@ -13,6 +13,7 @@ namespace Controllers
         #region Public Variables
 
         public List<GameObject> Enemy;
+        public bool EnemyTrigger;
 
         #endregion
 
@@ -97,11 +98,19 @@ namespace Controllers
         {
             Enemy.Add(enemy.gameObject);
             playerAnimatorController.OnAimTrigger(true);
+            if (Enemy.Count == 1)
+            {
+                EnemyTrigger = true;
+            }
         }
 
         public void RemoveEnemy(Collider enemy)
         {
             Enemy.Remove(enemy.gameObject);
+            if (Enemy.Count == 0)
+            {
+                EnemyTrigger = false;
+            }
         }
     }
 }

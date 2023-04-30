@@ -6,6 +6,7 @@ using Enums;
 using Signals;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 namespace Controllers.WeaponController
 {
@@ -18,6 +19,8 @@ namespace Controllers.WeaponController
         public SerializedDictionary<string, WeaponData> WeaponData;
         public List<GameObject> Weapons;
         public List<string> _weaponsName;
+        public List<GameObject> bulletPoolList;
+        public List<Rigidbody> bulletRigidbodyList;
 
         #endregion
 
@@ -25,6 +28,9 @@ namespace Controllers.WeaponController
 
         [SerializeField] private GameObject weaponBag;
         [SerializeField] private GameObject arm;
+        [SerializeField] private List<GameObject> weaponSlot;
+        [SerializeField] private GameObject bullet;
+        [SerializeField] private GameObject bulletPool;
 
         #endregion
 
@@ -41,6 +47,7 @@ namespace Controllers.WeaponController
         {
             WeaponData = GetWeaponData();
             WeaponInstantiate();
+            BulletInstantiate();
         }
 
         private void Start()
@@ -65,14 +72,14 @@ namespace Controllers.WeaponController
                 Weapons.Add(weapon);
                 if (Weapon.Value.WeaponType == WeaponType.Pistol)
                 {
-                    weapon.transform.SetParent(weaponBag.transform.GetChild(0));
+                    weapon.transform.SetParent(weaponSlot[0].transform);
                     weapon.transform.localPosition = new Vector3(0, 0, -0);
                     weapon.transform.localRotation = Quaternion.Euler(0, 0, 0);
                     weapon.SetActive(false);
                 }
                 else if (Weapon.Value.WeaponType == WeaponType.Rifle)
                 {
-                    weapon.transform.SetParent(weaponBag.transform.GetChild(1));
+                    weapon.transform.SetParent(weaponSlot[1].transform);
                     weapon.transform.localPosition = new Vector3(0, 0, -0);
                     weapon.transform.localRotation = Quaternion.Euler(0, 0, 0);
                     weapon.SetActive(false);
@@ -80,6 +87,31 @@ namespace Controllers.WeaponController
                 _weaponsName.Add(Weapon.Key);
                 
             }
+        }
+        
+        private void BulletInstantiate()
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                var bulletObj = Instantiate(bullet);
+                var bulletRigidbody = bulletObj.GetComponent<Rigidbody>();
+                bulletObj.transform.SetParent(bulletPool.transform);
+                bulletRigidbodyList.Add(bulletRigidbody);
+                bulletObj.SetActive(false);
+            }
+        }
+
+        public Rigidbody BulletPoolExit()
+        {
+            var Bullet = bulletRigidbodyList[0];
+            bulletRigidbodyList.Remove(bulletRigidbodyList[0]);
+            return Bullet ;
+        }
+        
+        public void BulletPoolEntry(Rigidbody bullet)
+        {
+            bulletRigidbodyList.Add(bullet);
+            bullet.transform.gameObject.SetActive(false);
         }
         
         private void SetWeaponFunction(GameObject Weapon)
@@ -99,5 +131,7 @@ namespace Controllers.WeaponController
         {
             _weapon.SetActive(safebool);
         }
+        
+        
     }
 }
