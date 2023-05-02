@@ -54,7 +54,8 @@ namespace Extentions
             var bullet = WeaponSignals.Instance.onBulletExit?.Invoke();
             bullet.transform.gameObject.SetActive(true);
             bullet.transform.position = barrelBase.transform.position;
-            bullet.AddForce(_player.transform.forward * 400);
+            bullet.transform.eulerAngles = barrelBase.transform.eulerAngles;
+            bullet.AddForce(barrelBase.transform.forward * 20,ForceMode.VelocityChange);
         }
     }
 }

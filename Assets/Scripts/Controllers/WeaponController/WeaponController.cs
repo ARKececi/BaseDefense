@@ -31,6 +31,7 @@ namespace Controllers.WeaponController
         [SerializeField] private List<GameObject> weaponSlot;
         [SerializeField] private GameObject bullet;
         [SerializeField] private GameObject bulletPool;
+        [SerializeField] private GameObject barrel;
 
         #endregion
 
@@ -52,7 +53,7 @@ namespace Controllers.WeaponController
 
         private void Start()
         {
-            SetWeaponFunction(Weapons[0]);
+            SetWeaponFunction(Weapons[_weaponsName.IndexOf("AK_47")]);
             arm = WeaponSignals.Instance.onArm?.Invoke();
             weaponBag.transform.SetParent(arm.transform);
             weaponBag.transform.localPosition = Vector3.zero;
@@ -111,6 +112,7 @@ namespace Controllers.WeaponController
         public void BulletPoolEntry(Rigidbody bullet)
         {
             bulletRigidbodyList.Add(bullet);
+            bullet.velocity = Vector3.zero;
             bullet.transform.gameObject.SetActive(false);
         }
         
@@ -127,11 +129,15 @@ namespace Controllers.WeaponController
             }
         }
 
+        public GameObject Barrel()
+        {
+            return barrel;
+        }
+
         public void WeaponSetActive(bool safebool)
         {
             _weapon.SetActive(safebool);
         }
-        
         
     }
 }

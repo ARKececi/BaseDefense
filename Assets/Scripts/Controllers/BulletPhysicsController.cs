@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class BulletController : MonoBehaviour
+    public class BulletPhysicsController : MonoBehaviour
     {
         #region Self Variables
 
@@ -16,11 +16,15 @@ namespace Controllers
 
         #endregion
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             if (other.CompareTag("Enemy"))
             {
                 WeaponSignals.Instance.onBulletEntry?.Invoke(rigidbody);    
+            }
+            if (other.CompareTag("Plane"))
+            {
+                WeaponSignals.Instance.onBulletEntry?.Invoke(rigidbody);
             }
         }
     }

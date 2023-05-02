@@ -12,5 +12,6 @@ namespace Signals
         public Func<bool> onEnemyTrigger = delegate { return false; };
         public Func<Rigidbody> onBulletExit = delegate { return null; };
         public UnityAction<Rigidbody> onBulletEntry = delegate { };
+        public Func<GameObject> onBarrel = delegate { return null;};
     }
 }

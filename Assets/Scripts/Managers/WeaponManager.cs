@@ -34,13 +34,15 @@ namespace Managers
             PlayerSignals.Instance.onWeaponActive += weaponController.WeaponSetActive;
             WeaponSignals.Instance.onBulletExit += weaponController.BulletPoolExit;
             WeaponSignals.Instance.onBulletEntry += weaponController.BulletPoolEntry;
+            WeaponSignals.Instance.onBarrel += weaponController.Barrel;
         }
 
         private void UnsubscribeEvents()
         {
             PlayerSignals.Instance.onWeaponActive -= weaponController.WeaponSetActive;
             WeaponSignals.Instance.onBulletExit -= weaponController.BulletPoolExit;
-            WeaponSignals.Instance.onBulletEntry += weaponController.BulletPoolEntry;
+            WeaponSignals.Instance.onBulletEntry -= weaponController.BulletPoolEntry;
+            WeaponSignals.Instance.onBarrel -= weaponController.Barrel;
         }
 
         private void OnDisable()

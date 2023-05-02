@@ -5,13 +5,11 @@ using UnityEngine;
 
 namespace States.WeaponStates
 {
-    public class M250Pistol : WeaponBaseState
+    public class P250Pistol : WeaponBaseState
     {
         #region Self Variables
 
         #region Public Variables
-        
-        public List<string> _weaponName;
 
         #endregion
 
@@ -31,13 +29,8 @@ namespace States.WeaponStates
 
         private void Start()
         {
-            foreach (var weapon in WeaponData)
-            {
-                _weaponName.Add(weapon.Key);
-            }
-
             barrelBase = barrel;
-            fireRate = WeaponData[_weaponName[0]].FlicTime;
+            fireRate = WeaponData["P250"].FlicTime;
             _timer = fireRate;
         }
 
@@ -55,7 +48,6 @@ namespace States.WeaponStates
             {
                 Fire();
                 _timer = fireRate;
-                Debug.Log("burada");
             }
             _timer -= Time.fixedDeltaTime;
         }
