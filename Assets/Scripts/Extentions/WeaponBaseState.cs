@@ -31,8 +31,6 @@ namespace Extentions
 
         #region Private Variables
 
-        private GameObject _player;
-
         #endregion
 
         #endregion
@@ -45,8 +43,6 @@ namespace Extentions
         private void Awake()
         {
             WeaponData = GetWeaponData();
-            _player = EnemySignals.Instance.onEnemyTarget?.Invoke().gameObject;
-
         }
 
         protected virtual void Fire()

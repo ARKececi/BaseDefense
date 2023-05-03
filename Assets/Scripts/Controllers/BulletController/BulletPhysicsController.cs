@@ -20,7 +20,7 @@ namespace Controllers
         {
             if (other.CompareTag("Enemy"))
             {
-                WeaponSignals.Instance.onBulletEntry?.Invoke(rigidbody);    
+                WeaponSignals.Instance.onBulletEntry?.Invoke(rigidbody);
             }
             if (other.CompareTag("Plane"))
             {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace States.WeaponStates
 {
-    public class AK_47Rifle : WeaponBaseState
+    public class P250 : WeaponBaseState
     {
         #region Self Variables
 
@@ -30,7 +30,7 @@ namespace States.WeaponStates
         private void Start()
         {
             barrelBase = barrel;
-            fireRate = WeaponData["AK_47"].FlicTime;
+            fireRate = WeaponData["P250"].FlicTime;
             _timer = fireRate;
         }
 

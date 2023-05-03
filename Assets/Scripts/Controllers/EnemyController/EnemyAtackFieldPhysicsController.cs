@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Controllers.EnemyController
 {
-    public class EnemyPhysicsController : MonoBehaviour
+    public class EnemyAtackFieldPhysicsController : MonoBehaviour
     {
         #region Self Variables
 

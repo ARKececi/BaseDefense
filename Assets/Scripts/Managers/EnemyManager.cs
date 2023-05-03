@@ -11,6 +11,7 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private EnemyAIController enemyAIController;
+        [SerializeField] private EnemyController enemyController;
 
         #endregion
 
@@ -26,11 +27,13 @@ namespace Managers
         private void SubscribeEvents()
         {
             PlayerSignals.Instance.onTargetWall += enemyAIController.OnTargetWall;
+            WeaponSignals.Instance.onDamageAssigment += enemyController.DamageInfo;
         }
 
         private void UnsubscribeEvents()
         {
             PlayerSignals.Instance.onTargetWall -= enemyAIController.OnTargetWall;
+            WeaponSignals.Instance.onDamageAssigment -= enemyController.DamageInfo;
         }
 
         private void OnDisable()

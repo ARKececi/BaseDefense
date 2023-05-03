@@ -14,8 +14,9 @@ namespace Controllers
         #region Public Variables
 
         public float Time = 0.05f;
-        public List<GameObject> enemyPool;
-        public List<GameObject> activeEnemy;
+        public List<GameObject> EnemyPool;
+        public List<GameObject> DeadEnemy;
+        public List<EnemyController.EnemyController> EnemyControllers;
 
         #endregion
 
@@ -31,6 +32,7 @@ namespace Controllers
         
         private GameObject _boos;
         private float _timer;
+        private int _stackCount;
 
         #endregion
 
@@ -46,11 +48,13 @@ namespace Controllers
         private void SubscribeEvents()
         {
             EnemySignals.Instance.onWall += OnWall;
+            EnemySignals.Instance.onDeadEnemy += DeadEnemyObj;
         }
 
         private void UnsubscribeEvents()
         {
             EnemySignals.Instance.onWall -= OnWall;
+            EnemySignals.Instance.onDeadEnemy += DeadEnemyObj;
         }
 
         private void OnDisable()
@@ -63,6 +67,7 @@ namespace Controllers
         private void Awake()
         {
             PoolLoading();
+            _stackCount = 0;
         }
 
         private void Update()
@@ -73,8 +78,11 @@ namespace Controllers
         private void Listadd()
         {
             GameObject enemy = Instantiate(enemyList[0]);
-            enemyPool.Add(enemy);
-            enemy.SetActive(false);
+            var EnemyController = enemy.GetComponent<EnemyController.EnemyController>();
+            EnemyControllers.Add(EnemyController);
+            EnemyPool.Add(enemy);
+            EnemyControllers[_stackCount].Active(false);
+            _stackCount++;
         }
 
         private void PoolLoading()
@@ -83,31 +91,47 @@ namespace Controllers
             {
                 Listadd();
             }
+            _stackCount = 0;
         }
 
-        private void Spawner()
+        private void Spawner(GameObject Enemy)
         {
             int enemyPositionX = Random.Range(-10, 10);
-            GameObject enemy = enemyPool[0];
-            activeEnemy.Add(enemy);
-            enemyPool.Remove(enemy);
+            GameObject enemy = Enemy;
             var position = enemySpawnDot.transform.position;
             enemy.transform.position = new Vector3(enemyPositionX, position.y,
                 position.z);
-            enemy.SetActive(true);
+            EnemyControllers[EnemyPool.IndexOf(Enemy)].Active(true);
         }
         
         private void Timer()
         {
-            if (enemyPool.Count != 0)
+            if (_stackCount < 9)
             {
                 while(_timer < 0)
                 {
-                    Spawner();
+                    Spawner(EnemyPool[_stackCount]);
+                    _stackCount++;
                     _timer = Time;
                 }
                 _timer -= UnityEngine.Time.deltaTime;
             }
+            else if (DeadEnemy.Count > 0)
+            {
+                while (_timer < 0)
+                {
+                    Spawner(DeadEnemy[0]);
+                    DeadEnemy.Remove(DeadEnemy[0]);
+                    _timer = Time;
+                }
+                _timer -= UnityEngine.Time.deltaTime;
+            }
+        }
+        
+        public void DeadEnemyObj(GameObject deadEnemy)
+        {
+            EnemyControllers[EnemyPool.IndexOf(deadEnemy)].Active(false);
+            DeadEnemy.Add(deadEnemy);
         }
 
         public List<GameObject> OnWall()

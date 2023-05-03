@@ -10,5 +10,6 @@ namespace Signals
     {
         public Func<Transform> onEnemyTarget = delegate { return null; };
         public Func<List<GameObject>> onWall = delegate { return null; };
+        public UnityAction<GameObject> onDeadEnemy = delegate { };
     }
 }

@@ -18,8 +18,7 @@ namespace Controllers.WeaponController
 
         public SerializedDictionary<string, WeaponData> WeaponData;
         public List<GameObject> Weapons;
-        public List<string> _weaponsName;
-        public List<GameObject> bulletPoolList;
+        public List<string> WeaponsName;
         public List<Rigidbody> bulletRigidbodyList;
 
         #endregion
@@ -53,7 +52,7 @@ namespace Controllers.WeaponController
 
         private void Start()
         {
-            SetWeaponFunction(Weapons[_weaponsName.IndexOf("AK_47")]);
+            SetWeaponFunction(Weapons[WeaponsName.IndexOf("Revolver")]);
             arm = WeaponSignals.Instance.onArm?.Invoke();
             weaponBag.transform.SetParent(arm.transform);
             weaponBag.transform.localPosition = Vector3.zero;
@@ -85,7 +84,7 @@ namespace Controllers.WeaponController
                     weapon.transform.localRotation = Quaternion.Euler(0, 0, 0);
                     weapon.SetActive(false);
                 }
-                _weaponsName.Add(Weapon.Key);
+                WeaponsName.Add(Weapon.Key);
                 
             }
         }
@@ -119,7 +118,8 @@ namespace Controllers.WeaponController
         private void SetWeaponFunction(GameObject Weapon)
         {
             _weapon = Weapon;
-            if (WeaponData[_weaponsName[Weapons.IndexOf(_weapon)]].WeaponType == WeaponType.Pistol)
+            WeaponSignals.Instance.onDamageAssigment?.Invoke(WeaponData[WeaponsName[Weapons.IndexOf(_weapon)]].Damage);
+            if (WeaponData[WeaponsName[Weapons.IndexOf(_weapon)]].WeaponType == WeaponType.Pistol)
             {
                 WeaponSignals.Instance.onWeaponAnimation?.Invoke(true);
             }

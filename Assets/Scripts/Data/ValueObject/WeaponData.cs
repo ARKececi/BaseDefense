@@ -9,6 +9,7 @@ namespace Data.ValueObject
     {
         public WeaponType WeaponType;
         public float FlicTime;
+        public int Damage;
         public GameObject Weapon;
 
     }
