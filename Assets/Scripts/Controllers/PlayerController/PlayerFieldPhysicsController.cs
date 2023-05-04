@@ -19,7 +19,7 @@ namespace Controllers
         {
             if (other.CompareTag("Enemy"))
             {
-                playerMovementController.AddEnemy(other);
+                playerMovementController.AddEnemy(other.gameObject);
             }
         }
 
@@ -27,7 +27,7 @@ namespace Controllers
         {
             if (other.CompareTag("Enemy"))
             {
-                playerMovementController.RemoveEnemy(other);
+                playerMovementController.RemoveEnemy(other.gameObject);
             }
         }
     }

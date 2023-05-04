@@ -94,9 +94,9 @@ namespace Controllers
             }
         }
 
-        public void AddEnemy(Collider enemy)
+        public void AddEnemy(GameObject enemy)
         {
-            Enemy.Add(enemy.gameObject);
+            Enemy.Add(enemy);
             playerAnimatorController.OnAimTrigger(true);
             if (Enemy.Count == 1)
             {
@@ -104,13 +104,18 @@ namespace Controllers
             }
         }
 
-        public void RemoveEnemy(Collider enemy)
+        public void RemoveEnemy(GameObject enemy)
         {
-            Enemy.Remove(enemy.gameObject);
+            Enemy.Remove(enemy);
             if (Enemy.Count == 0)
             {
                 EnemyTrigger = false;
             }
+        }
+
+        public List<GameObject> EnemyList()
+        {
+            return Enemy;
         }
     }
 }

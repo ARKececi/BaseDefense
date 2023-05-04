@@ -34,10 +34,10 @@ namespace Controllers.EnemyController
         private void Start()
         {
             _wall = EnemySignals.Instance.onWall?.Invoke();
-            OnTargetWall();
+            TargetWall();
         }
 
-        public void OnTargetWall()
+        public void TargetWall()
         {
             if (transform.position.x < 0) target = _wall[0].transform;
             else target = _wall[1].transform;

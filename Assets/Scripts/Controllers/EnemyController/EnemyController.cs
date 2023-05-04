@@ -38,6 +38,10 @@ namespace Controllers.EnemyController
             capsuleCollider.enabled = Bool;
             enemyAnimationController.enabled = Bool;
             character.SetActive(Bool);
+            if (Bool)
+            {
+                enemyAnimationController.Walking();
+            }
         }
 
         public void DamageInfo(int damage)
@@ -47,13 +51,14 @@ namespace Controllers.EnemyController
 
         public void HealtDamage()
         {
-            if (_healt > 0)
-            {
-                _healt -= _bulletDamage;
-            }
-            else
+            _healt -= _bulletDamage;
+            if (_healt < 0)
             {
                 EnemySignals.Instance.onDeadEnemy?.Invoke(transform.gameObject);
+                EnemySignals.Instance.onEnemyRemove?.Invoke(transform.gameObject);
+                enemyAIController.TargetWall();
+                enemyAnimationController.Idle();
+                _healt = 100;
             }
             Debug.Log(_healt);
         }

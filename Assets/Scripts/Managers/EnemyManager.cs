@@ -26,13 +26,13 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            PlayerSignals.Instance.onTargetWall += enemyAIController.OnTargetWall;
+            PlayerSignals.Instance.onTargetWall += OnTargetWall;
             WeaponSignals.Instance.onDamageAssigment += enemyController.DamageInfo;
         }
 
         private void UnsubscribeEvents()
         {
-            PlayerSignals.Instance.onTargetWall -= enemyAIController.OnTargetWall;
+            PlayerSignals.Instance.onTargetWall -= OnTargetWall;
             WeaponSignals.Instance.onDamageAssigment -= enemyController.DamageInfo;
         }
 
@@ -40,7 +40,14 @@ namespace Managers
         {
             UnsubscribeEvents();
         }
-        
         #endregion
+
+        public void OnTargetWall()
+        {
+            if (enemyAIController.enabled)
+            {
+                enemyAIController.TargetWall();
+            }
+        }
     }
 }

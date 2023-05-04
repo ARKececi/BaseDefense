@@ -20,6 +20,7 @@ namespace Controllers.EnemyController
         private EnemyBaseState _currentState;
         private EnemyBaseState _enemyWalkingState;
         private EnemyBaseState _enemyFightState;
+        private EnemyBaseState _enemyIdleState;
 
         #endregion
 
@@ -29,6 +30,7 @@ namespace Controllers.EnemyController
         {
             _enemyWalkingState = new EnemyWalkingState();
             _enemyFightState = new EnemyFightState();
+            _enemyIdleState = new EnemyIdleState();
         }
 
         private void Start()
@@ -50,6 +52,12 @@ namespace Controllers.EnemyController
         public void Fight()
         {
             _currentState = _enemyFightState;
+            _currentState.EnterState(this);
+        }
+
+        public void Idle()
+        {
+            _currentState = _enemyIdleState;
             _currentState.EnterState(this);
         }
     }

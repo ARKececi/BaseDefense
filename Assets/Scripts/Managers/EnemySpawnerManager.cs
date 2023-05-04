@@ -103,7 +103,7 @@ namespace Controllers
                 position.z);
             EnemyControllers[EnemyPool.IndexOf(Enemy)].Active(true);
         }
-        
+
         private void Timer()
         {
             if (_stackCount < 9)
@@ -132,6 +132,11 @@ namespace Controllers
         {
             EnemyControllers[EnemyPool.IndexOf(deadEnemy)].Active(false);
             DeadEnemy.Add(deadEnemy);
+        }
+
+        public void SafeHouse()
+        {
+
         }
 
         public List<GameObject> OnWall()

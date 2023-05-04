@@ -36,6 +36,8 @@ namespace Managers
             WeaponSignals.Instance.onArm += OnArm;
             WeaponSignals.Instance.onWeaponAnimation += playerAnimatorController.PistolIdleBool;
             WeaponSignals.Instance.onEnemyTrigger += OnEnemyTrigger;
+            EnemySignals.Instance.onEnemyRemove += playerMovementController.RemoveEnemy;
+            EnemySignals.Instance.onEnemyList += playerMovementController.EnemyList;
         }
 
         private void UnsubscribeEvents()
@@ -49,6 +51,8 @@ namespace Managers
             WeaponSignals.Instance.onArm -= OnArm;
             WeaponSignals.Instance.onWeaponAnimation -= playerAnimatorController.PistolIdleBool;
             WeaponSignals.Instance.onEnemyTrigger -= OnEnemyTrigger;
+            EnemySignals.Instance.onEnemyRemove -= playerMovementController.RemoveEnemy;
+            EnemySignals.Instance.onEnemyList += playerMovementController.EnemyList;
         }
 
         private void OnDisable()
