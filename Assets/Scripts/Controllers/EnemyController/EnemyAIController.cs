@@ -26,6 +26,7 @@ namespace Controllers.EnemyController
         #region Private Variables
 
         private List<GameObject> _wall;
+        private bool _safeHouse;
 
         #endregion
         

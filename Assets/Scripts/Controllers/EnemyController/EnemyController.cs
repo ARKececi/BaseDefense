@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Signals;
 using UnityEngine;
 
@@ -8,12 +9,19 @@ namespace Controllers.EnemyController
     {
         #region Self Variables
 
+        #region Public Variables
+
+        public List<GameObject> Money;
+
+        #endregion
+
         #region Serialized Variables
 
         [SerializeField] private EnemyAIController enemyAIController;
         [SerializeField] private CapsuleCollider capsuleCollider;
         [SerializeField] private GameObject character;
         [SerializeField] private EnemyAnimationController enemyAnimationController;
+        [SerializeField] private GameObject MoneyBag;
 
         #endregion
 
@@ -41,6 +49,7 @@ namespace Controllers.EnemyController
             if (Bool)
             {
                 enemyAnimationController.Walking();
+                GetMoneyObj();
             }
         }
 
@@ -60,7 +69,23 @@ namespace Controllers.EnemyController
                 enemyAnimationController.Idle();
                 _healt = 100;
             }
-            Debug.Log(_healt);
+        }
+
+        private void GetMoneyObj()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject money = EnemySignals.Instance.onSetMoneyObj?.Invoke();
+                Money.Add(money);
+                money.transform.SetParent(MoneyBag.transform);
+                money.transform.position = Vector3.zero;
+                money.SetActive(false);
+            }
+        }
+
+        private void MoneyThrow()
+        {
+            
         }
     }
 }

@@ -28,6 +28,8 @@ namespace Controllers
             {
                 playerAnimatorController.SafeHouse(true);
                 PlayerSignals.Instance.onWeaponActive?.Invoke(false);
+                PlayerSignals.Instance.onTargetWall?.Invoke();
+                PlayerSignals.Instance.onSafeHouse?.Invoke();
             }
         }
 
@@ -37,8 +39,6 @@ namespace Controllers
             {
                 playerAnimatorController.SafeHouse(false);
                 PlayerSignals.Instance.onWeaponActive?.Invoke(true);
-                PlayerSignals.Instance.onTargetWall?.Invoke();
-                PlayerSignals.Instance.onSafeHouse?.Invoke();
             }
         }
     }

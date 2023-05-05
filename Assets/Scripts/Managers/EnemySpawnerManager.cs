@@ -134,11 +134,6 @@ namespace Controllers
             DeadEnemy.Add(deadEnemy);
         }
 
-        public void SafeHouse()
-        {
-
-        }
-
         public List<GameObject> OnWall()
         {
             return wall;
