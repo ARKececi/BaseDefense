@@ -13,8 +13,14 @@ namespace Controllers
 
         #endregion
 
+        #region Private Variables
+
+        private bool _trigger;
+
         #endregion
 
+        #endregion
+        
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Plane"))
@@ -24,7 +30,14 @@ namespace Controllers
 
             if (other.CompareTag("Player"))
             {
-                moneyController.ColliderTrigger();
+                    moneyController.ColliderTrigger(true);
+                    moneyController.UseKinematic(true);
+            }
+
+            if (other.CompareTag("Enemy"))
+            {
+                    moneyController.ColliderTrigger(false);
+                    moneyController.UseKinematic(false);
             }
         }
     }

@@ -51,6 +51,10 @@ namespace Controllers.EnemyController
                 enemyAnimationController.Walking();
                 GetMoneyObj();
             }
+            else
+            {
+                MoneyThrow();
+            }
         }
 
         public void DamageInfo(int damage)
@@ -78,14 +82,19 @@ namespace Controllers.EnemyController
                 GameObject money = EnemySignals.Instance.onSetMoneyObj?.Invoke();
                 Money.Add(money);
                 money.transform.SetParent(MoneyBag.transform);
-                money.transform.position = Vector3.zero;
+                money.transform.localPosition = Vector3.zero;
                 money.SetActive(false);
             }
         }
 
         private void MoneyThrow()
         {
-            
+            for (int i = 0; i < Money.Count; i++)
+            {
+                Money[0].transform.SetParent(transform.parent);
+                Money[0].SetActive(true);
+                Money.Remove(Money[0]);
+            }
         }
     }
 }

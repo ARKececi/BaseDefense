@@ -15,9 +15,14 @@ namespace Controllers
 
         #endregion
 
-        public void ColliderTrigger()
+        public void ColliderTrigger(bool trigger)
         {
-            collider.isTrigger = true;
+            collider.isTrigger = trigger;
+        }
+
+        public void UseKinematic(bool kinematic)
+        {
+            rigidbody.isKinematic = kinematic;
         }
     }
 }

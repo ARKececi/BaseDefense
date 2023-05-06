@@ -52,7 +52,7 @@ namespace Controllers.WeaponController
 
         private void Start()
         {
-            SetWeaponFunction(Weapons[WeaponsName.IndexOf("Revolver")]);
+            SetWeaponFunction(Weapons[WeaponsName.IndexOf("AK_47")]);
             arm = WeaponSignals.Instance.onArm?.Invoke();
             weaponBag.transform.SetParent(arm.transform);
             weaponBag.transform.localPosition = Vector3.zero;
