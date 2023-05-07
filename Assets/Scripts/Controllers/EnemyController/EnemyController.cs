@@ -80,6 +80,9 @@ namespace Controllers.EnemyController
             for (int i = 0; i < 3; i++)
             {
                 GameObject money = EnemySignals.Instance.onSetMoneyObj?.Invoke();
+                MoneyController moneyController = PlayerSignals.Instance.onSetMoneyController?.Invoke(money);
+                moneyController.UseKinematic(false);
+                moneyController.ColliderTrigger(false);
                 Money.Add(money);
                 money.transform.SetParent(MoneyBag.transform);
                 money.transform.localPosition = Vector3.zero;

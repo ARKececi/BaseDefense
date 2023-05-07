@@ -26,11 +26,14 @@ namespace Signals
         private void SubscribeEvents()
         {
             EnemySignals.Instance.onSetMoneyObj += moneyStackController.SetMoneyObj;
+            PlayerSignals.Instance.onSetMoneyController += moneyStackController.SetMoneyController;
+            
         }
 
         private void UnsubscribeEvents()
         {
             EnemySignals.Instance.onSetMoneyObj -= moneyStackController.SetMoneyObj;
+            PlayerSignals.Instance.onSetMoneyController -= moneyStackController.SetMoneyController;
         }
 
         private void OnDisable()

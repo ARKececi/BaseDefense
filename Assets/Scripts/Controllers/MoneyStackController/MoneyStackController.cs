@@ -11,6 +11,7 @@ namespace Controllers.MoneyStackController
         #region Public Variables
 
         public List<GameObject> MoneyList;
+        public List<MoneyController> MoneyControllerList;
 
         #endregion
 
@@ -37,6 +38,7 @@ namespace Controllers.MoneyStackController
         private void MoneyInstantiate()
         {
             var moneyObj = Instantiate(money, moneyBag.transform, true);
+            MoneyControllerList.Add(moneyObj.GetComponent<MoneyController>());
             MoneyList.Add(moneyObj);
             moneyObj.SetActive(false);
         }
@@ -47,6 +49,11 @@ namespace Controllers.MoneyStackController
             _count++;
             if (_count == MoneyList.Count) { _count = 0;}
             return moneyObj;
+        }
+
+        public MoneyController SetMoneyController(GameObject money)
+        {
+            return MoneyControllerList[MoneyList.IndexOf(money)];
         }
     }
 }

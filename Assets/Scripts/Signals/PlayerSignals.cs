@@ -1,3 +1,5 @@
+using System;
+using Controllers;
 using Extentions;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,5 +11,6 @@ namespace Signals
         public UnityAction onTargetWall = delegate { };
         public UnityAction onSafeHouse = delegate { };
         public UnityAction<bool> onWeaponActive = delegate { };
+        public Func<GameObject,MoneyController> onSetMoneyController = delegate { return null; };
     }
 }

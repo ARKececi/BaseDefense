@@ -27,18 +27,6 @@ namespace Controllers
             {
                 //moneyController.transform.gameObject.SetActive(false);
             }
-
-            if (other.CompareTag("Player"))
-            {
-                    moneyController.ColliderTrigger(true);
-                    moneyController.UseKinematic(true);
-            }
-
-            if (other.CompareTag("Enemy"))
-            {
-                    moneyController.ColliderTrigger(false);
-                    moneyController.UseKinematic(false);
-            }
         }
     }
 }
