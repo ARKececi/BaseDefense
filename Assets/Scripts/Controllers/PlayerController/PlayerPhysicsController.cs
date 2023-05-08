@@ -12,6 +12,7 @@ namespace Controllers
 
         [SerializeField] private PlayerAnimatorController playerAnimatorController;
         [SerializeField] private StackController stackController;
+        [SerializeField] private PlayerController playerController;
 
         #endregion
 
@@ -30,6 +31,11 @@ namespace Controllers
                 PlayerSignals.Instance.onWeaponActive?.Invoke(false);
                 PlayerSignals.Instance.onTargetWall?.Invoke();
                 PlayerSignals.Instance.onSafeHouse?.Invoke();
+            }
+
+            if (other.CompareTag("Damage"))
+            {
+                playerController.HealtDamage(10);
             }
         }
 

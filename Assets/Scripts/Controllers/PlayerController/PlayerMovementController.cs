@@ -113,6 +113,15 @@ namespace Controllers
             }
         }
 
+        public void DeadPlayer()
+        {
+            var count = Enemy.Count;
+            for (int i = 0; i < count; i++)
+            {
+                Enemy.Remove(Enemy[0]);
+            }
+        }
+
         public List<GameObject> EnemyList()
         {
             return Enemy;

@@ -83,6 +83,7 @@ namespace Controllers.EnemyController
                 MoneyController moneyController = PlayerSignals.Instance.onSetMoneyController?.Invoke(money);
                 moneyController.UseKinematic(false);
                 moneyController.ColliderTrigger(false);
+                moneyController.tag = "Money";
                 Money.Add(money);
                 money.transform.SetParent(MoneyBag.transform);
                 money.transform.localPosition = Vector3.zero;
@@ -92,7 +93,8 @@ namespace Controllers.EnemyController
 
         private void MoneyThrow()
         {
-            for (int i = 0; i < Money.Count; i++)
+            int count = Money.Count;
+            for (int i = 0; i < count; i++)
             {
                 Money[0].transform.SetParent(transform.parent);
                 Money[0].SetActive(true);
