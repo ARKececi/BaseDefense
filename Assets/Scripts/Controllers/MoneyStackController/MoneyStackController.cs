@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Signals;
 using UnityEngine;
 
 namespace Controllers.MoneyStackController
@@ -23,6 +24,7 @@ namespace Controllers.MoneyStackController
         #endregion
 
         private int _count;
+        private bool _contain;
 
         #endregion
 
@@ -45,9 +47,14 @@ namespace Controllers.MoneyStackController
 
         public GameObject SetMoneyObj()
         {
+            _contain = true;
+            do
+            {
+                if (_contain) {_count++; }
+                if (_count == MoneyList.Count) { _count = 0; }
+                _contain = (bool)EnemySignals.Instance.onContains?.Invoke(MoneyList[_count]);
+            } while (_contain);
             GameObject moneyObj = MoneyList[_count];
-            _count++;
-            if (_count == MoneyList.Count) { _count = 0;}
             return moneyObj;
         }
 

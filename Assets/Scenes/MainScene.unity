@@ -2305,6 +2305,7 @@ MonoBehaviour:
   stackController: {fileID: 816829300}
   player: {fileID: 816829293}
   playerMovementController: {fileID: 816829296}
+  playerAnimatorController: {fileID: 816829298}
 --- !u!1 &848760830
 GameObject:
   m_ObjectHideFlags: 0

@@ -49,6 +49,11 @@ namespace Controllers.EnemyController
             target = EnemySignals.Instance.onEnemyTarget?.Invoke();
         }
 
+        public void OnNullTarget()
+        {
+            target = transform;
+        }
+
         private void Update()
         {
             _agent.destination = target.position;

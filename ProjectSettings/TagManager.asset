@@ -12,6 +12,7 @@ TagManager:
   - Collected
   - Bullet
   - Damage
+  - Dead
   layers:
   - Default
   - TransparentFX

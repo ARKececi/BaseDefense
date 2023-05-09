@@ -16,6 +16,7 @@ namespace Controllers
         [SerializeField] private StackController stackController;
         [SerializeField] private GameObject player;
         [SerializeField] private PlayerMovementController playerMovementController;
+        [SerializeField] private PlayerAnimatorController playerAnimatorController;
 
         #endregion
 
@@ -32,7 +33,6 @@ namespace Controllers
         {
             _healt = 100;
             _playerSpawn = transform;
-            Debug.Log(_playerSpawn.position);
         }
         
         public void HealtDamage(int damage)
@@ -41,11 +41,13 @@ namespace Controllers
             if (_healt <= 0)
             {
                 playerPhysics.SetActive(false);
-                playerMovementController.DeadPlayer();
                 stackController.ThrowMoney();
-                DOVirtual.DelayedCall(1, () => PlayerReset()).OnComplete(() =>
+                playerAnimatorController.Dead(true);
+                DOVirtual.DelayedCall(1.30f, () => PlayerReset()).OnComplete(() =>
                 {
                     playerPhysics.SetActive(true);
+                    playerMovementController.DeadPlayer();
+                    playerAnimatorController.Dead(false);
                 });
                 _healt = 100;
             }

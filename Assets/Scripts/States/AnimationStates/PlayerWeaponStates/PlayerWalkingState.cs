@@ -15,6 +15,7 @@ namespace States.PlayerStates
             playerState.GetAnimator().SetBool("PistolIdleAim", false);
             playerState.GetAnimator().SetBool("Idle", false);
             playerState.GetAnimator().SetBool("Walking", true);
+            playerState.GetAnimator().SetBool("Dead", false);
         }
 
         public override void UpdateState(PlayerAnimatorController playerState)

@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace States.PlayerStates
 {
-    public class EnemyFightState : EnemyBaseState
+    public class EnemyDeadState : EnemyBaseState
     {
         public override void EnterState(EnemyAnimationController enemyState)
         {
             enemyState.GetAnimator().SetBool("Walking", false);
-            enemyState.GetAnimator().SetBool("Fight", true);
+            enemyState.GetAnimator().SetBool("Fight", false);
             enemyState.GetAnimator().SetBool("Idle", false);
-            enemyState.GetAnimator().SetBool("Dead", false);
+            enemyState.GetAnimator().SetBool("Dead", true);
         }
 
         public override void UpdateState(EnemyAnimationController playerState)

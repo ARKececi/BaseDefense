@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Extentions;
 using Keys;
 using States.PlayerStates;
@@ -32,6 +33,8 @@ namespace Controllers
         private float _deceleration;
         private bool _trigger;
         private bool _safehouse;
+        private bool _dead;
+        private bool _deadTrigger;
 
         private PlayerBaseState _currentState;
         private PlayerBaseState _playerPistolIdleState;
@@ -43,6 +46,8 @@ namespace Controllers
         private PlayerBaseState _playerWalkingState;
 
         private PlayerBaseState _playerAngelMovement;
+
+        private PlayerBaseState _playerDeadState;
 
         #endregion
 
@@ -58,77 +63,96 @@ namespace Controllers
             _playerAngelMovement = new AngelMovement();
             _playerIdleState = new PlayerIdleState();
             _playerWalkingState = new PlayerWalkingState();
+            _playerDeadState = new PlayerDeadState();
 
             AimTrigger = false;
             _acceleration = 3;
             _deceleration = 3;
             _safehouse = true;
+            _deadTrigger = false;
         }
 
         private void Update()
         {
-            if (_moveInput != Vector3.zero)
+            if (_dead)
             {
-                if (_safehouse)
+                if (_deadTrigger != true)
                 {
-                    PlayerWalkingState();
-                    PlayerAngelMovement();
-                    _trigger = false;
-                }
-                else
-                {
-                    if (AimTrigger)
-                    {
-                        PlayerAngelMovementInputParams();
-                        if (_trigger)
-                        {
-                            WeaponAimingState();
-                        }
-                        _trigger = false;
-                    }
-                    else
-                    {
-                        PlayerAngelMovement();
-                        if (!_trigger)
-                        {
-                            WeaponIdleState();
-                        }
-                        _trigger = true;
-                    }
+                    PlayerDeadState();
+                    _deadTrigger = true;
                 }
             }
             else
             {
-                if (_safehouse)
+                if (_moveInput != Vector3.zero)
                 {
-                    PlayerIdleState();
-                    PlayerAngelMovement();
-                    _trigger = false;
+                    if (_safehouse)
+                    {
+                        PlayerWalkingState();
+                        PlayerAngelMovement();
+                        _trigger = false;
+                        _deadTrigger = false;
+                    }
+                    else
+                    {
+                        if (AimTrigger)
+                        {
+                            PlayerAngelMovementInputParams();
+                            if (_trigger)
+                            {
+                                WeaponAimingState();
+                            }
+                            _trigger = false;
+                        }
+                        else
+                        {
+                            PlayerAngelMovement();
+                            if (!_trigger)
+                            {
+                                WeaponIdleState();
+                            }
+                            _trigger = true;
+                        }
+                    }
                 }
                 else
                 {
-                    
-                    if (AimTrigger)
+                    if (_safehouse)
                     {
-                        if (_trigger)
-                        {
-                            WeaponAimingState();
-                        }
+                        PlayerIdleState();
+                        PlayerAngelMovement();
                         _trigger = false;
                     }
                     else
                     {
-                        if (!_trigger)
+                        
+                        if (AimTrigger)
                         {
-                            WeaponIdleState();
+                            if (_trigger)
+                            {
+                                WeaponAimingState();
+                            }
+                            _trigger = false;
                         }
-                        _trigger = true;
+                        else
+                        {
+                            if (!_trigger)
+                            {
+                                WeaponIdleState();
+                            }
+                            _trigger = true;
+                        }
                     }
+                    VelocityXZero();
+                    VelocityZZero();
                 }
-                VelocityXZero();
-                VelocityZZero();
+                _playerAngelMovement.UpdateState(this);
             }
-            _playerAngelMovement.UpdateState(this);
+        }
+
+        public void Dead(bool dead)
+        {
+            _dead = dead;
         }
         
         public Animator GetAnimator()
@@ -160,6 +184,12 @@ namespace Controllers
         private void PlayerIdleState()
         {
             _currentState = _playerIdleState;
+            _currentState.EnterState(this);
+        }
+
+        private void PlayerDeadState()
+        {
+            _currentState = _playerDeadState;
             _currentState.EnterState(this);
         }
         

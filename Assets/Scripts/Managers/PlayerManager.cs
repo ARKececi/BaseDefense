@@ -38,6 +38,7 @@ namespace Managers
             WeaponSignals.Instance.onEnemyTrigger += OnEnemyTrigger;
             EnemySignals.Instance.onEnemyRemove += playerMovementController.RemoveEnemy;
             EnemySignals.Instance.onEnemyList += playerMovementController.EnemyList;
+            EnemySignals.Instance.onContains += stackController.OnContain;
         }
 
         private void UnsubscribeEvents()
@@ -52,7 +53,8 @@ namespace Managers
             WeaponSignals.Instance.onWeaponAnimation -= playerAnimatorController.PistolIdleBool;
             WeaponSignals.Instance.onEnemyTrigger -= OnEnemyTrigger;
             EnemySignals.Instance.onEnemyRemove -= playerMovementController.RemoveEnemy;
-            EnemySignals.Instance.onEnemyList += playerMovementController.EnemyList;
+            EnemySignals.Instance.onEnemyList -= playerMovementController.EnemyList;
+            EnemySignals.Instance.onContains -= stackController.OnContain;
         }
 
         private void OnDisable()

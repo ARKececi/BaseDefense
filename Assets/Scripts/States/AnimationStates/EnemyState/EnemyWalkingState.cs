@@ -13,6 +13,7 @@ namespace States.PlayerStates
             enemyState.GetAnimator().SetBool("Walking", true);
             enemyState.GetAnimator().SetBool("Fight", false);
             enemyState.GetAnimator().SetBool("Idle", false);
+            enemyState.GetAnimator().SetBool("Dead", false);
         }
 
         public override void UpdateState(EnemyAnimationController enemyState)

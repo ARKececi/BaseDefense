@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Signals;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Controllers.EnemyController
 {
@@ -21,7 +23,8 @@ namespace Controllers.EnemyController
         [SerializeField] private CapsuleCollider capsuleCollider;
         [SerializeField] private GameObject character;
         [SerializeField] private EnemyAnimationController enemyAnimationController;
-        [SerializeField] private GameObject MoneyBag;
+        [SerializeField] private GameObject moneyBag;
+        [SerializeField] private GameObject enemyPhysics;
 
         #endregion
 
@@ -46,6 +49,7 @@ namespace Controllers.EnemyController
             capsuleCollider.enabled = Bool;
             enemyAnimationController.enabled = Bool;
             character.SetActive(Bool);
+            enemyPhysics.SetActive(Bool);
             if (Bool)
             {
                 enemyAnimationController.Walking();
@@ -53,7 +57,7 @@ namespace Controllers.EnemyController
             }
             else
             {
-                MoneyThrow();
+                
             }
         }
 
@@ -67,10 +71,19 @@ namespace Controllers.EnemyController
             _healt -= _bulletDamage;
             if (_healt < 0)
             {
-                EnemySignals.Instance.onDeadEnemy?.Invoke(transform.gameObject);
+                enemyPhysics.SetActive(false);
+                transform.tag = "Dead";
                 EnemySignals.Instance.onEnemyRemove?.Invoke(transform.gameObject);
-                enemyAIController.TargetWall();
-                enemyAnimationController.Idle();
+                enemyAIController.OnNullTarget();
+                enemyAnimationController.Dead();
+                MoneyThrow();
+                DOVirtual.DelayedCall(1.30f, () =>
+                {
+                    EnemySignals.Instance.onDeadEnemy?.Invoke(transform.gameObject);
+                    enemyAnimationController.Walking();
+                    enemyAIController.TargetWall();
+                    transform.tag = "Enemy";
+                });
                 _healt = 100;
             }
         }
@@ -85,7 +98,7 @@ namespace Controllers.EnemyController
                 moneyController.ColliderTrigger(false);
                 moneyController.tag = "Money";
                 Money.Add(money);
-                money.transform.SetParent(MoneyBag.transform);
+                money.transform.SetParent(moneyBag.transform);
                 money.transform.localPosition = Vector3.zero;
                 money.SetActive(false);
             }

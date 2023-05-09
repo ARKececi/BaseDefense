@@ -74,6 +74,11 @@ namespace Controllers
             }
         }
 
+        public bool OnContain(GameObject money)
+        {
+            return _collectedMoneyList.Contains(money);
+        }
+
         public void ThrowMoney()
         {
             int count = _collectedMoneyList.Count;

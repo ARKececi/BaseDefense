@@ -14,5 +14,6 @@ namespace Signals
         public UnityAction<GameObject> onEnemyRemove = delegate { };
         public Func<List<GameObject>> onEnemyList = delegate { return null; };
         public Func<GameObject> onSetMoneyObj = delegate { return null; };
+        public Func<GameObject, bool> onContains = delegate { return false;} ;
     }
 }
