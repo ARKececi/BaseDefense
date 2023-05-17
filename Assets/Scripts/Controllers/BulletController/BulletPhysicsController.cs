@@ -1,4 +1,6 @@
 using System;
+using Enums;
+using Signalable;
 using Signals;
 using UnityEngine;
 
@@ -16,15 +18,11 @@ namespace Controllers
 
         #endregion
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Enemy"))
-            {
-                WeaponSignals.Instance.onBulletEntry?.Invoke(rigidbody);
-            }
             if (other.CompareTag("Plane"))
             {
-                WeaponSignals.Instance.onBulletEntry?.Invoke(rigidbody);
+                PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.Bullet);
             }
         }
     }

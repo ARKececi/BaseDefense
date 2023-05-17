@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using Enums;
+using Signalable;
 using Signals;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,7 +9,7 @@ using UnityEngine.Serialization;
 
 namespace Controllers
 {
-    public class StackController : MonoBehaviour
+    public class PlayerStackController : MonoBehaviour
     {
         #region Self Variables
 
@@ -39,9 +41,6 @@ namespace Controllers
         {
             if (_collectedMoneyList.Count < 14)
             {
-                MoneyController moneyController = PlayerSignals.Instance.onSetMoneyController?.Invoke(other);
-                moneyController.UseKinematic(true);
-                moneyController.ColliderTrigger(true);
                 _collectedMoneyList.Add(other);
                 other.transform.tag = "Collected";
                 other.transform.SetParent(moneyBag.transform);
@@ -66,8 +65,7 @@ namespace Controllers
                     VARIABLE.transform.DOLocalMove(new Vector3(0, 0, .3f), .5f).
                         OnComplete(()=>
                         {
-                            VARIABLE.SetActive(false);
-                            VARIABLE.transform.SetParent(poolMoney.transform);
+                            PoolSignalable.Instance.onListAdd?.Invoke(VARIABLE,PoolType.Money);
                             _collectedMoneyList.Remove(VARIABLE);
                         });
                 });
@@ -79,18 +77,19 @@ namespace Controllers
             return _collectedMoneyList.Contains(money);
         }
 
-        public void ThrowMoney()
+        public void ResetList()
         {
             int count = _collectedMoneyList.Count;
             for (int i = 0; i < count; i++)
             {
-                MoneyController moneyController = PlayerSignals.Instance.onSetMoneyController?.Invoke(_collectedMoneyList[0]);
-                moneyController.UseKinematic(false);
-                moneyController.ColliderTrigger(false);
-                moneyController.tag = "Money";
                 _collectedMoneyList[0].transform.SetParent(transform.parent);
                 _collectedMoneyList.Remove(_collectedMoneyList[0]);
             }
+        }
+
+        public int ListCount()
+        {
+            return _collectedMoneyList.Count;
         }
     }
 }

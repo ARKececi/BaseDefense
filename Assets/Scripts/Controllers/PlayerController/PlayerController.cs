@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Signals;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace Controllers
@@ -13,7 +14,7 @@ namespace Controllers
         #region Serialized Variables
 
         [SerializeField] private GameObject playerPhysics;
-        [SerializeField] private StackController stackController;
+        [SerializeField] private PlayerStackController playerStackController;
         [SerializeField] private GameObject player;
         [SerializeField] private PlayerMovementController playerMovementController;
         [SerializeField] private PlayerAnimatorController playerAnimatorController;
@@ -41,11 +42,14 @@ namespace Controllers
             if (_healt <= 0)
             {
                 playerPhysics.SetActive(false);
-                stackController.ThrowMoney();
+                transform.tag = "Dead";
+                playerStackController.ResetList();
+                PlayerSignals.Instance.onMoneyReset?.Invoke();
                 playerAnimatorController.Dead(true);
                 DOVirtual.DelayedCall(1.30f, () => PlayerReset()).OnComplete(() =>
                 {
                     playerPhysics.SetActive(true);
+                    transform.tag = "Player";
                     playerMovementController.DeadPlayer();
                     playerAnimatorController.Dead(false);
                 });

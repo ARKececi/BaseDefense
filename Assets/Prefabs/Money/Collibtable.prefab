@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2243940190912544900}
+  - component: {fileID: 5666801562710789479}
   - component: {fileID: 2327205868217515417}
   - component: {fileID: 6560701858018341203}
   - component: {fileID: 8238675554523635706}
@@ -36,6 +37,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5666801562710789479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472610121256327742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfc42276b8f64315856ce70646e0f93d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyController: {fileID: 2327205868217515417}
 --- !u!114 &2327205868217515417
 MonoBehaviour:
   m_ObjectHideFlags: 0

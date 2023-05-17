@@ -1,6 +1,7 @@
 using System;
 using Signals;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Controllers
 {
@@ -11,7 +12,7 @@ namespace Controllers
         #region Serialized Variables
 
         [SerializeField] private PlayerAnimatorController playerAnimatorController;
-        [SerializeField] private StackController stackController;
+        [FormerlySerializedAs("stackController")] [SerializeField] private PlayerStackController playerStackController;
         [SerializeField] private PlayerController playerController;
 
         #endregion
@@ -22,7 +23,7 @@ namespace Controllers
         {
             if (other.CompareTag("Money"))
             {
-                stackController.AddMoney(other.gameObject);
+                playerStackController.AddMoney(other.gameObject);
             }
 
             if (other.CompareTag("SafeHouse"))

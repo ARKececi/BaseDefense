@@ -1,4 +1,6 @@
 using System;
+using Enums;
+using Signalable;
 using UnityEngine;
 
 namespace Controllers.EnemyController
@@ -10,6 +12,7 @@ namespace Controllers.EnemyController
         #region Serialized Variables
 
         [SerializeField] private EnemyController enemyController;
+        [SerializeField] private EnemyAnimationController enemyAnimationController;
 
         #endregion
 
@@ -17,9 +20,16 @@ namespace Controllers.EnemyController
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Bullet"))
+            if (other.TryGetComponent<BulletController>(out BulletController bullet))
             {
-                enemyController.HealtDamage();
+                enemyController.HealtDamage(bullet.SetDamage());
+                PoolSignalable.Instance.onListAdd?.Invoke(other.gameObject, PoolType.Bullet);
+            }
+
+            if (other.CompareTag("Plane"))
+            {
+                enemyController.GetMoneyObj();
+                enemyController.ResetPlayer();
             }
         }
     }

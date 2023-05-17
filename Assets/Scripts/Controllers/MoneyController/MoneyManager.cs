@@ -1,16 +1,15 @@
-using Controllers;
-using Controllers.MoneyStackController;
+using Signals;
 using UnityEngine;
 
-namespace Signals
+namespace Controllers
 {
-    public class MoneyStackManager : MonoBehaviour
+    public class MoneyManager : MonoBehaviour
     {
         #region Self Variables
 
         #region Serialized Variables
 
-        [SerializeField] private MoneyStackController moneyStackController;
+        [SerializeField] private MoneyController moneyController;
 
         #endregion
 
@@ -25,13 +24,12 @@ namespace Signals
 
         private void SubscribeEvents()
         {
-
-            
+            PlayerSignals.Instance.onMoneyReset += OnMoneyReset;
         }
 
         private void UnsubscribeEvents()
         {
-
+            PlayerSignals.Instance.onMoneyReset -= OnMoneyReset;
         }
 
         private void OnDisable()
@@ -41,10 +39,11 @@ namespace Signals
         
         #endregion
 
-        private GameObject OnSetMoneyObj()
+        private void OnMoneyReset()
         {
-            var money = moneyStackController.SetMoneyObj();
-            return money;
+            moneyController.ColliderTrigger(false);
+            moneyController.UseKinematic(false);
+            transform.tag = "Money";
         }
     }
 }

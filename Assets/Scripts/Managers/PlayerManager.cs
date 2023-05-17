@@ -1,6 +1,7 @@
 using Controllers;
 using Signals;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Managers
 {
@@ -12,7 +13,7 @@ namespace Managers
 
         [SerializeField] private PlayerMovementController playerMovementController;
         [SerializeField] private PlayerAnimatorController playerAnimatorController;
-        [SerializeField] private StackController stackController;
+        [FormerlySerializedAs("stackController")] [SerializeField] private PlayerStackController playerStackController;
         [SerializeField] private GameObject arm;
         
         #endregion
@@ -32,13 +33,14 @@ namespace Managers
             InputSignals.Instance.onInputReleased += playerMovementController.DeactiveMovement;
             InputSignals.Instance.onInputTaken += playerMovementController.EnableMovement;
             EnemySignals.Instance.onEnemyTarget += OnPlayer;
-            PlayerSignals.Instance.onSafeHouse += stackController.RemoveMoney;
+            PlayerSignals.Instance.onSafeHouse += playerStackController.RemoveMoney;
             WeaponSignals.Instance.onArm += OnArm;
             WeaponSignals.Instance.onWeaponAnimation += playerAnimatorController.PistolIdleBool;
             WeaponSignals.Instance.onEnemyTrigger += OnEnemyTrigger;
             EnemySignals.Instance.onEnemyRemove += playerMovementController.RemoveEnemy;
             EnemySignals.Instance.onEnemyList += playerMovementController.EnemyList;
-            EnemySignals.Instance.onContains += stackController.OnContain;
+            EnemySignals.Instance.onContains += playerStackController.OnContain;
+            PlayerSignals.Instance.onListCount += OnListCount;
         }
 
         private void UnsubscribeEvents()
@@ -48,13 +50,14 @@ namespace Managers
             InputSignals.Instance.onInputReleased -= playerMovementController.DeactiveMovement;
             InputSignals.Instance.onInputTaken -= playerMovementController.EnableMovement;
             EnemySignals.Instance.onEnemyTarget -= OnPlayer;
-            PlayerSignals.Instance.onSafeHouse -= stackController.RemoveMoney;
+            PlayerSignals.Instance.onSafeHouse -= playerStackController.RemoveMoney;
             WeaponSignals.Instance.onArm -= OnArm;
             WeaponSignals.Instance.onWeaponAnimation -= playerAnimatorController.PistolIdleBool;
             WeaponSignals.Instance.onEnemyTrigger -= OnEnemyTrigger;
             EnemySignals.Instance.onEnemyRemove -= playerMovementController.RemoveEnemy;
             EnemySignals.Instance.onEnemyList -= playerMovementController.EnemyList;
-            EnemySignals.Instance.onContains -= stackController.OnContain;
+            EnemySignals.Instance.onContains -= playerStackController.OnContain;
+            PlayerSignals.Instance.onListCount -= OnListCount;
         }
 
         private void OnDisable()
@@ -77,6 +80,11 @@ namespace Managers
         private bool OnEnemyTrigger()
         {
             return playerMovementController.EnemyTrigger;
+        }
+
+        private int OnListCount()
+        {
+            return playerStackController.ListCount();
         }
     }
 }

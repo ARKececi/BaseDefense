@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Enums;
+using Signalable;
 using Signals;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -66,9 +68,10 @@ namespace Controllers.EnemyController
             _bulletDamage = damage;
         }
 
-        public void HealtDamage()
+        public void HealtDamage(int damage)
         {
-            _healt -= _bulletDamage;
+            _healt -= damage;
+            Debug.Log(_healt);
             if (_healt < 0)
             {
                 enemyPhysics.SetActive(false);
@@ -79,29 +82,32 @@ namespace Controllers.EnemyController
                 MoneyThrow();
                 DOVirtual.DelayedCall(1.30f, () =>
                 {
-                    EnemySignals.Instance.onDeadEnemy?.Invoke(transform.gameObject);
-                    enemyAnimationController.Walking();
-                    enemyAIController.TargetWall();
-                    transform.tag = "Enemy";
+                    //EnemySignals.Instance.onDeadEnemy?.Invoke(transform.gameObject);
+                    PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.Enemy);
+                    EnemySignals.Instance.onStackRemove?.Invoke();
+
                 });
                 _healt = 100;
             }
         }
 
-        private void GetMoneyObj()
+        public void GetMoneyObj()
         {
             for (int i = 0; i < 3; i++)
             {
-                GameObject money = EnemySignals.Instance.onSetMoneyObj?.Invoke();
-                MoneyController moneyController = PlayerSignals.Instance.onSetMoneyController?.Invoke(money);
-                moneyController.UseKinematic(false);
-                moneyController.ColliderTrigger(false);
-                moneyController.tag = "Money";
+                var money = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.Money);
                 Money.Add(money);
+                money.SetActive(false);
                 money.transform.SetParent(moneyBag.transform);
                 money.transform.localPosition = Vector3.zero;
-                money.SetActive(false);
             }
+        }
+
+        public void ResetPlayer()
+        {
+            enemyAnimationController.Walking();
+            enemyAIController.TargetWall();
+            transform.tag = "Enemy";
         }
 
         private void MoneyThrow()

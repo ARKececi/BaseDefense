@@ -31,6 +31,7 @@ namespace States.WeaponStates
         {
             barrelBase = barrel;
             fireRate = WeaponData["Revolver"].FlicTime;
+            damage = WeaponData["Revolver"].Damage;
             _timer = fireRate;
         }
 

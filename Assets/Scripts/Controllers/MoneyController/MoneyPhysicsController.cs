@@ -1,4 +1,5 @@
 using System;
+using Signals;
 using UnityEngine;
 
 namespace Controllers
@@ -23,9 +24,23 @@ namespace Controllers
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Plane"))
+            if (other.CompareTag("Player"))
             {
-                //moneyController.transform.gameObject.SetActive(false);
+                if (PlayerSignals.Instance.onListCount?.Invoke() <= 14)
+                {
+                    moneyController.UseKinematic(true);
+                    moneyController.ColliderTrigger(true);
+                    _trigger = true;
+                }
+            }
+
+            if (other.CompareTag("Dead"))
+            {
+                if (_trigger == false)
+                {
+                    moneyController.UseKinematic(false);
+                    moneyController.ColliderTrigger(false);
+                }
             }
         }
     }

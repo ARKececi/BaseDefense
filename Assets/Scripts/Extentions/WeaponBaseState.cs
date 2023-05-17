@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Controllers;
 using Data.UnityObject;
 using Data.ValueObject;
+using Enums;
+using Signalable;
 using Signals;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,6 +27,7 @@ namespace Extentions
 
         protected virtual float fireRate { get; set; }
         protected virtual GameObject barrelBase { get; set; }
+        protected int damage { get; set; }
         protected SerializedDictionary<string, WeaponData> WeaponData;
 
         #endregion
@@ -47,11 +50,15 @@ namespace Extentions
 
         protected virtual void Fire()
         {
-            var bullet = WeaponSignals.Instance.onBulletExit?.Invoke();
-            bullet.transform.gameObject.SetActive(true);
-            bullet.transform.position = barrelBase.transform.position;
-            bullet.transform.eulerAngles = barrelBase.transform.eulerAngles;
-            bullet.AddForce(barrelBase.transform.forward * 20,ForceMode.VelocityChange);
+            var bulletObj = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.Bullet);
+            BulletController bulletController = bulletObj.GetComponent<BulletController>();
+            Rigidbody bulletRigidbody = bulletController.SetRigidbody();
+            bulletController.ZeroVelocty();
+            bulletController.GetDamage(damage);
+            bulletController.transform.gameObject.SetActive(true);
+            bulletController.transform.position = barrelBase.transform.position;
+            bulletController.transform.eulerAngles = barrelBase.transform.eulerAngles;
+            bulletRigidbody.AddForce(barrelBase.transform.forward * 20,ForceMode.VelocityChange);
         }
     }
 }
