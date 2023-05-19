@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Data.UnityObject;
+using Data.ValueObject;
 using DG.Tweening;
 using Enums;
 using Signalable;
 using Signals;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 namespace Controllers.EnemyController
@@ -17,24 +20,26 @@ namespace Controllers.EnemyController
 
         public List<GameObject> Money;
 
+        public SerializedDictionary<EnemyEnum, EnemyData> Enemy;
+
         #endregion
 
         #region Serialized Variables
 
         [SerializeField] private EnemyAIController enemyAIController;
-        [SerializeField] private CapsuleCollider capsuleCollider;
-        [SerializeField] private GameObject character;
         [SerializeField] private EnemyAnimationController enemyAnimationController;
+        [SerializeField] private EnemyAtackController enemyAtackController;
+        
         [SerializeField] private GameObject moneyBag;
         [SerializeField] private GameObject enemyPhysics;
-
+        [SerializeField] private EnemyEnum enemyEnum;
+        
         #endregion
 
         #region Private Variables
 
         private int _healt;
         private bool _bulletTouch;
-        private int _bulletDamage;
 
         #endregion
 
@@ -42,36 +47,20 @@ namespace Controllers.EnemyController
 
         private void Awake()
         {
-            _healt = 100;
+            Enemy = GetEnemyData();
+            _healt = Enemy[enemyEnum].Healt;
+            enemyAtackController.GetDamage(Enemy[enemyEnum].Damage);
+            enemyAIController.OnSpeed(Enemy[enemyEnum].Speed);
         }
-
-        public void Active(bool Bool)
+        
+        private SerializedDictionary<EnemyEnum, EnemyData> GetEnemyData()
         {
-            enemyAIController.enabled = Bool;
-            capsuleCollider.enabled = Bool;
-            enemyAnimationController.enabled = Bool;
-            character.SetActive(Bool);
-            enemyPhysics.SetActive(Bool);
-            if (Bool)
-            {
-                enemyAnimationController.Walking();
-                GetMoneyObj();
-            }
-            else
-            {
-                
-            }
-        }
-
-        public void DamageInfo(int damage)
-        {
-            _bulletDamage = damage;
+            return Resources.Load<CD_Enemy>("Data/CD_Enemy").EnemyDatas;
         }
 
         public void HealtDamage(int damage)
         {
             _healt -= damage;
-            Debug.Log(_healt);
             if (_healt < 0)
             {
                 enemyPhysics.SetActive(false);
@@ -82,12 +71,10 @@ namespace Controllers.EnemyController
                 MoneyThrow();
                 DOVirtual.DelayedCall(1.30f, () =>
                 {
-                    //EnemySignals.Instance.onDeadEnemy?.Invoke(transform.gameObject);
-                    PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.Enemy);
+                    PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.EnemyEasy);
                     EnemySignals.Instance.onStackRemove?.Invoke();
-
                 });
-                _healt = 100;
+                _healt = Enemy[enemyEnum].Speed;
             }
         }
 
@@ -95,7 +82,7 @@ namespace Controllers.EnemyController
         {
             for (int i = 0; i < 3; i++)
             {
-                var money = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.Money);
+                var money = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.MoneyDolar);
                 Money.Add(money);
                 money.SetActive(false);
                 money.transform.SetParent(moneyBag.transform);

@@ -65,7 +65,7 @@ namespace Controllers
                     VARIABLE.transform.DOLocalMove(new Vector3(0, 0, .3f), .5f).
                         OnComplete(()=>
                         {
-                            PoolSignalable.Instance.onListAdd?.Invoke(VARIABLE,PoolType.Money);
+                            PoolSignalable.Instance.onListAdd?.Invoke(VARIABLE,PoolType.MoneyDolar);
                             _collectedMoneyList.Remove(VARIABLE);
                         });
                 });

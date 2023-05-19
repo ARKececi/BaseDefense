@@ -1,4 +1,5 @@
 using System;
+using Controllers.EnemyController;
 using Signals;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -34,9 +35,9 @@ namespace Controllers
                 PlayerSignals.Instance.onSafeHouse?.Invoke();
             }
 
-            if (other.CompareTag("Damage"))
+            if (other.TryGetComponent<EnemyAtackController>(out EnemyAtackController damage))
             {
-                playerController.HealtDamage(10);
+                playerController.HealtDamage(damage.Setdamage());
             }
         }
 

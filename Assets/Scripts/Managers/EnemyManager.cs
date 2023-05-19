@@ -27,13 +27,11 @@ namespace Managers
         private void SubscribeEvents()
         {
             PlayerSignals.Instance.onTargetWall += OnTargetWall;
-            WeaponSignals.Instance.onDamageAssigment += enemyController.DamageInfo;
         }
 
         private void UnsubscribeEvents()
         {
             PlayerSignals.Instance.onTargetWall -= OnTargetWall;
-            WeaponSignals.Instance.onDamageAssigment -= enemyController.DamageInfo;
         }
 
         private void OnDisable()

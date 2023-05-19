@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Controllers
 {
-    public class EnemySpawnerManager : MonoBehaviour
+    public class SpawnerManager : MonoBehaviour
     {
         #region Self Variables
 
@@ -95,7 +95,7 @@ namespace Controllers
                 {
                     while(_timer < 0)
                     {
-                        Spawner(PoolSignalable.Instance.onListRemove?.Invoke(PoolType.Enemy));
+                        Spawner(PoolSignalable.Instance.onListRemove?.Invoke(PoolType.EnemyEasy));
                         _stackCount++;
                         _timer = Time;
                     }

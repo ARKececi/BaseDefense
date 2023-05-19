@@ -42,7 +42,7 @@ namespace Controllers.PoolController
 
             Pooling();
         }
-
+        
         private SerializedDictionary<PoolType, PoolData> GetWeaponData()
         {
             return Resources.Load<CD_Pool>("Data/CD_Pool").PoolDatas;
@@ -52,17 +52,13 @@ namespace Controllers.PoolController
         {
             foreach (var PoolType in PoolData.Keys)
             {
-                int count = 0;
-                foreach (var PoolObj in PoolData[PoolType].PoolObj)
-                {
-                    int PoolCount = PoolData[PoolType].PoolCount[count];
+                GameObject PoolObj = PoolData[PoolType].PoolObj;
+                    int PoolCount = PoolData[PoolType].PoolCount;
                     for (int i = 0; i < PoolCount; i++)
                     {
                         var poolObj = Instantiate(PoolObj);
                         Listadd(poolObj, PoolType);
                     }
-                    count++;
-                }
             }
         }
         

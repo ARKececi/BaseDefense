@@ -30,9 +30,13 @@ namespace Controllers
 
         #endregion
 
+        public void GetHealt(int Healt)
+        {
+            _healt = Healt;
+        }
+
         private void Start()
         {
-            _healt = 100;
             _playerSpawn = transform;
         }
         

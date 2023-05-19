@@ -19,8 +19,6 @@ namespace Extentions
 
         #region Public Variables
 
-        public List<GameObject> _bulletList;
-
         #endregion
 
         #region Protected Variables
@@ -50,7 +48,7 @@ namespace Extentions
 
         protected virtual void Fire()
         {
-            var bulletObj = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.Bullet);
+            var bulletObj = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.BulletNormal);
             BulletController bulletController = bulletObj.GetComponent<BulletController>();
             Rigidbody bulletRigidbody = bulletController.SetRigidbody();
             bulletController.ZeroVelocty();

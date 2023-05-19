@@ -3,9 +3,10 @@ using System;
 namespace Data.ValueObject
 {
     [Serializable]
-    public class PlayerData
+    public class EnemyData
     {
-        public int MoveSpeed;
         public int Healt;
+        public int Damage;
+        public int Speed;
     }
-}   
+}

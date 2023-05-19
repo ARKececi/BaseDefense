@@ -29,8 +29,8 @@ namespace Controllers
         #region Private Variables
         
         private Vector3 _moveInput;
+        private int _moveSpeed;
         private PlayerData _playerData;
-
         #endregion
         
         #endregion
@@ -44,16 +44,16 @@ namespace Controllers
 
         #endregion
 
-        private void Awake()
+        public void GetMoveSpeed(int Speed)
         {
-            _playerData = GetPlayerData();
-        }
-
-        private PlayerData GetPlayerData()
-        {
-            return Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
+            _moveSpeed = Speed;
         }
         
+        private void Awake()
+        {
+            
+        }
+
         public void InputController( InputParams inputParams)
         {
             _moveInput = inputParams.MoveValues;
@@ -61,7 +61,7 @@ namespace Controllers
 
         private void Move()
         {
-            move.velocity = new Vector3(_moveInput.x * _playerData.MoveSpeed, move.velocity.y, _moveInput.z * _playerData.MoveSpeed);
+            move.velocity = new Vector3(_moveInput.x * _moveSpeed, move.velocity.y, _moveInput.z * _moveSpeed);
             Vector3 direction = Vector3.forward * _moveInput.z + Vector3.right * _moveInput.x;
             if (Enemy.Count != 0)
             {

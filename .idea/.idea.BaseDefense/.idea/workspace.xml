@@ -54,7 +54,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.5f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.5f1-x86_64\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\UnityProject\BaseDefense -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\UnityProject\BaseDefense" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -62,7 +62,7 @@
       <method v="2" />
     </configuration>
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.5f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.5f1-x86_64\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\UnityProje\BaseDefense -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\UnityProje\BaseDefense" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -164,6 +164,9 @@
       <workItem from="1684223483174" duration="28569000" />
       <workItem from="1684271890211" duration="269000" />
       <workItem from="1684310655037" duration="33025000" />
+      <workItem from="1684393240563" duration="33070000" />
+      <workItem from="1684487139295" duration="1376000" />
+      <workItem from="1684513138180" duration="8101000" />
     </task>
     <servers />
   </component>

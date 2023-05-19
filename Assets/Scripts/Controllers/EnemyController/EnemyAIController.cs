@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Enums;
 using Signals;
 using UnityEngine;
 using UnityEngine.AI;
@@ -27,6 +28,7 @@ namespace Controllers.EnemyController
 
         private List<GameObject> _wall;
         private bool _safeHouse;
+        private int _speed;
 
         #endregion
         
@@ -36,6 +38,11 @@ namespace Controllers.EnemyController
         {
             _wall = EnemySignals.Instance.onWall?.Invoke();
             TargetWall();
+        }
+
+        public void OnSpeed(int speed)
+        {
+            _agent.speed = speed;
         }
 
         public void TargetWall()

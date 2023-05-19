@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace States.PlayerStates
 {
-    public class EnemyWalkingState : EnemyBaseState
+    public class EnemyAnimationWalkingState : EnemyAnimationBaseState
     {
         public override void EnterState(EnemyAnimationController enemyState)
         {

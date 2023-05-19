@@ -17,11 +17,11 @@ namespace Controllers.EnemyController
 
         #region Private Variables
 
-        private EnemyBaseState _currentState;
-        private EnemyBaseState _enemyWalkingState;
-        private EnemyBaseState _enemyFightState;
-        private EnemyBaseState _enemyIdleState;
-        private EnemyBaseState _enemyDeadState;
+        private EnemyAnimationBaseState _currentState;
+        private EnemyAnimationBaseState _enemyAnimationWalkingState;
+        private EnemyAnimationBaseState _enemyAnimationFightState;
+        private EnemyAnimationBaseState _enemyAnimationIdleState;
+        private EnemyAnimationBaseState _enemyAnimationDeadState;
 
         #endregion
 
@@ -29,10 +29,10 @@ namespace Controllers.EnemyController
 
         private void Awake()
         {
-            _enemyWalkingState = new EnemyWalkingState();
-            _enemyFightState = new EnemyFightState();
-            _enemyIdleState = new EnemyIdleState();
-            _enemyDeadState = new EnemyDeadState();
+            _enemyAnimationWalkingState = new EnemyAnimationWalkingState();
+            _enemyAnimationFightState = new EnemyAnimationFightState();
+            _enemyAnimationIdleState = new EnemyAnimationIdleState();
+            _enemyAnimationDeadState = new EnemyAnimationDeadState();
         }
 
         private void Start()
@@ -47,25 +47,25 @@ namespace Controllers.EnemyController
 
         public void Walking()
         {
-            _currentState = _enemyWalkingState;
+            _currentState = _enemyAnimationWalkingState;
             _currentState.EnterState(this);
         }
 
         public void Fight()
         {
-            _currentState = _enemyFightState;
+            _currentState = _enemyAnimationFightState;
             _currentState.EnterState(this);
         }
 
         public void Idle()
         {
-            _currentState = _enemyIdleState;
+            _currentState = _enemyAnimationIdleState;
             _currentState.EnterState(this);
         }
 
         public void Dead()
         {
-            _currentState = _enemyDeadState;
+            _currentState = _enemyAnimationDeadState;
             _currentState.EnterState(this);
         }
     }

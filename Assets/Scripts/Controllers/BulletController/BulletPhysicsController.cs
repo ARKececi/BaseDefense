@@ -22,7 +22,7 @@ namespace Controllers
         {
             if (other.CompareTag("Plane"))
             {
-                PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.Bullet);
+                PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.BulletNormal);
             }
         }
     }

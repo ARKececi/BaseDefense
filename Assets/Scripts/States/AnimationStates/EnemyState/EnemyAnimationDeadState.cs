@@ -1,17 +1,19 @@
+using Controllers;
 using Controllers.EnemyController;
 using Extentions;
+using Managers;
 using UnityEngine;
 
 namespace States.PlayerStates
 {
-    public class EnemyIdleState : EnemyBaseState
+    public class EnemyAnimationDeadState : EnemyAnimationBaseState
     {
         public override void EnterState(EnemyAnimationController enemyState)
         {
             enemyState.GetAnimator().SetBool("Walking", false);
             enemyState.GetAnimator().SetBool("Fight", false);
-            enemyState.GetAnimator().SetBool("Idle", true);
-            enemyState.GetAnimator().SetBool("Dead", false);
+            enemyState.GetAnimator().SetBool("Idle", false);
+            enemyState.GetAnimator().SetBool("Dead", true);
         }
 
         public override void UpdateState(EnemyAnimationController playerState)

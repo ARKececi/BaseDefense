@@ -2319,6 +2319,7 @@ MonoBehaviour:
   playerMovementController: {fileID: 816829296}
   playerAnimatorController: {fileID: 816829298}
   playerStackController: {fileID: 816829300}
+  playerController: {fileID: 816829301}
   arm: {fileID: 153063876826886519}
 --- !u!114 &816829298
 MonoBehaviour:

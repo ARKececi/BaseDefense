@@ -23,7 +23,7 @@ namespace Controllers.EnemyController
             if (other.TryGetComponent<BulletController>(out BulletController bullet))
             {
                 enemyController.HealtDamage(bullet.SetDamage());
-                PoolSignalable.Instance.onListAdd?.Invoke(other.gameObject, PoolType.Bullet);
+                PoolSignalable.Instance.onListAdd?.Invoke(other.gameObject, PoolType.BulletNormal);
             }
 
             if (other.CompareTag("Plane"))

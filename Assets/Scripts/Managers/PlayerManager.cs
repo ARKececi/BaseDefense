@@ -1,4 +1,7 @@
+using System;
 using Controllers;
+using Data.UnityObject;
+using Data.ValueObject;
 using Signals;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,9 +16,16 @@ namespace Managers
 
         [SerializeField] private PlayerMovementController playerMovementController;
         [SerializeField] private PlayerAnimatorController playerAnimatorController;
-        [FormerlySerializedAs("stackController")] [SerializeField] private PlayerStackController playerStackController;
+        [SerializeField] private PlayerStackController playerStackController;
+        [SerializeField] private PlayerController playerController;
         [SerializeField] private GameObject arm;
         
+        #endregion
+
+        #region Private Variables
+
+        private PlayerData _playerData;
+
         #endregion
 
         #endregion
@@ -67,6 +77,19 @@ namespace Managers
         
         #endregion
 
+        private void Awake()
+        {
+            _playerData = GetPlayerData();
+            
+            playerMovementController.GetMoveSpeed(_playerData.MoveSpeed);
+            playerController.GetHealt(_playerData.Healt);
+        }
+        
+        private PlayerData GetPlayerData()
+        {
+            return Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
+        }
+        
         private Transform OnPlayer()
         {
             return transform;

@@ -9,7 +9,7 @@ namespace Data.ValueObject
     [Serializable]
     public class PoolData
     {
-        public List<GameObject> PoolObj;
-        public List<int> PoolCount;
+        public GameObject PoolObj;
+        public int PoolCount;
     }
 }
