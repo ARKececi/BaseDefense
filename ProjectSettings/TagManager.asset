@@ -13,6 +13,9 @@ TagManager:
   - Bullet
   - Damage
   - Dead
+  - Coal
+  - Clean
+  - Hostage
   layers:
   - Default
   - TransparentFX

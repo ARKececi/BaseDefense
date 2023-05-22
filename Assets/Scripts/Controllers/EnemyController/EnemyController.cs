@@ -50,7 +50,7 @@ namespace Controllers.EnemyController
             Enemy = GetEnemyData();
             _healt = Enemy[enemyEnum].Healt;
             enemyAtackController.GetDamage(Enemy[enemyEnum].Damage);
-            enemyAIController.OnSpeed(Enemy[enemyEnum].Speed);
+            enemyAIController.OnSpeed(Enemy[enemyEnum].NormalSpeed,Enemy[enemyEnum].FastSpeed);
         }
         
         private SerializedDictionary<EnemyEnum, EnemyData> GetEnemyData()
@@ -74,7 +74,7 @@ namespace Controllers.EnemyController
                     PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.EnemyEasy);
                     EnemySignals.Instance.onStackRemove?.Invoke();
                 });
-                _healt = Enemy[enemyEnum].Speed;
+                _healt = Enemy[enemyEnum].NormalSpeed;
             }
         }
 
@@ -83,10 +83,13 @@ namespace Controllers.EnemyController
             for (int i = 0; i < 3; i++)
             {
                 var money = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.MoneyDolar);
-                Money.Add(money);
-                money.SetActive(false);
-                money.transform.SetParent(moneyBag.transform);
-                money.transform.localPosition = Vector3.zero;
+                if (money != null)
+                {
+                    Money.Add(money);
+                    money.SetActive(false);
+                    money.transform.SetParent(moneyBag.transform);
+                    money.transform.localPosition = Vector3.zero;
+                }
             }
         }
 

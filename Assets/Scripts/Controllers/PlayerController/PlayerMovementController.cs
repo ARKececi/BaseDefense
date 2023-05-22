@@ -48,11 +48,6 @@ namespace Controllers
         {
             _moveSpeed = Speed;
         }
-        
-        private void Awake()
-        {
-            
-        }
 
         public void InputController( InputParams inputParams)
         {

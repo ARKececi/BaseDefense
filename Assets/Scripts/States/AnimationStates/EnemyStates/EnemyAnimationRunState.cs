@@ -6,22 +6,23 @@ using UnityEngine;
 
 namespace States.PlayerStates
 {
-    public class EnemyAnimationFightState : EnemyAnimationBaseState
+    public class EnemyAnimationRunState : EnemyAnimationBaseState
     {
         public override void EnterState(EnemyAnimationController enemyState)
         {
             enemyState.GetAnimator().SetBool("Walking", false);
-            enemyState.GetAnimator().SetBool("Fight", true);
+            enemyState.GetAnimator().SetBool("Fight", false);
             enemyState.GetAnimator().SetBool("Idle", false);
+            enemyState.GetAnimator().SetBool("Run", true);
             enemyState.GetAnimator().SetBool("Dead", false);
         }
 
-        public override void UpdateState(EnemyAnimationController playerState)
+        public override void UpdateState(EnemyAnimationController enemyState)
         {
             
         }
         
-        public override void OnCollisionEnter(EnemyAnimationController playerState)
+        public override void OnCollisionEnter(EnemyAnimationController enemyState)
         {
             
         }

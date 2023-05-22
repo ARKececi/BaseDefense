@@ -8,6 +8,7 @@ namespace Enums
         MoneyDolar,
         MoneyDiamond,
         BulletNormal,
+        HostageDefault,
         Null
     }
 }

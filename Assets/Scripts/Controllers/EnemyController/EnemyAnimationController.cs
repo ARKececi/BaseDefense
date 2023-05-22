@@ -22,6 +22,7 @@ namespace Controllers.EnemyController
         private EnemyAnimationBaseState _enemyAnimationFightState;
         private EnemyAnimationBaseState _enemyAnimationIdleState;
         private EnemyAnimationBaseState _enemyAnimationDeadState;
+        private EnemyAnimationRunState _enemyAnimationRunState;
 
         #endregion
 
@@ -33,6 +34,7 @@ namespace Controllers.EnemyController
             _enemyAnimationFightState = new EnemyAnimationFightState();
             _enemyAnimationIdleState = new EnemyAnimationIdleState();
             _enemyAnimationDeadState = new EnemyAnimationDeadState();
+            _enemyAnimationRunState = new EnemyAnimationRunState();
         }
 
         private void Start()
@@ -63,6 +65,12 @@ namespace Controllers.EnemyController
             _currentState.EnterState(this);
         }
 
+        public void Run()
+        {
+            _currentState = _enemyAnimationRunState;
+            _currentState.EnterState(this);
+        }
+        
         public void Dead()
         {
             _currentState = _enemyAnimationDeadState;

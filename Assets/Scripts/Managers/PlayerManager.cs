@@ -51,6 +51,7 @@ namespace Managers
             EnemySignals.Instance.onEnemyList += playerMovementController.EnemyList;
             EnemySignals.Instance.onContains += playerStackController.OnContain;
             PlayerSignals.Instance.onListCount += OnListCount;
+            PlayerSignals.Instance.onLastHostage += OnLastHostage;
         }
 
         private void UnsubscribeEvents()
@@ -68,6 +69,7 @@ namespace Managers
             EnemySignals.Instance.onEnemyList -= playerMovementController.EnemyList;
             EnemySignals.Instance.onContains -= playerStackController.OnContain;
             PlayerSignals.Instance.onListCount -= OnListCount;
+            PlayerSignals.Instance.onLastHostage -= OnLastHostage;
         }
 
         private void OnDisable()
@@ -108,6 +110,11 @@ namespace Managers
         private int OnListCount()
         {
             return playerStackController.ListCount();
+        }
+
+        private GameObject OnLastHostage()
+        {
+            return playerController.LastHostage();
         }
     }
 }

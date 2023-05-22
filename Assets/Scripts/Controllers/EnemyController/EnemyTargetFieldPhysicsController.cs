@@ -27,7 +27,7 @@ namespace Controllers.EnemyController
         {
             if (other.CompareTag("Player") || other.CompareTag("Target"))
             {
-                enemyAnimationController.Walking();
+                enemyAnimationController.Run();
             }
         }
     }

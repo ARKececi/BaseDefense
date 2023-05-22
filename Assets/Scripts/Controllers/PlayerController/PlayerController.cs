@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using Signals;
 using UnityEngine;
@@ -10,6 +11,12 @@ namespace Controllers
     public class PlayerController : MonoBehaviour
     {
         #region Self Variables
+
+        #region Public Variables
+
+        public List<GameObject> _hostageList;
+
+        #endregion
 
         #region Serialized Variables
 
@@ -35,6 +42,15 @@ namespace Controllers
             _healt = Healt;
         }
 
+        public void GetHostageList(GameObject Hostage)
+        {
+            _hostageList.Add(Hostage);
+        }
+
+        public GameObject LastHostage()
+        {
+            return _hostageList[_hostageList.Count - 1];
+        }
         private void Start()
         {
             _playerSpawn = transform;

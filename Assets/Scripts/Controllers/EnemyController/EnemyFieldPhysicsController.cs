@@ -10,6 +10,7 @@ namespace Controllers.EnemyController
         #region Serialized Variables
 
         [SerializeField] private EnemyAIController enemyAIController;
+        [SerializeField] private EnemyAnimationController enemyAnimationController;
 
         #endregion
 
@@ -20,6 +21,16 @@ namespace Controllers.EnemyController
             if (other.CompareTag("Player"))
             {
                 enemyAIController.OnTaretPlayer();
+                enemyAnimationController.Run();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                enemyAIController.TargetWall();
+                enemyAnimationController.Walking();
             }
         }
     }

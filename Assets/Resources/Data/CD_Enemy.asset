@@ -17,4 +17,5 @@ MonoBehaviour:
     m_Values:
     - Healt: 200
       Damage: 20
-      Speed: 5
+      NormalSpeed: 4
+      FastSpeed: 6

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.Serialization;
 
 namespace Data.ValueObject
 {
@@ -7,6 +8,7 @@ namespace Data.ValueObject
     {
         public int Healt;
         public int Damage;
-        public int Speed;
+        public int NormalSpeed;
+        public int FastSpeed;
     }
 }

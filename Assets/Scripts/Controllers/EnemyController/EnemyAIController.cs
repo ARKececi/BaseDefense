@@ -28,7 +28,8 @@ namespace Controllers.EnemyController
 
         private List<GameObject> _wall;
         private bool _safeHouse;
-        private int _speed;
+        private int _normalSpeed;
+        private int _fastSpeed;
 
         #endregion
         
@@ -40,20 +41,22 @@ namespace Controllers.EnemyController
             TargetWall();
         }
 
-        public void OnSpeed(int speed)
+        public void OnSpeed(int NormalSpeed, int FastSpeed)
         {
-            _agent.speed = speed;
+            _normalSpeed = NormalSpeed;
+            _fastSpeed = FastSpeed;
         }
 
         public void TargetWall()
         {
-            if (transform.position.x < 0) target = _wall[0].transform;
-            else target = _wall[1].transform;
+            if (transform.position.x < 0) target = _wall[0].transform;else target = _wall[1].transform;
+            _agent.speed = _normalSpeed;
         }
 
         public void OnTaretPlayer()
         {
             target = EnemySignals.Instance.onEnemyTarget?.Invoke();
+            _agent.speed = _fastSpeed;
         }
 
         public void OnNullTarget()
