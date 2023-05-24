@@ -112,9 +112,9 @@ namespace Managers
             return playerStackController.ListCount();
         }
 
-        private GameObject OnLastHostage()
+        private GameObject OnLastHostage(GameObject Hostage)
         {
-            return playerController.LastHostage();
+            return playerController.LastHostage(Hostage);
         }
     }
 }

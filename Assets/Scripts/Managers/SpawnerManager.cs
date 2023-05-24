@@ -16,7 +16,6 @@ namespace Controllers
         #region Public Variables
 
         public float Time = 0.05f;
-        public List<GameObject> DeadEnemy;
 
         #endregion
 
@@ -24,13 +23,15 @@ namespace Controllers
 
         [SerializeField] private List<GameObject> wall;
         [SerializeField] private GameObject enemySpawnDot;
+        [SerializeField] private GameObject hostageSpawnDot;
 
         #endregion
 
         #region Private Variables
         
         private GameObject _boos;
-        private float _timer;
+        private float _enemyTimer;
+        private float _hostageTimer;
         private int _enemyStackCount;
         private int _hostageStackCount;
 
@@ -92,21 +93,20 @@ namespace Controllers
             int enemyPositionX = Random.Range(-10, 10);
             GameObject enemy = Enemy;
             var position = enemySpawnDot.transform.position;
-            enemy.transform.position = new Vector3(enemyPositionX, position.y,
-                position.z);
+            enemy.transform.position = new Vector3(enemyPositionX, position.y, position.z);
         }
 
         private void EnemyTimer()
         {
             if (_enemyStackCount < 9)
             {
-                while(_timer < 0)
+                while(_enemyTimer < 0)
                 {
                     EnemySpawner(PoolSignalable.Instance.onListRemove?.Invoke(PoolType.EnemyEasy));
                     _enemyStackCount++;
-                    _timer = Time;
+                    _enemyTimer = Time;
                 } 
-                _timer -= UnityEngine.Time.deltaTime;
+                _enemyTimer -= UnityEngine.Time.deltaTime;
             }
         }
             
@@ -119,26 +119,26 @@ namespace Controllers
             _hostageStackCount--;
         }
             
-        private void HostageSpawner(GameObject Enemy)
+        private void HostageSpawner(GameObject Hostage)
         {
-            int enemyPositionX = Random.Range(-10, 10);
-            GameObject enemy = Enemy;
-            var position = enemySpawnDot.transform.position;
-            enemy.transform.position = new Vector3(enemyPositionX, position.y,
-                position.z);
+            int HostagePositionX = Random.Range(-10, 10);
+            int HostagePositionZ = Random.Range(-3, 3);
+            GameObject hostage = Hostage;
+            var position = hostageSpawnDot.transform.position;
+            hostage.transform.position = new Vector3(HostagePositionX, position.y, position.z + HostagePositionZ);
         }
 
         private void HostageTimer()
         {
             if (_hostageStackCount < 9)
             {
-                while(_timer < 0)
+                while(_hostageTimer < 0)
                 {
                     HostageSpawner(PoolSignalable.Instance.onListRemove?.Invoke(PoolType.HostageDefault));
                     _hostageStackCount++;
-                    _timer = Time;
+                    _hostageTimer = Time;
                 }
-                _timer -= UnityEngine.Time.deltaTime;
+                _hostageTimer -= UnityEngine.Time.deltaTime;
             }
         }
 

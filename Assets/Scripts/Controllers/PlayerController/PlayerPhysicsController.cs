@@ -39,11 +39,6 @@ namespace Controllers
             {
                 playerController.HealtDamage(damage.Setdamage());
             }
-
-            if (other.CompareTag("Hostage"))
-            {
-                playerController.GetHostageList(other.gameObject);
-            }
         }
 
         private void OnTriggerExit(Collider other)

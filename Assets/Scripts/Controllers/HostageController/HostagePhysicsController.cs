@@ -8,8 +8,7 @@ namespace Controllers.HostageController
         #region Self Variables
 
         #region Serialized Variables
-
-        [SerializeField] private HostageAnimationController hostageAnimationController;
+        
         [SerializeField] private HostageAIController hostageAIController;
 
         #endregion
@@ -21,7 +20,6 @@ namespace Controllers.HostageController
             if (other.CompareTag("Player"))
             {
                 hostageAIController.Target();
-                hostageAnimationController.Walking();
             }
         }
     }

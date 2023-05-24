@@ -1974,7 +1974,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6383b46fb5ab4825b19b18b212103664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hostageAnimationController: {fileID: 8998032078301139587}
   hostageAIController: {fileID: 7160869309430109037}
 --- !u!136 &2937445422915428752
 CapsuleCollider:
@@ -2323,7 +2322,7 @@ GameObject:
   - component: {fileID: 1343046262056102740}
   - component: {fileID: 7160869309430109037}
   - component: {fileID: 8998032078301139587}
-  - component: {fileID: 6477680287701397636}
+  - component: {fileID: 1865222012162373727}
   - component: {fileID: -5639739613921457587}
   m_Layer: 0
   m_Name: Hostage
@@ -2375,7 +2374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b47f06e0e5f47cb836e49af938df97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 6477680287701397636}
+  agent: {fileID: 1865222012162373727}
+  hostageAnimationController: {fileID: 8998032078301139587}
 --- !u!114 &8998032078301139587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2389,7 +2389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 9076721834325780664}
---- !u!195 &6477680287701397636
+--- !u!195 &1865222012162373727
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2397,13 +2397,13 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8243024553147758302}
   m_Enabled: 1
-  m_AgentTypeID: 1479372276
+  m_AgentTypeID: -1923039037
   m_Radius: 0.3
   m_Speed: 3.5
-  m_Acceleration: 16
+  m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 300
-  m_StoppingDistance: 1
+  m_AngularSpeed: 180
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

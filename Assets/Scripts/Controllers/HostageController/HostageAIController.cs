@@ -10,15 +10,22 @@ namespace Controllers.HostageController
     {
         #region Self Variables
 
-        #region Serialized Variables
+        #region Public Variables
 
-        [SerializeField] private NavMeshAgent agent;
+        public NavMeshAgent agent;
+
+        #endregion
+
+        #region Serialized Variables
+        
+        [SerializeField] private HostageAnimationController hostageAnimationController;
 
         #endregion
 
         private List<GameObject> _coalTargetList;
         private GameObject _target;
         private Transform _player;
+        private bool _trigger;
 
         #endregion
 
@@ -34,20 +41,22 @@ namespace Controllers.HostageController
 
         public void Target()
         {
-            if (PlayerSignals.Instance.onLastHostage?.Invoke() == null)
+            if (_trigger == false)
             {
-                _target = _player.gameObject;
+                _target = PlayerSignals.Instance.onLastHostage?.Invoke(transform.gameObject);
+                _trigger = true;
+                hostageAnimationController.Walking();
             }
-            else
-            {
-                _target = PlayerSignals.Instance.onLastHostage?.Invoke();
-            }
-            
         }
 
         private void Update()
         {
             agent.destination = _target.transform.position;
+        }
+
+        private void Reset()
+        {
+            _trigger = false;
         }
     }
 }

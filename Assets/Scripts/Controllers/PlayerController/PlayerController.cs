@@ -47,9 +47,21 @@ namespace Controllers
             _hostageList.Add(Hostage);
         }
 
-        public GameObject LastHostage()
+        public GameObject LastHostage(GameObject Hostage)
         {
-            return _hostageList[_hostageList.Count - 1];
+            GameObject hostage;
+            if (_hostageList.Count == 0)
+            {
+                _hostageList.Add(Hostage);
+                hostage = transform.gameObject;
+            }
+            else
+            {
+                hostage = _hostageList[_hostageList.Count - 1];
+                _hostageList.Add(Hostage);
+            }
+
+            return hostage;
         }
         private void Start()
         {

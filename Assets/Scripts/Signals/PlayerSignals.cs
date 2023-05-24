@@ -16,6 +16,6 @@ namespace Signals
         public UnityAction onMoneyReset = delegate { };
         public Func<int> onListCount = delegate { return 0;};
         
-        public Func<GameObject> onLastHostage = delegate { return null;};
+        public Func<GameObject,GameObject> onLastHostage = delegate { return null;};
     }
 }

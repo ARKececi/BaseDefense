@@ -35,10 +35,13 @@ namespace Controllers.HostageController
             _hostageAnimationIdleState = new HostageAnimationIdleState();
             _hostageAnimationHoldState = new HostageAnimationHoldState();
             _hostageAnimationHostageState = new HostageAnimationHostageState();
-            
+        }
+
+        private void Start()
+        {
             Hostage();
         }
-        
+
         public Animator GetAnimator()
         {
             return animator;
