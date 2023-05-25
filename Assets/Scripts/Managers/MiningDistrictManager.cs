@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Signals;
 using UnityEngine;
 
 namespace Controllers
@@ -27,12 +28,12 @@ namespace Controllers
 
         private void SubscribeEvents()
         {
-
+            MiningDistricSignalable.Instance.onCoalsList += OnCoalsList;
         }
 
         private void UnsubscribeEvents()
         {
-
+            MiningDistricSignalable.Instance.onCoalsList -= OnCoalsList;
         }
 
         private void OnDisable()

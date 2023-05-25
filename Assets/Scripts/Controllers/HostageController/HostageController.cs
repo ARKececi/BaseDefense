@@ -9,9 +9,15 @@ namespace Controllers.HostageController
         #region Serialized Variables
 
         [SerializeField] private GameObject diamondBag;
+        [SerializeField] private Collider collider;
 
         #endregion
 
         #endregion
+
+        public void GetCollider(bool ColliderTrigger)
+        {
+            collider.isTrigger = ColliderTrigger;
+        }
     }
 }

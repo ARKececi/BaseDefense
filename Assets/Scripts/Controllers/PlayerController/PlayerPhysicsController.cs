@@ -39,6 +39,12 @@ namespace Controllers
             {
                 playerController.HealtDamage(damage.Setdamage());
             }
+
+            if (other.CompareTag("Mining"))
+            {
+                HostageSignalable.Instance.onMining?.Invoke();
+                playerController.ResetHostageList();
+            }
         }
 
         private void OnTriggerExit(Collider other)

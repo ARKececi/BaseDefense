@@ -16,6 +16,7 @@ TagManager:
   - Coal
   - Clean
   - Hostage
+  - Mining
   layers:
   - Default
   - TransparentFX

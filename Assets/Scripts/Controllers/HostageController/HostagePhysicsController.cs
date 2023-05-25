@@ -10,6 +10,8 @@ namespace Controllers.HostageController
         #region Serialized Variables
         
         [SerializeField] private HostageAIController hostageAIController;
+        [SerializeField] private HostageController hostageController;
+        [SerializeField] private HostageAnimationController hostageAnimationController;
 
         #endregion
 
@@ -19,8 +21,19 @@ namespace Controllers.HostageController
         {
             if (other.CompareTag("Player"))
             {
-                hostageAIController.Target();
+                hostageAIController.PlayerTarget();
             }
+
+            if (other.CompareTag("Coal"))
+            {
+                hostageAnimationController.Dig();
+                hostageAIController.TargetMe();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Signals;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace Controllers.HostageController
 {
@@ -13,6 +14,8 @@ namespace Controllers.HostageController
         #region Public Variables
 
         public NavMeshAgent agent;
+        public List<GameObject> _coalTargetList;
+        public GameObject _target;
 
         #endregion
 
@@ -21,17 +24,20 @@ namespace Controllers.HostageController
         [SerializeField] private HostageAnimationController hostageAnimationController;
 
         #endregion
-
-        private List<GameObject> _coalTargetList;
-        private GameObject _target;
-        private Transform _player;
-        private bool _trigger;
+        
+        private bool _playerTrigger;
+        private bool _miningTrigger;
 
         #endregion
 
         private void Awake()
         {
-            _player = EnemySignals.Instance.onEnemyTarget?.Invoke();
+            _coalTargetList = MiningDistricSignalable.Instance.onCoalsList?.Invoke();
+        }
+
+        public void GetAgentSpeed(int Speed)
+        {
+            agent.speed = Speed;
         }
 
         private void Start()
@@ -39,16 +45,36 @@ namespace Controllers.HostageController
             _target = transform.gameObject;
         }
 
-        public void Target()
+        public void Target(GameObject Target)
         {
-            if (_trigger == false)
+            _target = Target;
+        }
+
+        public void PlayerTarget()
+        {
+            if (_playerTrigger == false)
             {
-                _target = PlayerSignals.Instance.onLastHostage?.Invoke(transform.gameObject);
-                _trigger = true;
+                Target( PlayerSignals.Instance.onLastHostage?.Invoke(transform.gameObject));
+                _playerTrigger = true;
                 hostageAnimationController.Walking();
             }
         }
 
+        public void MiningTarget()
+        {
+            if (_playerTrigger && _miningTrigger == false)
+            {
+                _miningTrigger = true;
+                int rand = Random.Range(0, _coalTargetList.Count - 1);
+                Target(_coalTargetList[rand]);
+            }
+        }
+
+        public void TargetMe()
+        {
+            _target = transform.gameObject;
+        }
+        
         private void Update()
         {
             agent.destination = _target.transform.position;
@@ -56,7 +82,8 @@ namespace Controllers.HostageController
 
         private void Reset()
         {
-            _trigger = false;
+            _playerTrigger = false;
+            _miningTrigger = false;
         }
     }
 }

@@ -89,6 +89,12 @@ namespace Controllers
             }
         }
 
+        public void ResetHostageList()
+        {
+            _hostageList.Clear();
+            _hostageList.TrimExcess();
+        }
+
         public void PlayerReset()
         {
             player.transform.position = new Vector3(0,0,-3);
