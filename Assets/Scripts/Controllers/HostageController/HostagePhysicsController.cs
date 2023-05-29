@@ -26,8 +26,7 @@ namespace Controllers.HostageController
 
             if (other.CompareTag("Coal"))
             {
-                hostageAnimationController.Dig();
-                hostageAIController.TargetMe();
+                hostageController.Dig(other.gameObject);
             }
         }
 

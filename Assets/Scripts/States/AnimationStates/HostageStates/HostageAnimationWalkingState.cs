@@ -8,9 +8,7 @@ namespace HostageStates
         public override void EnterState(HostageAnimationController HostageState)
         {
             HostageState.GetAnimator().SetBool("Walking", true);
-            HostageState.GetAnimator().SetBool("Dig", false);
             HostageState.GetAnimator().SetBool("Idle", false);
-            HostageState.GetAnimator().SetBool("Hold", false);
             HostageState.GetAnimator().SetBool("Hostage", false);
         }
 
