@@ -1989,9 +1989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6383b46fb5ab4825b19b18b212103664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hostageAIController: {fileID: 7160869309430109037}
-  hostageController: {fileID: 1343046262056102740}
-  hostageAnimationController: {fileID: 1171306663549054341}
+  hostageMinnerController: {fileID: 1343046262056102740}
 --- !u!136 &2937445422915428752
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2343,7 +2341,7 @@ GameObject:
   - component: {fileID: -5639739613921457587}
   - component: {fileID: 3057045315760831350}
   m_Layer: 0
-  m_Name: Hostage
+  m_Name: HostageMinner
   m_TagString: Hostage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2382,8 +2380,7 @@ MonoBehaviour:
   playerData:
     MoveSpeed: 0
     Healt: 0
-  _hostageController: {fileID: 1343046262056102740}
-  _hostageAIController: {fileID: 7160869309430109037}
+  hostageMinnerAIController: {fileID: 7160869309430109037}
 --- !u!114 &1343046262056102740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2397,8 +2394,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Timer: 3
-  hostageAnimationController: {fileID: 1171306663549054341}
-  hostageAIController: {fileID: 7160869309430109037}
+  hostageMinnerAnimationController: {fileID: 1171306663549054341}
+  hostageMinnerAIController: {fileID: 7160869309430109037}
   diamondBag: {fileID: 641706502817583475}
   pickAxe: {fileID: 5318555731993549774}
 --- !u!114 &7160869309430109037
@@ -2416,7 +2413,7 @@ MonoBehaviour:
   agent: {fileID: 1865222012162373727}
   _coalTargetList: []
   _target: {fileID: 0}
-  hostageAnimationController: {fileID: 1171306663549054341}
+  hostageMinnerAnimationController: {fileID: 1171306663549054341}
 --- !u!195 &1865222012162373727
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2465,7 +2462,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

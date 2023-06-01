@@ -5,19 +5,19 @@ namespace HostageStates
 {
     public class HostageAnimationDigState : HostageBaseState
     {
-        public override void EnterState(HostageAnimationController HostageState)
+        public override void EnterState(HostageMinnerAnimationController hostageMinnerState)
         {
-            HostageState.GetAnimator().SetBool("Dig", true);
-            HostageState.GetAnimator().SetBool("Hold", false);
-            HostageState.GetAnimator().SetBool("Hostage", false);
+            hostageMinnerState.GetAnimator().SetBool("Dig", true);
+            hostageMinnerState.GetAnimator().SetBool("Hold", false);
+            hostageMinnerState.GetAnimator().SetBool("HandW", false);
         }
 
-        public override void UpdateState(HostageAnimationController HostageState)
+        public override void UpdateState(HostageMinnerAnimationController hostageMinnerState)
         {
             
         }
         
-        public override void OnCollisionEnter(HostageAnimationController HostageState)
+        public override void OnCollisionEnter(HostageMinnerAnimationController hostageMinnerState)
         {
             
         }

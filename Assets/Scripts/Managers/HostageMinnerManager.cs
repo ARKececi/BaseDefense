@@ -4,20 +4,19 @@ using Data.UnityObject;
 using Data.ValueObject;
 using Signals;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Managers
 {
-    public class HostageManager : MonoBehaviour
+    public class HostageMinnerManager : MonoBehaviour
     {
         #region Self Variables
 
         public PlayerData playerData;
 
         #region Serialized Variables
-
-        [SerializeField] private HostageController _hostageController;
-        [SerializeField] private HostageAIController _hostageAIController;
         
+        [FormerlySerializedAs("_hostageAIController")] [SerializeField] private HostageMinnerAIController hostageMinnerAIController;
 
         #endregion
 
@@ -51,7 +50,7 @@ namespace Managers
         {
             playerData = GetPlayerData();
             
-            _hostageAIController.GetAgentSpeed(playerData.MoveSpeed);
+            hostageMinnerAIController.GetAgentSpeed(playerData.MoveSpeed);
         }
 
         private PlayerData GetPlayerData()
@@ -61,7 +60,7 @@ namespace Managers
 
         public void OnMiningTarget()
         {
-            _hostageAIController.MiningTarget();
+            hostageMinnerAIController.MiningTarget();
         }
     }
 }

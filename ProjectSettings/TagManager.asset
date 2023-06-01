@@ -17,6 +17,7 @@ TagManager:
   - Clean
   - Hostage
   - Mining
+  - Basket
   layers:
   - Default
   - TransparentFX

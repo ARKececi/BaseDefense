@@ -9,6 +9,7 @@ namespace Enums
         MoneyDiamond,
         BulletNormal,
         HostageDefault,
+        HostageMinner,
         Null
     }
 }

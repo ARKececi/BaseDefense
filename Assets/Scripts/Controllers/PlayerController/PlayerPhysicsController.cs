@@ -42,7 +42,7 @@ namespace Controllers
 
             if (other.CompareTag("Mining"))
             {
-                HostageSignalable.Instance.onMining?.Invoke();
+                playerController.ChangeHostage();
                 playerController.ResetHostageList();
             }
         }

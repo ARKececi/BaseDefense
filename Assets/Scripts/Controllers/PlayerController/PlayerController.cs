@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Enums;
+using Signalable;
 using Signals;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -14,7 +16,7 @@ namespace Controllers
 
         #region Public Variables
 
-        public List<GameObject> _hostageList;
+        public List<GameObject> HostageList;
 
         #endregion
 
@@ -44,21 +46,21 @@ namespace Controllers
 
         public void GetHostageList(GameObject Hostage)
         {
-            _hostageList.Add(Hostage);
+            HostageList.Add(Hostage);
         }
 
         public GameObject LastHostage(GameObject Hostage)
         {
             GameObject hostage;
-            if (_hostageList.Count == 0)
+            if (HostageList.Count == 0)
             {
-                _hostageList.Add(Hostage);
+                HostageList.Add(Hostage);
                 hostage = transform.gameObject;
             }
             else
             {
-                hostage = _hostageList[_hostageList.Count - 1];
-                _hostageList.Add(Hostage);
+                hostage = HostageList[HostageList.Count - 1];
+                HostageList.Add(Hostage);
             }
 
             return hostage;
@@ -89,10 +91,23 @@ namespace Controllers
             }
         }
 
+        public void ChangeHostage()
+        {
+            int count = HostageList.Count;
+            for (int i = 0; i < count; i++)
+            {
+                var position = HostageList[0].transform.position;
+                PoolSignalable.Instance.onListAdd?.Invoke(HostageList[0],PoolType.HostageDefault);
+                HostageList.Remove(HostageList[0]);
+                var minner = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.HostageMinner);
+                minner.transform.position = position;
+            }
+        }
+
         public void ResetHostageList()
         {
-            _hostageList.Clear();
-            _hostageList.TrimExcess();
+            HostageList.Clear();
+            HostageList.TrimExcess();
         }
 
         public void PlayerReset()

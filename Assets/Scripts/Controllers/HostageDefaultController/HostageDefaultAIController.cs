@@ -1,27 +1,28 @@
 using System;
 using System.Collections.Generic;
+using Controllers.HostageDefaultController;
 using Signals;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Controllers.HostageController
 {
-    public class HostageAIController : MonoBehaviour
+    public class HostageDefaultAIController : MonoBehaviour
     {
         #region Self Variables
 
         #region Public Variables
 
         public NavMeshAgent agent;
-        public List<GameObject> _coalTargetList;
         public GameObject _target;
 
         #endregion
 
         #region Serialized Variables
         
-        [SerializeField] private HostageAnimationController hostageAnimationController;
+        [SerializeField] private HostageDefaultAnimationController hostageDefaultAnimationController;
 
         #endregion
         
@@ -29,11 +30,6 @@ namespace Controllers.HostageController
         private bool _miningTrigger;
 
         #endregion
-
-        private void Awake()
-        {
-            _coalTargetList = MiningDistricSignalable.Instance.onCoalsList?.Invoke();
-        }
 
         public void GetAgentSpeed(int Speed)
         {
@@ -56,17 +52,7 @@ namespace Controllers.HostageController
             {
                 Target( PlayerSignals.Instance.onLastHostage?.Invoke(transform.gameObject));
                 _playerTrigger = true;
-                hostageAnimationController.Walking();
-            }
-        }
-
-        public void MiningTarget()
-        {
-            if (_playerTrigger && _miningTrigger == false)
-            {
-                _miningTrigger = true;
-                int rand = Random.Range(0, _coalTargetList.Count - 1);
-                Target(_coalTargetList[rand]);
+                hostageDefaultAnimationController.Walking();
             }
         }
 
@@ -74,7 +60,7 @@ namespace Controllers.HostageController
         {
             _target = transform.gameObject;
         }
-        
+
         private void Update()
         {
             agent.destination = _target.transform.position;

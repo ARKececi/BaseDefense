@@ -3,10 +3,11 @@ using DG.Tweening;
 using Enums;
 using Signalable;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Controllers.HostageController
 {
-    public class HostageController : MonoBehaviour
+    public class HostageMinnerController : MonoBehaviour
     {
         #region Self Variables
 
@@ -18,8 +19,8 @@ namespace Controllers.HostageController
 
         #region Serialized Variables
         
-        [SerializeField] private HostageAnimationController hostageAnimationController;
-        [SerializeField] private HostageAIController hostageAIController;
+        [FormerlySerializedAs("hostageAnimationController")] [SerializeField] private HostageMinnerAnimationController hostageMinnerAnimationController;
+        [FormerlySerializedAs("hostageAIController")] [SerializeField] private HostageMinnerAIController hostageMinnerAIController;
 
         [SerializeField] private GameObject diamondBag;
         [SerializeField] private GameObject pickAxe;
@@ -27,8 +28,7 @@ namespace Controllers.HostageController
         #endregion
 
         #region Private Variables
-
-        private float _timer;
+        
         private GameObject _diamond;
         private GameObject _coal;
 
@@ -38,10 +38,7 @@ namespace Controllers.HostageController
 
         private void Awake()
         {
-            _timer = Timer;
         }
-
-        
 
         private void DiamondSpawn()
         {
@@ -53,25 +50,39 @@ namespace Controllers.HostageController
         {
             _coal = Coal;
             DiamondSpawn();
-            hostageAnimationController.Dig();
-            hostageAnimationController.Idle();
-            hostageAIController.TargetMe();
+            hostageMinnerAnimationController.Dig();
+            hostageMinnerAnimationController.Idle();
             pickAxe.SetActive(true);
-            DOVirtual.DelayedCall(Timer, () => DiamondMove());
+            DOVirtual.DelayedCall(Timer, () => DiamondMove()).OnComplete(DiamondGoes);
         }
 
+        private void DiamondGoes()
+        {
+            hostageMinnerAnimationController.Walking();
+            hostageMinnerAIController.BasketTarget();
+        }
+        
         private void DiamondMove()
         {
-            hostageAnimationController.Hold();
+            hostageMinnerAnimationController.Hold();
             _diamond.transform.SetParent(diamondBag.transform);
             _diamond.transform.DOLocalMove(Vector3.zero, 1);
+        }
+
+        public void BasketTrigger(GameObject Basket)
+        {
+            if (_diamond != null)
+            {
+                hostageMinnerAnimationController.Idle();
+                hostageMinnerAnimationController.HandW();
+            }
+
         }
 
         public void PickAxeActive(bool Active)
         {
             pickAxe.SetActive(Active);
         }
-        
-        
+
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Controllers.HostageController
 {
-    public class HostageAnimationController : MonoBehaviour
+    public class HostageMinnerAnimationController : MonoBehaviour
     {
         #region Self Variables
 
@@ -22,7 +22,7 @@ namespace Controllers.HostageController
         private HostageBaseState _hostageAnimationDigState;
         private HostageBaseState _hostageAnimationIdleState;
         private HostageBaseState _hostageAnimationHoldState;
-        private HostageBaseState _hostageAnimationHostageState;
+        private HostageBaseState _hostageAnimationHandWState;
 
         #endregion
 
@@ -34,19 +34,20 @@ namespace Controllers.HostageController
             _hostageAnimationDigState = new HostageAnimationDigState();
             _hostageAnimationIdleState = new HostageAnimationIdleState();
             _hostageAnimationHoldState = new HostageAnimationHoldState();
-            _hostageAnimationHostageState = new HostageAnimationHostageState();
-        }
-
-        private void Start()
-        {
-            Hostage();
+            _hostageAnimationHandWState = new HostageAnimationHandWState();
         }
 
         public Animator GetAnimator()
         {
             return animator;
         }
-        
+
+        private void Start()
+        {
+            Walking();
+            HandW();
+        }
+
         public void Walking()
         {
             _currentState = _hostageAnimationWalkingState;
@@ -70,10 +71,10 @@ namespace Controllers.HostageController
             _currentState = _hostageAnimationHoldState;
             _currentState.EnterState(this);
         }
-        
-        public void Hostage()
+
+        public void HandW()
         {
-            _currentState = _hostageAnimationHostageState;
+            _currentState = _hostageAnimationHandWState;
             _currentState.EnterState(this);
         }
     }
