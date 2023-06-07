@@ -17,16 +17,23 @@ namespace Controllers.HostageDefaultController
         #region Private Variables
 
         private bool _playerTrigger;
+        private Vector3 worldPosition;
 
         #endregion
 
         #endregion
 
+
+        public void Trigger()
+        {
+            _playerTrigger = true;
+        }
+        
         private void FixedUpdate()
         {
             if (_playerTrigger)
             {
-                if (rigidbody.velocity == Vector3.zero)
+                if (rigidbody.worldCenterOfMass == worldPosition)
                 {
                     hostageDefaultAnimationController.Idle();
                 }
@@ -34,10 +41,11 @@ namespace Controllers.HostageDefaultController
                 {
                     hostageDefaultAnimationController.Walking();
                 }
+                worldPosition = rigidbody.worldCenterOfMass;
             }
         }
 
-        private void Reset()
+        public void Reset()
         {
             _playerTrigger = false;
         }

@@ -11,6 +11,7 @@ namespace Controllers.HostageDefaultController
         #region Serialized Variables
         
         [SerializeField] private HostageDefaultAIController hostageAIController;
+        [SerializeField] private HostageDefaultController hostageDefaultController;
 
         #endregion
 
@@ -21,6 +22,7 @@ namespace Controllers.HostageDefaultController
             if (other.CompareTag("Player"))
             {
                 hostageAIController.PlayerTarget();
+                hostageDefaultController.Trigger();
             }
         }
 

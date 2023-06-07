@@ -15,13 +15,14 @@ namespace Controllers.HostageController
 
         #region Public Variables
 
-        public NavMeshAgent agent;
+        
         public GameObject _target;
 
         #endregion
 
         #region Serialized Variables
         
+        [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private HostageDefaultAnimationController hostageDefaultAnimationController;
 
         #endregion
@@ -31,9 +32,9 @@ namespace Controllers.HostageController
 
         #endregion
 
-        public void GetAgentSpeed(int Speed)
+        public void GetAgentSpeed(float Speed)
         {
-            agent.speed = Speed;
+            navMeshAgent.speed = Speed;
         }
 
         private void Start()
@@ -52,7 +53,6 @@ namespace Controllers.HostageController
             {
                 Target( PlayerSignals.Instance.onLastHostage?.Invoke(transform.gameObject));
                 _playerTrigger = true;
-                hostageDefaultAnimationController.Walking();
             }
         }
 
@@ -63,13 +63,14 @@ namespace Controllers.HostageController
 
         private void Update()
         {
-            agent.destination = _target.transform.position;
+            navMeshAgent.destination = _target.transform.position;
         }
 
-        private void Reset()
+        public void Reset()
         {
             _playerTrigger = false;
             _miningTrigger = false;
+            _target = transform.gameObject;
         }
     }
 }

@@ -60,5 +60,10 @@ namespace Controllers.HostageDefaultController
             _currentState = _hostageDefaultAnimationHostageState;
             _currentState.EnterState(this);
         }
+
+        public void Reset()
+        {
+            Hostage();
+        }
     }
 }

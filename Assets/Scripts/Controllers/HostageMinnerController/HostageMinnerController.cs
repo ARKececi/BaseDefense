@@ -19,8 +19,8 @@ namespace Controllers.HostageController
 
         #region Serialized Variables
         
-        [FormerlySerializedAs("hostageAnimationController")] [SerializeField] private HostageMinnerAnimationController hostageMinnerAnimationController;
-        [FormerlySerializedAs("hostageAIController")] [SerializeField] private HostageMinnerAIController hostageMinnerAIController;
+        [SerializeField] private HostageMinnerAnimationController hostageMinnerAnimationController;
+        [SerializeField] private HostageMinnerAIController hostageMinnerAIController;
 
         [SerializeField] private GameObject diamondBag;
         [SerializeField] private GameObject pickAxe;
@@ -50,10 +50,15 @@ namespace Controllers.HostageController
         {
             _coal = Coal;
             DiamondSpawn();
+            hostageMinnerAIController.ObstacleMinnig();
             hostageMinnerAnimationController.Dig();
             hostageMinnerAnimationController.Idle();
             pickAxe.SetActive(true);
-            DOVirtual.DelayedCall(Timer, () => DiamondMove()).OnComplete(DiamondGoes);
+            DOVirtual.DelayedCall(Timer, () => DiamondMove()).OnComplete(()=>
+            {
+                hostageMinnerAIController.ObstacleMinnig();
+                DiamondGoes();
+            });
         }
 
         private void DiamondGoes()

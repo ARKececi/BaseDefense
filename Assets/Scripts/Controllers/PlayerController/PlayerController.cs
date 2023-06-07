@@ -44,11 +44,6 @@ namespace Controllers
             _healt = Healt;
         }
 
-        public void GetHostageList(GameObject Hostage)
-        {
-            HostageList.Add(Hostage);
-        }
-
         public GameObject LastHostage(GameObject Hostage)
         {
             GameObject hostage;
@@ -86,6 +81,8 @@ namespace Controllers
                     transform.tag = "Player";
                     playerMovementController.DeadPlayer();
                     playerAnimatorController.Dead(false);
+                    HostageDefaultSignalable.Instance.Reset?.Invoke();
+                    ResetHostageList();
                 });
                 _healt = 100;
             }

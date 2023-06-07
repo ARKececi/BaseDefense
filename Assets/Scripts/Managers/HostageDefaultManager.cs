@@ -1,6 +1,9 @@
+using System;
 using Controllers.HostageController;
+using Controllers.HostageDefaultController;
 using Data.UnityObject;
 using Data.ValueObject;
+using Signals;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,11 +22,36 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private HostageDefaultAIController hostageDefaultAIController;
+        [SerializeField] private HostageDefaultController hostageDefaultController;
+        [SerializeField] private HostageDefaultAnimationController hostageDefaultAnimationController;
 
         #endregion
 
         #endregion
         
+        #region Event Subscription
+
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            HostageDefaultSignalable.Instance.Reset += Reset;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            HostageDefaultSignalable.Instance.Reset -= Reset;
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
+        
+        #endregion
         private void Start()
         {
             playerData = GetPlayerData();
@@ -34,6 +62,13 @@ namespace Managers
         private PlayerData GetPlayerData()
         {
             return Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
+        }
+
+        public void Reset()
+        {
+            hostageDefaultAIController.Reset();
+            hostageDefaultController.Reset();
+            hostageDefaultAnimationController.Reset();
         }
     }
 }

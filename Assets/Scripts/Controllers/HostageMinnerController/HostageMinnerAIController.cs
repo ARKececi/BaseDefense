@@ -13,8 +13,7 @@ namespace Controllers.HostageController
         #region Self Variables
 
         #region Public Variables
-
-        public NavMeshAgent agent;
+        
         public List<GameObject> _coalTargetList;
         public GameObject _target;
 
@@ -22,7 +21,9 @@ namespace Controllers.HostageController
 
         #region Serialized Variables
         
-        [FormerlySerializedAs("hostageAnimationController")] [SerializeField] private HostageMinnerAnimationController hostageMinnerAnimationController;
+        [SerializeField] private NavMeshAgent navMeshAgent;
+        [SerializeField] private NavMeshObstacle navMeshObstacle;
+        [SerializeField] private HostageMinnerAnimationController hostageMinnerAnimationController;
 
         #endregion
 
@@ -35,7 +36,7 @@ namespace Controllers.HostageController
 
         public void GetAgentSpeed(int Speed)
         {
-            agent.speed = Speed;
+            navMeshAgent.speed = Speed;
         }
 
         private void Start()
@@ -60,10 +61,28 @@ namespace Controllers.HostageController
         {
             Target(_coalTargetList[4]);
         }
+        
+        public void ObstacleMinnig()
+        {
+            switch (navMeshAgent.enabled)
+            {
+                case true :
+                    navMeshAgent.enabled = false;
+                    navMeshObstacle.enabled = true;
+                    break;
+                case false:
+                    navMeshObstacle.enabled = false;
+                    navMeshAgent.enabled = true;
+                    break;
+            }
+        }
 
         private void Update()
         {
-            agent.destination = _target.transform.position;
+            if (navMeshAgent.enabled)
+            {
+                navMeshAgent.destination = _target.transform.position;
+            }
         }
 
         private void Reset()

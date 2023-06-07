@@ -31,12 +31,12 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            HostageSignalable.Instance.onMining += OnMiningTarget;
+
         }
 
         private void UnsubscribeEvents()
         {
-            HostageSignalable.Instance.onMining -= OnMiningTarget;
+
         }
 
         private void OnDisable()
@@ -56,11 +56,6 @@ namespace Managers
         private PlayerData GetPlayerData()
         {
             return Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
-        }
-
-        public void OnMiningTarget()
-        {
-            hostageMinnerAIController.MiningTarget();
         }
     }
 }
