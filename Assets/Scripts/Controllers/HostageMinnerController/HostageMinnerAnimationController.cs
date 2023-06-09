@@ -23,6 +23,7 @@ namespace Controllers.HostageController
         private HostageBaseState _hostageAnimationIdleState;
         private HostageBaseState _hostageAnimationHoldState;
         private HostageBaseState _hostageAnimationHandWState;
+        private HostageBaseState _hostageAnimationHandIState;
 
         #endregion
 
@@ -35,6 +36,7 @@ namespace Controllers.HostageController
             _hostageAnimationIdleState = new HostageAnimationIdleState();
             _hostageAnimationHoldState = new HostageAnimationHoldState();
             _hostageAnimationHandWState = new HostageAnimationHandWState();
+            _hostageAnimationHandIState = new HostageAnimationHandIState();
         }
 
         public Animator GetAnimator()
@@ -75,6 +77,12 @@ namespace Controllers.HostageController
         public void HandW()
         {
             _currentState = _hostageAnimationHandWState;
+            _currentState.EnterState(this);
+        }
+
+        public void HandI()
+        {
+            _currentState = _hostageAnimationHandIState;
             _currentState.EnterState(this);
         }
     }

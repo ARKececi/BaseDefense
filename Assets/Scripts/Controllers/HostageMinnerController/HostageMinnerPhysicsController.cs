@@ -25,7 +25,7 @@ namespace Controllers.HostageController
 
             if (other.CompareTag("Basket"))
             {
-                hostageMinnerController.BasketTrigger(other.gameObject);
+                hostageMinnerController.BasketTrigger();
             }
         }
 

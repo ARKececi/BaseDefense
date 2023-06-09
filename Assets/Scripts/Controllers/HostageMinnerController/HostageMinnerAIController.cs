@@ -59,7 +59,7 @@ namespace Controllers.HostageController
 
         public void BasketTarget()
         {
-            Target(_coalTargetList[4]);
+            Target(_coalTargetList[_coalTargetList.Count - 1]);
         }
         
         public void ObstacleMinnig()

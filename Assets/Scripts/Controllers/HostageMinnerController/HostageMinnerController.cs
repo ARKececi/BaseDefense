@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Enums;
 using Signalable;
+using Signals;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -74,12 +75,13 @@ namespace Controllers.HostageController
             _diamond.transform.DOLocalMove(Vector3.zero, 1);
         }
 
-        public void BasketTrigger(GameObject Basket)
+        public void BasketTrigger()
         {
             if (_diamond != null)
             {
-                hostageMinnerAnimationController.Idle();
                 hostageMinnerAnimationController.HandW();
+                BasketSignalable.Instance.onDiamondAdd?.Invoke(_diamond);
+                hostageMinnerAIController.MiningTarget();
             }
 
         }
