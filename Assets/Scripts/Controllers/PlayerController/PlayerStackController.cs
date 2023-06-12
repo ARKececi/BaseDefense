@@ -54,7 +54,7 @@ namespace Controllers
         {
             _countY = 0;
             _countZ = 0;
-            PlayerSignals.Instance.onScoreCalculation?.Invoke(_collectedMoneyList.Count);
+            PlayerSignals.Instance.onMoneyScoreCalculation?.Invoke(_collectedMoneyList.Count);
             foreach (var VARIABLE in _collectedMoneyList)
             {
                 Vector3 randRotate = new Vector3(Random.Range(0, 360) ,Random.Range(0, 360) ,Random.Range(0, 360));

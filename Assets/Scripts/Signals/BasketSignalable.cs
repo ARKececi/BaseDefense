@@ -7,5 +7,6 @@ namespace Signals
     public class BasketSignalable : MonoSingleton<BasketSignalable>
     {
        public UnityAction<GameObject> onDiamondAdd = delegate { };
+       public UnityAction<int> onDiamondScoreCalculation = delegate { };
     }
 }

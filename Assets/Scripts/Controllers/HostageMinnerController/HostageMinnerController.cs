@@ -14,7 +14,7 @@ namespace Controllers.HostageController
 
         #region Public Variables
 
-        public int Timer;
+        public float Timer;
 
         #endregion
 
@@ -41,6 +41,11 @@ namespace Controllers.HostageController
         {
         }
 
+        public void DigTimer(float timer)
+        {
+            Timer = timer;
+        }
+
         private void DiamondSpawn()
         {
             _diamond = PoolSignalable.Instance.onListRemove(PoolType.MoneyDiamond);
@@ -49,17 +54,20 @@ namespace Controllers.HostageController
 
         public void Dig(GameObject Coal)
         {
-            _coal = Coal;
-            DiamondSpawn();
-            hostageMinnerAIController.ObstacleMinnig();
-            hostageMinnerAnimationController.Dig();
-            hostageMinnerAnimationController.Idle();
-            pickAxe.SetActive(true);
-            DOVirtual.DelayedCall(Timer, () => DiamondMove()).OnComplete(()=>
+            if (_diamond == null)
             {
+                _coal = Coal;
+                DiamondSpawn();
                 hostageMinnerAIController.ObstacleMinnig();
-                DiamondGoes();
-            });
+                hostageMinnerAnimationController.Dig();
+                hostageMinnerAnimationController.Idle();
+                pickAxe.SetActive(true);
+                DOVirtual.DelayedCall(Timer, () => DiamondMove()).OnComplete(()=>
+                {
+                    hostageMinnerAIController.ObstacleMinnig();
+                    DiamondGoes();
+                });
+            }
         }
 
         private void DiamondGoes()
@@ -82,6 +90,7 @@ namespace Controllers.HostageController
                 hostageMinnerAnimationController.HandW();
                 BasketSignalable.Instance.onDiamondAdd?.Invoke(_diamond);
                 hostageMinnerAIController.MiningTarget();
+                _diamond = null;
             }
 
         }

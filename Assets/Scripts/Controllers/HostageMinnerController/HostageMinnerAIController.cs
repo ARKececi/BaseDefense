@@ -34,7 +34,7 @@ namespace Controllers.HostageController
             _coalTargetList = MiningDistricSignalable.Instance.onCoalsList?.Invoke();
         }
 
-        public void GetAgentSpeed(int Speed)
+        public void GetAgentSpeed(float Speed)
         {
             navMeshAgent.speed = Speed;
         }

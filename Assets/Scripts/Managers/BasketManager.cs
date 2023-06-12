@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using Controllers.BasketController;
 using DG.Tweening;
+using Enums;
+using Signalable;
 using Signals;
 using UnityEngine;
 
@@ -18,6 +21,7 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private GameObject dot;
+        [SerializeField] private BasketController basketController;
 
         #endregion
 
@@ -57,27 +61,7 @@ namespace Managers
 
         private void OnDiamondAdd(GameObject Diamond)
         {
-            DiamondList.Add(Diamond);
-            Diamond.transform.SetParent(dot.transform);
-            Diamond.transform.DOLocalMove(new Vector3(_plusX,_plusY,_plusZ), 1);
-            if (_plusX < .8f)
-            {
-                _plusX += .2f;
-            }
-            else
-            {
-                if (_plusZ > -.8f)
-                {
-                    _plusX = 0;
-                    _plusZ -= .2f;
-                }
-                else
-                {
-                    _plusX = 0;
-                    _plusZ = 0;
-                    _plusY += 1;
-                }
-            }
+            basketController.DiamondAdd(Diamond);
         }
     }
 }

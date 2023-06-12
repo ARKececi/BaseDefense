@@ -12,11 +12,12 @@ namespace Managers
     {
         #region Self Variables
 
-        public PlayerData playerData;
+        public MinerData minerData;
 
         #region Serialized Variables
         
-        [FormerlySerializedAs("_hostageAIController")] [SerializeField] private HostageMinnerAIController hostageMinnerAIController;
+        [SerializeField] private HostageMinnerAIController hostageMinnerAIController;
+        [SerializeField] private HostageMinnerController hostageMinnerController;
 
         #endregion
 
@@ -48,14 +49,15 @@ namespace Managers
 
         private void Awake()
         {
-            playerData = GetPlayerData();
+            minerData = GetMinerData();
             
-            hostageMinnerAIController.GetAgentSpeed(playerData.MoveSpeed);
+            hostageMinnerAIController.GetAgentSpeed(minerData.Speed);
+            hostageMinnerController.DigTimer(minerData.DigTimer);
         }
 
-        private PlayerData GetPlayerData()
+        private MinerData GetMinerData()
         {
-            return Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
+            return Resources.Load<CD_Miner>("Data/CD_Miner").MinerData;
         }
     }
 }

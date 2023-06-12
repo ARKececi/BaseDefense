@@ -24,6 +24,6 @@ MonoBehaviour:
     - PoolObj: {fileID: 6841694606635307699, guid: ba9513ad7db187a4b9dd0f182d876d1c, type: 3}
       PoolCount: 10
     - PoolObj: {fileID: 1314519170327248581, guid: 2f7c4d4756d100b4f94a20b444fece90, type: 3}
-      PoolCount: 50
+      PoolCount: 100
     - PoolObj: {fileID: 8243024553147758302, guid: 4d14e42067b339748b6c53c16ddc08e3, type: 3}
       PoolCount: 10

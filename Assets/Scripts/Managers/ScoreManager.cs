@@ -25,12 +25,14 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            PlayerSignals.Instance.onScoreCalculation += OnScoreCalculation;
+            PlayerSignals.Instance.onMoneyScoreCalculation += OnMoneyScoreCalculation;
+            BasketSignalable.Instance.onDiamondScoreCalculation += OnDiamondScoreCalculation;
         }
 
         private void UnsubscribeEvents()
         {
-            PlayerSignals.Instance.onScoreCalculation -= OnScoreCalculation;
+            PlayerSignals.Instance.onMoneyScoreCalculation -= OnMoneyScoreCalculation;
+            BasketSignalable.Instance.onDiamondScoreCalculation -= OnDiamondScoreCalculation;
         }
 
         private void OnDisable()
@@ -39,9 +41,14 @@ namespace Managers
         }
         #endregion
 
-        private void OnScoreCalculation(int moneyCount)
+        private void OnMoneyScoreCalculation(int moneyCount)
         {
-            scoreController.ScoreCalculation(moneyCount);
+            scoreController.MoneyScoreCalculation(moneyCount);
+        }
+
+        private void OnDiamondScoreCalculation(int diamondCount)
+        {
+            scoreController.DiamondScoreCalculation(diamondCount);
         }
     }
 }

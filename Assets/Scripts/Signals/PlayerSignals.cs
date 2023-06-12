@@ -12,7 +12,8 @@ namespace Signals
         public UnityAction onSafeHouse = delegate { };
         public UnityAction<bool> onWeaponActive = delegate { };
 
-        public UnityAction<int> onScoreCalculation = delegate {  };
+        public UnityAction<int> onMoneyScoreCalculation = delegate {  };
+        
         public UnityAction onMoneyReset = delegate { };
         public Func<int> onListCount = delegate { return 0;};
         

@@ -2378,10 +2378,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52712e67dbda42b787791cc654c4c104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData:
-    MoveSpeed: 0
-    Healt: 0
+  minerData:
+    Speed: 0
+    DigTimer: 0
   hostageMinnerAIController: {fileID: 7160869309430109037}
+  hostageMinnerController: {fileID: 1343046262056102740}
 --- !u!114 &1343046262056102740
 MonoBehaviour:
   m_ObjectHideFlags: 0
