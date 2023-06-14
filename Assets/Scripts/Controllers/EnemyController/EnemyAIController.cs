@@ -5,6 +5,7 @@ using Signals;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Controllers.EnemyController
 {
@@ -49,7 +50,9 @@ namespace Controllers.EnemyController
 
         public void TargetWall()
         {
-            if (transform.position.x < 0) target = _wall[0].transform;else target = _wall[1].transform;
+            int count = Random.Range(0, _wall.Count);
+            target = _wall[count].transform;
+            //if (transform.position.x < 0) target = _wall[0].transform;else target = _wall[1].transform;
             _agent.speed = _normalSpeed;
         }
 

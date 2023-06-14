@@ -42,5 +42,20 @@ namespace Controllers.ScoreController
             _diamondScore += score;
             diamondScore.text = _diamondScore.ToString();
         }
+
+        public bool DecreaseMoneyCount()
+        {
+            int count = _moneyScore--;
+            
+            if (count > 0)
+            {
+                MoneyScoreCalculation(count);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

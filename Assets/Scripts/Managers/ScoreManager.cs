@@ -50,5 +50,10 @@ namespace Managers
         {
             scoreController.DiamondScoreCalculation(diamondCount);
         }
+
+        private bool OnDecreaseMoneyCount()
+        {
+            return scoreController.DecreaseMoneyCount();
+        }
     }
 }
