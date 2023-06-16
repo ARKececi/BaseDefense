@@ -1,9 +1,9 @@
 using TMPro;
 using UnityEngine;
 
-namespace Controllers.TurretAreaController
+namespace Controllers.TurretController
 {
-    public class UIBuyController : MonoBehaviour
+    public class UIBuyOperatorController : MonoBehaviour
     {
         #region self Variables
 

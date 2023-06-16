@@ -27,11 +27,13 @@ namespace Managers
         private void SubscribeEvents()
         {
             PlayerSignals.Instance.onTargetWall += OnTargetWall;
+            PlayerSignals.Instance.onPlayerSafeHouse += OnPlayerSafeHouse;
         }
 
         private void UnsubscribeEvents()
         {
             PlayerSignals.Instance.onTargetWall -= OnTargetWall;
+            PlayerSignals.Instance.onPlayerSafeHouse -= OnPlayerSafeHouse;
         }
 
         private void OnDisable()
@@ -46,6 +48,11 @@ namespace Managers
             {
                 enemyAIController.TargetWall();
             }
+        }
+
+        public void OnPlayerSafeHouse(bool safehouse)
+        {
+            enemyAIController.SafeHouse(safehouse);
         }
     }
 }

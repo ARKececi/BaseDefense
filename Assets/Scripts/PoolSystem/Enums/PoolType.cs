@@ -8,8 +8,10 @@ namespace Enums
         MoneyDolar,
         MoneyDiamond,
         BulletNormal,
+        BulletTurret,
         HostageDefault,
         HostageMinner,
+        AmmoPackage,
         Null
     }
 }

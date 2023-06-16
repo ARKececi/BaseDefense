@@ -34,6 +34,7 @@ namespace Controllers
 
         private int _healt;
         private Transform _playerSpawn;
+        private bool _safeHouse;
 
         #endregion
 
@@ -42,6 +43,16 @@ namespace Controllers
         public void GetHealt(int Healt)
         {
             _healt = Healt;
+        }
+
+        public void SafeHouse(bool safehouse)
+        {
+            _safeHouse = safehouse;
+        }
+
+        public bool ReturnSafeHose()
+        {
+            return _safeHouse;
         }
 
         public GameObject LastHostage(GameObject Hostage)

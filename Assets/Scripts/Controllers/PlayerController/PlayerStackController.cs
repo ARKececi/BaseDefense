@@ -15,8 +15,8 @@ namespace Controllers
 
         #region Public Variables
 
-        public List<GameObject> _collectedMoneyList;
-        public List<GameObject> _poolMoneyList;
+        public List<GameObject> CollectedMoneyList;
+        public List<GameObject> CollectedAmmoList;
 
         #endregion
 
@@ -39,9 +39,9 @@ namespace Controllers
 
         public void AddMoney(GameObject other)
         {
-            if (_collectedMoneyList.Count < 14)
+            if (CollectedMoneyList.Count < 14)
             {
-                _collectedMoneyList.Add(other);
+                CollectedMoneyList.Add(other);
                 other.transform.tag = "Collected";
                 other.transform.SetParent(moneyBag.transform);
                 other.transform.DOLocalMove(new Vector3(0,_countY += .3f,_countZ), 1);
@@ -54,8 +54,8 @@ namespace Controllers
         {
             _countY = 0;
             _countZ = 0;
-            PlayerSignals.Instance.onMoneyScoreCalculation?.Invoke(_collectedMoneyList.Count);
-            foreach (var VARIABLE in _collectedMoneyList)
+            PlayerSignals.Instance.onMoneyScoreCalculation?.Invoke(CollectedMoneyList.Count);
+            foreach (var VARIABLE in CollectedMoneyList)
             {
                 Vector3 randRotate = new Vector3(Random.Range(0, 360) ,Random.Range(0, 360) ,Random.Range(0, 360));
                 Vector3 randVector = new Vector3(Random.Range(-2f, 2f), Random.Range(1f, 2f), Random.Range(-2f, 2f));
@@ -66,30 +66,65 @@ namespace Controllers
                         OnComplete(()=>
                         {
                             PoolSignalable.Instance.onListAdd?.Invoke(VARIABLE,PoolType.MoneyDolar);
-                            _collectedMoneyList.Remove(VARIABLE);
+                            CollectedMoneyList.Remove(VARIABLE);
                         });
                 });
             }
         }
 
+        public void AddAmmo(GameObject ammo)
+        {
+            if (CollectedAmmoList.Count < 4)
+            {
+                CollectedAmmoList.Add(ammo);
+                ammo.transform.SetParent(moneyBag.transform);
+                ammo.transform.DOLocalMove(new Vector3(0,_countY,_countZ), 1);
+                ammo.transform.DOLocalRotate(Vector3.zero, 1);
+                _countY += .6f;
+                if (_countY > 2.4f) { _countY = 0; _countZ -= +0.3f; }
+            }
+            else
+            {
+                PlayerSignals.Instance.onAmmoFull?.Invoke(true);
+            }
+        }
+
+        public GameObject RemoveAmmo()
+        {
+            if (CollectedAmmoList.Count > 0)
+            {
+                var ammo = CollectedAmmoList[CollectedAmmoList.Count - 1];
+                CollectedAmmoList.Remove(ammo);
+                PlayerSignals.Instance.onAmmoFull?.Invoke(false);
+                _countY -= .6f;
+                if (_countY <= 0f) { _countY = 2.4f; _countZ -= -0.3f; }
+                if (CollectedAmmoList.Count == 0) { _countY = 0; _countZ = 0; }
+                return ammo;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public bool OnContain(GameObject money)
         {
-            return _collectedMoneyList.Contains(money);
+            return CollectedMoneyList.Contains(money);
         }
 
         public void ResetList()
         {
-            int count = _collectedMoneyList.Count;
+            int count = CollectedMoneyList.Count;
             for (int i = 0; i < count; i++)
             {
-                _collectedMoneyList[0].transform.SetParent(transform.parent);
-                _collectedMoneyList.Remove(_collectedMoneyList[0]);
+                CollectedMoneyList[0].transform.SetParent(transform.parent);
+                CollectedMoneyList.Remove(CollectedMoneyList[0]);
             }
         }
 
         public int ListCount()
         {
-            return _collectedMoneyList.Count;
+            return CollectedMoneyList.Count;
         }
     }
 }

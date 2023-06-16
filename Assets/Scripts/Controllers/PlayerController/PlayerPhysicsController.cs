@@ -10,11 +10,23 @@ namespace Controllers
     {
         #region Self Variables
 
+        #region Public Variables
+
+        public float Timer;
+
+        #endregion
+
         #region Serialized Variables
 
         [SerializeField] private PlayerAnimatorController playerAnimatorController;
-        [FormerlySerializedAs("stackController")] [SerializeField] private PlayerStackController playerStackController;
+        [SerializeField] private PlayerStackController playerStackController;
         [SerializeField] private PlayerController playerController;
+
+        #endregion
+
+        #region Private Variables
+
+        private float _timer;
 
         #endregion
 
@@ -29,8 +41,10 @@ namespace Controllers
 
             if (other.CompareTag("SafeHouse"))
             {
+                playerController.SafeHouse(true);
                 playerAnimatorController.SafeHouse(true);
                 PlayerSignals.Instance.onWeaponActive?.Invoke(false);
+                PlayerSignals.Instance.onPlayerSafeHouse?.Invoke(true);
                 PlayerSignals.Instance.onTargetWall?.Invoke();
                 PlayerSignals.Instance.onSafeHouse?.Invoke();
             }
@@ -51,8 +65,10 @@ namespace Controllers
         {
             if (other.CompareTag("SafeHouse"))
             {
+                playerController.SafeHouse(false);
                 playerAnimatorController.SafeHouse(false);
                 PlayerSignals.Instance.onWeaponActive?.Invoke(true);
+                PlayerSignals.Instance.onPlayerSafeHouse?.Invoke(false);
             }
         }
     }

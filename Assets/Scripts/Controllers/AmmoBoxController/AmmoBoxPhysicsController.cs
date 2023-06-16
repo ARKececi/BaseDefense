@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Controllers.TurretAreaController
+namespace Controllers.AmmoBoxController
 {
-    public class BuyPhysics : MonoBehaviour
+    public class AmmoBoxPhysicsController : MonoBehaviour
     {
         #region Self Variables
 
@@ -15,7 +15,7 @@ namespace Controllers.TurretAreaController
 
         #region Serialized Variables
 
-        [SerializeField] private TurretAreaController turretAreaController;
+        [SerializeField] private AmmoBoxController ammoBoxController;
 
         #endregion
 
@@ -33,8 +33,8 @@ namespace Controllers.TurretAreaController
             {
                 if (_timer < 0)
                 {
+                    ammoBoxController.CreateAmmo();
                     _timer = Timer;
-                    turretAreaController.PlayerTrigger();   
                 }
                 _timer -= UnityEngine.Time.deltaTime;
             }

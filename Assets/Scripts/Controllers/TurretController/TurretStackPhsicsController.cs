@@ -1,9 +1,9 @@
-using System;
+using Signals;
 using UnityEngine;
 
-namespace Controllers.TurretAreaController
+namespace Controllers.TurretController
 {
-    public class BuyPhysics : MonoBehaviour
+    public class TurretStackPhsicsController : MonoBehaviour
     {
         #region Self Variables
 
@@ -15,7 +15,7 @@ namespace Controllers.TurretAreaController
 
         #region Serialized Variables
 
-        [SerializeField] private TurretAreaController turretAreaController;
+        [SerializeField] private TurretController turretController;
 
         #endregion
 
@@ -26,15 +26,15 @@ namespace Controllers.TurretAreaController
         #endregion
 
         #endregion
-
+        
         private void OnTriggerStay(Collider other)
         {
             if (other.CompareTag("Player"))
             {
                 if (_timer < 0)
                 {
+                    turretController.AddAmmo(TurretSignals.Instance.onRemoveAmmo?.Invoke());
                     _timer = Timer;
-                    turretAreaController.PlayerTrigger();   
                 }
                 _timer -= UnityEngine.Time.deltaTime;
             }

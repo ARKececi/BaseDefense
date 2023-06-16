@@ -18,6 +18,14 @@ TagManager:
   - Hostage
   - Mining
   - Basket
+  - BuildArea
+  - Turret
+  - TurretStack
+  - AttackArea
+  - BulletArea
+  - GunShop
+  - Harvester
+  - AmmoBox
   layers:
   - Default
   - TransparentFX

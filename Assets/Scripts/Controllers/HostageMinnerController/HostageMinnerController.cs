@@ -85,6 +85,7 @@ namespace Controllers.HostageController
 
         public void BasketTrigger()
         {
+            Debug.Log(_diamond);
             if (_diamond != null)
             {
                 hostageMinnerAnimationController.HandW();

@@ -12,8 +12,6 @@ namespace Controllers
 
         #region Serialized Variables
 
-        [SerializeField] private Rigidbody rigidbody;
-
         #endregion
 
         #endregion

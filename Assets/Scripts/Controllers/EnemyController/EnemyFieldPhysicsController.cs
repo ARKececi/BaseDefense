@@ -20,18 +20,32 @@ namespace Controllers.EnemyController
         {
             if (other.CompareTag("Player"))
             {
-                enemyAIController.OnTaretPlayer();
-                enemyAnimationController.Run();
+                if (enemyAIController.ReSafeHouse() == false)
+                {
+                    enemyAIController.OnTaretPlayer();
+                    enemyAnimationController.Run();
+                }
+            }
+
+            if (other.CompareTag("Plane"))
+            {
+                enemyAIController.FirstSafeHouse();
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
+            
+            
             if (other.CompareTag("Player"))
             {
-                enemyAIController.TargetWall();
-                enemyAnimationController.Walking();
+                if (enemyAIController.ReSafeHouse() == false)
+                {
+                    enemyAIController.TargetWall();
+                    enemyAnimationController.Walking();
+                }
             }
+            
         }
     }
 }

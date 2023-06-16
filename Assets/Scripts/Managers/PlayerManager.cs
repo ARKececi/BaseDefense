@@ -52,6 +52,9 @@ namespace Managers
             EnemySignals.Instance.onContains += playerStackController.OnContain;
             PlayerSignals.Instance.onListCount += OnListCount;
             PlayerSignals.Instance.onLastHostage += OnLastHostage;
+            AmmoBoxSignals.Instance.onAddAmmo += OnAddAmmo;
+            TurretSignals.Instance.onRemoveAmmo += OnRemoveAmmo;
+            EnemySignals.Instance.onReturnSafeHouse += OnReturnSafeHouse;
         }
 
         private void UnsubscribeEvents()
@@ -70,6 +73,9 @@ namespace Managers
             EnemySignals.Instance.onContains -= playerStackController.OnContain;
             PlayerSignals.Instance.onListCount -= OnListCount;
             PlayerSignals.Instance.onLastHostage -= OnLastHostage;
+            AmmoBoxSignals.Instance.onAddAmmo -= OnAddAmmo;
+            TurretSignals.Instance.onRemoveAmmo -= OnRemoveAmmo;
+            EnemySignals.Instance.onReturnSafeHouse -= OnReturnSafeHouse;
         }
 
         private void OnDisable()
@@ -115,6 +121,21 @@ namespace Managers
         private GameObject OnLastHostage(GameObject Hostage)
         {
             return playerController.LastHostage(Hostage);
+        }
+
+        private void OnAddAmmo(GameObject ammo)
+        {
+            playerStackController.AddAmmo(ammo);
+        }
+
+        private GameObject OnRemoveAmmo()
+        {
+            return playerStackController.RemoveAmmo();
+        }
+
+        private bool OnReturnSafeHouse()
+        {
+            return playerController.ReturnSafeHose();
         }
     }
 }

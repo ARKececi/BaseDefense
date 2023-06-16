@@ -42,24 +42,41 @@ namespace Controllers.EnemyController
             TargetWall();
         }
 
+        public bool ReSafeHouse()
+        {
+            return _safeHouse;
+        }
+
+        public void FirstSafeHouse()
+        {
+            _safeHouse = (bool)EnemySignals.Instance.onReturnSafeHouse?.Invoke();
+        }
+
         public void OnSpeed(int NormalSpeed, int FastSpeed)
         {
             _normalSpeed = NormalSpeed;
             _fastSpeed = FastSpeed;
         }
 
+        public void SafeHouse(bool safehouse)
+        {
+            _safeHouse = safehouse;
+        }
+
         public void TargetWall()
         {
             int count = Random.Range(0, _wall.Count);
             target = _wall[count].transform;
-            //if (transform.position.x < 0) target = _wall[0].transform;else target = _wall[1].transform;
             _agent.speed = _normalSpeed;
         }
 
         public void OnTaretPlayer()
         {
-            target = EnemySignals.Instance.onEnemyTarget?.Invoke();
-            _agent.speed = _fastSpeed;
+            if (_safeHouse == false)
+            {
+                target = EnemySignals.Instance.onEnemyTarget?.Invoke();
+                _agent.speed = _fastSpeed;
+            }
         }
 
         public void OnNullTarget()

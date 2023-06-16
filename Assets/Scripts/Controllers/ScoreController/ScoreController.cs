@@ -45,15 +45,15 @@ namespace Controllers.ScoreController
 
         public bool DecreaseMoneyCount()
         {
-            int count = _moneyScore--;
-            
-            if (count > 0)
+            if (_moneyScore > 0)
             {
-                MoneyScoreCalculation(count);
+                int count = _moneyScore--;
+                moneyScore.text = count.ToString();
                 return true;
             }
             else
             {
+                _moneyScore = 0;
                 return false;
             }
         }

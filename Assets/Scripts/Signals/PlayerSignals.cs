@@ -10,6 +10,7 @@ namespace Signals
     {
         public UnityAction onTargetWall = delegate { };
         public UnityAction onSafeHouse = delegate { };
+        public UnityAction<bool> onPlayerSafeHouse = delegate { };
         public UnityAction<bool> onWeaponActive = delegate { };
 
         public UnityAction<int> onMoneyScoreCalculation = delegate {  };
@@ -18,5 +19,6 @@ namespace Signals
         public Func<int> onListCount = delegate { return 0;};
         
         public Func<GameObject,GameObject> onLastHostage = delegate { return null;};
+        public UnityAction<bool> onAmmoFull = delegate { };
     }
 }

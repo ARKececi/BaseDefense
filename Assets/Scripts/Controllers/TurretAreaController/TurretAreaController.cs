@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Signals;
 using UnityEngine;
 
 namespace Controllers.TurretAreaController
@@ -30,7 +31,15 @@ namespace Controllers.TurretAreaController
 
         public void PlayerTrigger()
         {
-
+            if ((bool)ScoreSignalable.Instance.onMoneyScoreCalculation?.Invoke())
+            {
+                uıBuyController.OnPrice(Price--);
+                if (Price <= 0)
+                {
+                    piece[1].SetActive(true);
+                    piece[0].gameObject.SetActive(false);
+                }
+            }
         }
     }
 }

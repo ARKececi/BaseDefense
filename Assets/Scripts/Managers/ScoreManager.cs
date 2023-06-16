@@ -27,12 +27,14 @@ namespace Managers
         {
             PlayerSignals.Instance.onMoneyScoreCalculation += OnMoneyScoreCalculation;
             BasketSignalable.Instance.onDiamondScoreCalculation += OnDiamondScoreCalculation;
+            ScoreSignalable.Instance.onMoneyScoreCalculation += OnDecreaseMoneyCount;
         }
 
         private void UnsubscribeEvents()
         {
             PlayerSignals.Instance.onMoneyScoreCalculation -= OnMoneyScoreCalculation;
             BasketSignalable.Instance.onDiamondScoreCalculation -= OnDiamondScoreCalculation;
+            ScoreSignalable.Instance.onMoneyScoreCalculation -= OnDecreaseMoneyCount;
         }
 
         private void OnDisable()

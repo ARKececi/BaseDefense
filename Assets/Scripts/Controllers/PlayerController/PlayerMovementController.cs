@@ -101,10 +101,13 @@ namespace Controllers
 
         public void RemoveEnemy(GameObject enemy)
         {
-            Enemy.Remove(enemy);
-            if (Enemy.Count == 0)
+            if (Enemy.Contains(enemy))
             {
-                EnemyTrigger = false;
+                Enemy.Remove(enemy);
+                if (Enemy.Count == 0)
+                {
+                    EnemyTrigger = false;
+                }
             }
         }
 
