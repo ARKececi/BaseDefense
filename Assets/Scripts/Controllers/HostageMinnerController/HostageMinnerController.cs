@@ -49,7 +49,7 @@ namespace Controllers.HostageController
         private void DiamondSpawn()
         {
             _diamond = PoolSignalable.Instance.onListRemove(PoolType.MoneyDiamond);
-            _diamond.transform.position = _coal.transform.position;
+            _diamond.transform.position = new Vector3(_coal.transform.position.x, _coal.transform.position.y -.5f, _coal.transform.position.z);
         }
 
         public void Dig(GameObject Coal)
@@ -85,7 +85,6 @@ namespace Controllers.HostageController
 
         public void BasketTrigger()
         {
-            Debug.Log(_diamond);
             if (_diamond != null)
             {
                 hostageMinnerAnimationController.HandW();

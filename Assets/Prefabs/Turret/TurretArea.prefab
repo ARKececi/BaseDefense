@@ -687,8 +687,11 @@ MonoBehaviour:
   turretOperator: {fileID: 1196809937337320227}
   turret: {fileID: 8100243602412921293}
   barrel: {fileID: 8071479138501473638}
-  dot: {fileID: 7295250702461695905}
+  ammoDot: {fileID: 7295250702461695905}
+  playerDot: {fileID: 1196809937337320227}
   "u\u0131BuyOperatorController": {fileID: 2464889049325507646}
+  operatorPiece: {fileID: 5557241951163247703}
+  levelPiece: {fileID: 0}
 --- !u!1 &6898527496126711651
 GameObject:
   m_ObjectHideFlags: 0

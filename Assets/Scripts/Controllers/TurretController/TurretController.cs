@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using Controllers.TurretAreaController;
 using DG.Tweening;
 using Enums;
+using Keys;
 using Signalable;
 using Signals;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Controllers.TurretController
 {
@@ -28,8 +30,11 @@ namespace Controllers.TurretController
         [SerializeField] private GameObject turretOperator;
         [SerializeField] private GameObject turret;
         [SerializeField] private GameObject barrel;
-        [SerializeField] private GameObject dot;
+        [SerializeField] private GameObject ammoDot;
+        [SerializeField] private GameObject playerDot;
         [SerializeField] private UIBuyOperatorController uıBuyOperatorController;
+        [SerializeField] private GameObject operatorPiece;
+        [SerializeField] private GameObject levelPiece;
 
         #endregion
 
@@ -40,6 +45,9 @@ namespace Controllers.TurretController
         private float _plusY;
         private float _plusZ;
         private int _ammoCount;
+        private Vector3 _rotateInput;
+        private bool _turretHold;
+        private GameObject _player;
 
         #endregion
 
@@ -51,6 +59,11 @@ namespace Controllers.TurretController
             _plusX = -1;
             _plusY = 1;
             _plusZ = 0;
+        }
+        
+        public void InputController( InputParams inputParams)
+        {
+            _rotateInput = inputParams.MoveValues;
         }
 
         public void AddEnemy(GameObject enemy)
@@ -71,7 +84,7 @@ namespace Controllers.TurretController
             if (ammo != null)
             {
                 Ammo.Add(ammo);
-                ammo.transform.SetParent(dot.transform);
+                ammo.transform.SetParent(ammoDot.transform);
                 ammo.transform.eulerAngles = Vector3.zero;
                 ammo.transform.DOLocalMove(new Vector3(_plusX, _plusY, _plusZ), .5f);
                 if (_plusX < 1)
@@ -99,6 +112,7 @@ namespace Controllers.TurretController
         {
             Target();
             Fire();
+            TurretClose();
         }
 
         public void PlayerTrigger()
@@ -114,9 +128,21 @@ namespace Controllers.TurretController
             }
         }
 
+        public void OperatorPlayer(GameObject player)
+        {
+            if (turretOperator.activeSelf != true)
+            {
+                player.transform.SetParent(operatorPiece.transform);
+                player.transform.position = playerDot.transform.position;
+                TurretSignals.Instance.onTurretHold?.Invoke(true, transform.gameObject);
+                _player = player;
+                _turretHold = true;
+            }
+        }
+
         private void Fire()
         {
-            if (turretOperator.activeSelf)
+            if (turretOperator.activeSelf || _turretHold)
             {
                 if (Ammo.Count > 0)
                 {
@@ -165,6 +191,19 @@ namespace Controllers.TurretController
                 }
             }
         }
+
+        private void TurretClose()
+        {
+            if (_turretHold)
+            {
+                if (_rotateInput.z < -.4f)
+                {
+                    _turretHold = false;
+                    TurretSignals.Instance.onTurretHold?.Invoke(false, transform.gameObject);
+                    _player.transform.SetParent(levelPiece.transform);
+                }
+            }
+        }
         
         private void Target()
         {
@@ -174,6 +213,10 @@ namespace Controllers.TurretController
                 {
                     turret.transform.LookAt(Enemys[0].transform);
                 }
+            }
+            else if (_turretHold)
+            {
+                turret.transform.eulerAngles = new Vector3(0, _rotateInput.x * 45, 0);
             }
         }
     }

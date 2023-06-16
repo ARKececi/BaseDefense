@@ -1,5 +1,4 @@
 using System;
-using Signals;
 using UnityEngine;
 
 namespace Controllers.TurretController
@@ -8,17 +7,9 @@ namespace Controllers.TurretController
     {
         #region Self Variables
 
-        #region Public Variables
-
-        #endregion
-
         #region Serialized Variables
 
         [SerializeField] private TurretController turretController;
-
-        #endregion
-
-        #region Private Variables
 
         #endregion
 
@@ -26,17 +17,9 @@ namespace Controllers.TurretController
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Enemy"))
+            if (other.CompareTag("Player"))
             {
-                turretController.AddEnemy(other.gameObject);
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Enemy"))
-            {
-                turretController.RemoveEnemy(other.gameObject);
+                turretController.OperatorPlayer(other.gameObject);
             }
         }
     }

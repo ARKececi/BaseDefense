@@ -31,6 +31,8 @@ namespace Controllers
         private Vector3 _moveInput;
         private int _moveSpeed;
         private PlayerData _playerData;
+        private bool _turretHold;
+        
         #endregion
         
         #endregion
@@ -79,14 +81,26 @@ namespace Controllers
         
         private void FixedUpdate()
         {
-            if (_isReadyToPlay)
+            if (_turretHold == false)
             {
-                Move();
+                if (_isReadyToPlay)
+                {
+                    Move();
+                }
+                else
+                {
+                    Stop();
+                }
             }
             else
             {
                 Stop();
             }
+        }
+        
+        public void TurretHold(bool hold)
+        {
+            _turretHold = hold;
         }
 
         public void AddEnemy(GameObject enemy)

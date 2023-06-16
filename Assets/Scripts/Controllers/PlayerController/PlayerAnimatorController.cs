@@ -35,6 +35,8 @@ namespace Controllers
         private bool _safehouse;
         private bool _dead;
         private bool _deadTrigger;
+        private bool _turretHold;
+        private bool _turretTrigger;
 
         private PlayerBaseState _currentState;
         private PlayerBaseState _playerPistolIdleState;
@@ -48,6 +50,7 @@ namespace Controllers
         private PlayerBaseState _playerAngelMovement;
 
         private PlayerBaseState _playerDeadState;
+        private PlayerBaseState _playerTurretHoldState;
 
         #endregion
 
@@ -64,6 +67,7 @@ namespace Controllers
             _playerIdleState = new PlayerIdleState();
             _playerWalkingState = new PlayerWalkingState();
             _playerDeadState = new PlayerDeadState();
+            _playerTurretHoldState = new PlayerTurretHoldState();
 
             AimTrigger = false;
             _acceleration = 3;
@@ -74,80 +78,97 @@ namespace Controllers
 
         private void Update()
         {
-            if (_dead)
+            if (_turretHold)
             {
-                if (_deadTrigger != true)
+                if (_turretTrigger != true)
                 {
-                    PlayerDeadState();
-                    _deadTrigger = true;
+                    PlayerTurretHoldState();
+                    _turretTrigger = true;
                 }
             }
             else
             {
-                if (_moveInput != Vector3.zero)
+                _turretTrigger = false;
+                if (_dead)
                 {
-                    if (_safehouse)
+                    if (_deadTrigger != true)
                     {
-                        PlayerWalkingState();
-                        PlayerAngelMovement();
-                        _trigger = false;
-                        _deadTrigger = false;
-                    }
-                    else
-                    {
-                        if (AimTrigger)
-                        {
-                            PlayerAngelMovementInputParams();
-                            if (_trigger)
-                            {
-                                WeaponAimingState();
-                            }
-                            _trigger = false;
-                        }
-                        else
-                        {
-                            PlayerAngelMovement();
-                            if (!_trigger)
-                            {
-                                WeaponIdleState();
-                            }
-                            _trigger = true;
-                        }
+                        PlayerDeadState();
+                        _deadTrigger = true;
                     }
                 }
                 else
                 {
-                    if (_safehouse)
+                    if (_moveInput != Vector3.zero)
                     {
-                        PlayerIdleState();
-                        PlayerAngelMovement();
-                        _trigger = false;
+                        if (_safehouse)
+                        {
+                            PlayerWalkingState();
+                            PlayerAngelMovement();
+                            _trigger = false;
+                            _deadTrigger = false;
+                        }
+                        else
+                        {
+                            if (AimTrigger)
+                            {
+                                PlayerAngelMovementInputParams();
+                                if (_trigger)
+                                {
+                                    WeaponAimingState();
+                                }
+                                _trigger = false;
+                            }
+                            else
+                            {
+                                PlayerAngelMovement();
+                                if (!_trigger)
+                                {
+                                    WeaponIdleState();
+                                }
+                                _trigger = true;
+                            }
+                        }
                     }
                     else
                     {
-                        
-                        if (AimTrigger)
+                        if (_safehouse)
                         {
-                            if (_trigger)
-                            {
-                                WeaponAimingState();
-                            }
+                            PlayerIdleState();
+                            PlayerAngelMovement();
                             _trigger = false;
                         }
                         else
                         {
-                            if (!_trigger)
+                            
+                            if (AimTrigger)
                             {
-                                WeaponIdleState();
+                                if (_trigger)
+                                {
+                                    WeaponAimingState();
+                                }
+                                _trigger = false;
                             }
-                            _trigger = true;
+                            else
+                            {
+                                if (!_trigger)
+                                {
+                                    WeaponIdleState();
+                                }
+                                _trigger = true;
+                            }
                         }
+                        VelocityXZero();
+                        VelocityZZero();
                     }
-                    VelocityXZero();
-                    VelocityZZero();
+                    _playerAngelMovement.UpdateState(this);
                 }
-                _playerAngelMovement.UpdateState(this);
             }
+        }
+
+        public void TurretHold(bool hold)
+        {
+            _turretHold = hold;
         }
 
         public void Dead(bool dead)
@@ -190,6 +211,12 @@ namespace Controllers
         private void PlayerDeadState()
         {
             _currentState = _playerDeadState;
+            _currentState.EnterState(this);
+        }
+
+        private void PlayerTurretHoldState()
+        {
+            _currentState = _playerTurretHoldState;
             _currentState.EnterState(this);
         }
         

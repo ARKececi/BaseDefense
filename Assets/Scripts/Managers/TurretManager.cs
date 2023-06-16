@@ -1,4 +1,5 @@
 using Controllers.TurretController;
+using Keys;
 using Signals;
 using UnityEngine;
 
@@ -26,11 +27,13 @@ namespace Managers
         private void SubscribeEvents()
         {
             EnemySignals.Instance.onEnemyRemove += OnRemoveEnemy;
+            InputSignals.Instance.onInputDragged += OnInputController;
         }
 
         private void UnsubscribeEvents()
         {
             EnemySignals.Instance.onEnemyRemove -= OnRemoveEnemy;
+            InputSignals.Instance.onInputDragged -= OnInputController;;
         }
 
         private void OnDisable()
@@ -47,6 +50,11 @@ namespace Managers
         private void OnAddAmmo(GameObject ammo)
         {
             turretController.AddAmmo(ammo);
+        }
+
+        private void OnInputController(InputParams inputParams)
+        {
+            turretController.InputController(inputParams);
         }
 
     }

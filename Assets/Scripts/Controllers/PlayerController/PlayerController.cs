@@ -71,6 +71,17 @@ namespace Controllers
 
             return hostage;
         }
+
+        public void TurretHold(bool hold, GameObject turret)
+        {
+            playerMovementController.TurretHold(hold);
+            playerAnimatorController.TurretHold(hold);
+            if (hold)
+            {
+                transform.LookAt(turret.transform);
+            }
+        }
+        
         private void Start()
         {
             _playerSpawn = transform;

@@ -55,6 +55,7 @@ namespace Managers
             AmmoBoxSignals.Instance.onAddAmmo += OnAddAmmo;
             TurretSignals.Instance.onRemoveAmmo += OnRemoveAmmo;
             EnemySignals.Instance.onReturnSafeHouse += OnReturnSafeHouse;
+            TurretSignals.Instance.onTurretHold += OnTurretHold;
         }
 
         private void UnsubscribeEvents()
@@ -136,6 +137,11 @@ namespace Managers
         private bool OnReturnSafeHouse()
         {
             return playerController.ReturnSafeHose();
+        }
+
+        private void OnTurretHold(bool hold, GameObject turret)
+        {
+            playerController.TurretHold(hold, turret);
         }
     }
 }
