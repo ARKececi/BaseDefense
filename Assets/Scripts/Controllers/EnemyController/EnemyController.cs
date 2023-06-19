@@ -74,7 +74,7 @@ namespace Controllers.EnemyController
                     PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.EnemyEasy);
                     EnemySignals.Instance.onStackRemove?.Invoke();
                 });
-                _healt = Enemy[enemyEnum].NormalSpeed;
+                _healt = Enemy[enemyEnum].Healt;
             }
         }
 

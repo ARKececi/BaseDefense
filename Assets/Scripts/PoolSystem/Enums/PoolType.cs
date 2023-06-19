@@ -11,6 +11,9 @@ namespace Enums
         BulletTurret,
         HostageDefault,
         HostageMinner,
+        HostageCarrier,
+        HostageSoldier,
+        HostagePicker,
         AmmoPackage,
         Null
     }

@@ -15,7 +15,7 @@ MonoBehaviour:
   EnemyDatas:
     m_Keys: 00000000
     m_Values:
-    - Healt: 200
+    - Healt: 100
       Damage: 20
       NormalSpeed: 4
       FastSpeed: 6

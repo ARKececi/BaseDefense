@@ -66,6 +66,7 @@ namespace Controllers.PoolController
         {
             PoolChanges[poolType].Pool.Add(poolObj);
             poolObj.transform.SetParent(place.transform,true);
+            poolObj.transform.position = Vector3.zero;
             poolObj.SetActive(false);
             if (PoolChanges[poolType].Use.Contains(poolObj))
             {
@@ -75,14 +76,18 @@ namespace Controllers.PoolController
         
         public GameObject ListRemove(PoolType poolType)
         {
-            GameObject poolObj = PoolChanges[poolType].Pool[0];
-            PoolChanges[poolType].Use.Add(poolObj);
-            poolObj.SetActive(true);
-            if (PoolChanges[poolType].Pool.Contains(poolObj))
+            if (PoolChanges[poolType].Pool.Count != 0)
             {
-                PoolChanges[poolType].Pool.Remove(poolObj);
+                GameObject poolObj = PoolChanges[poolType].Pool[0];
+                PoolChanges[poolType].Use.Add(poolObj);
+                poolObj.SetActive(true);
+                if (PoolChanges[poolType].Pool.Contains(poolObj))
+                {
+                    PoolChanges[poolType].Pool.Remove(poolObj);
+                }
+                return poolObj;
             }
-            return poolObj;
+            else return null;
         }
     }
 }

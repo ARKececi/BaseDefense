@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Signals;
 using UnityEngine;
 
@@ -34,13 +35,18 @@ namespace Controllers
                 }
             }
 
-            if (other.CompareTag("Dead"))
+            if (other.CompareTag("Dead") || other.CompareTag("Enemy"))
             {
                 if (_trigger == false)
                 {
                     moneyController.UseKinematic(false);
                     moneyController.ColliderTrigger(false);
                 }
+            }
+
+            if (other.CompareTag("SafeHouse"))
+            {
+                DOVirtual.DelayedCall(2,()=>_trigger = false);
             }
         }
     }

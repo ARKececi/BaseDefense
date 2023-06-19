@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Extentions
 {
-    public abstract class HostageBaseState
+    public abstract class HostageMinerBaseState
     {
         public abstract void EnterState(HostageMinnerAnimationController playerState);
         public abstract void UpdateState(HostageMinnerAnimationController playerState);

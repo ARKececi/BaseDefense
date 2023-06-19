@@ -17,13 +17,13 @@ namespace Controllers.HostageController
 
         #region Private Variables
 
-        private HostageBaseState _currentState;
-        private HostageBaseState _hostageAnimationWalkingState;
-        private HostageBaseState _hostageAnimationDigState;
-        private HostageBaseState _hostageAnimationIdleState;
-        private HostageBaseState _hostageAnimationHoldState;
-        private HostageBaseState _hostageAnimationHandWState;
-        private HostageBaseState _hostageAnimationHandIState;
+        private HostageMinerBaseState _currentState;
+        private HostageMinerBaseState _hostageMinerAnimationWalkingState;
+        private HostageMinerBaseState _hostageMinerAnimationDigState;
+        private HostageMinerBaseState _hostageMinerAnimationIdleState;
+        private HostageMinerBaseState _hostageMinerAnimationHoldState;
+        private HostageMinerBaseState _hostageMinerAnimationHandWState;
+        private HostageMinerBaseState _hostageMinerAnimationHandIState;
 
         #endregion
 
@@ -31,12 +31,12 @@ namespace Controllers.HostageController
 
         private void Awake()
         {
-            _hostageAnimationWalkingState = new HostageAnimationWalkingState();
-            _hostageAnimationDigState = new HostageAnimationDigState();
-            _hostageAnimationIdleState = new HostageAnimationIdleState();
-            _hostageAnimationHoldState = new HostageAnimationHoldState();
-            _hostageAnimationHandWState = new HostageAnimationHandWState();
-            _hostageAnimationHandIState = new HostageAnimationHandIState();
+            _hostageMinerAnimationWalkingState = new HostageMinerAnimationWalkingState();
+            _hostageMinerAnimationDigState = new HostageMinerAnimationDigState();
+            _hostageMinerAnimationIdleState = new HostageMinerAnimationIdleState();
+            _hostageMinerAnimationHoldState = new HostageMinerAnimationHoldState();
+            _hostageMinerAnimationHandWState = new HostageMinerAnimationHandWState();
+            _hostageMinerAnimationHandIState = new HostageMinerAnimationHandIState();
         }
 
         public Animator GetAnimator()
@@ -52,37 +52,37 @@ namespace Controllers.HostageController
 
         public void Walking()
         {
-            _currentState = _hostageAnimationWalkingState;
+            _currentState = _hostageMinerAnimationWalkingState;
             _currentState.EnterState(this);
         }
         
         public void Dig()
         {
-            _currentState = _hostageAnimationDigState;
+            _currentState = _hostageMinerAnimationDigState;
             _currentState.EnterState(this);
         }
 
         public void Idle()
         {
-            _currentState = _hostageAnimationIdleState;
+            _currentState = _hostageMinerAnimationIdleState;
             _currentState.EnterState(this);
         }
 
         public void Hold()
         {
-            _currentState = _hostageAnimationHoldState;
+            _currentState = _hostageMinerAnimationHoldState;
             _currentState.EnterState(this);
         }
 
         public void HandW()
         {
-            _currentState = _hostageAnimationHandWState;
+            _currentState = _hostageMinerAnimationHandWState;
             _currentState.EnterState(this);
         }
 
         public void HandI()
         {
-            _currentState = _hostageAnimationHandIState;
+            _currentState = _hostageMinerAnimationHandIState;
             _currentState.EnterState(this);
         }
     }

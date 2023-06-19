@@ -3,13 +3,12 @@ using Extentions;
 
 namespace HostageStates
 {
-    public class HostageAnimationWalkingState : HostageBaseState
+    public class HostageMinerAnimationIdleState : HostageMinerBaseState
     {
         public override void EnterState(HostageMinnerAnimationController hostageMinnerState)
         {
-            hostageMinnerState.GetAnimator().SetBool("Walking", true);
-            hostageMinnerState.GetAnimator().SetBool("Idle", false);
-            hostageMinnerState.GetAnimator().SetBool("Hostage", false);
+            hostageMinnerState.GetAnimator().SetBool("Walking", false);
+            hostageMinnerState.GetAnimator().SetBool("Idle", true);
         }
 
         public override void UpdateState(HostageMinnerAnimationController hostageMinnerState)
