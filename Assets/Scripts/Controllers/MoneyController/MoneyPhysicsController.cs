@@ -25,7 +25,7 @@ namespace Controllers
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") || other.CompareTag("Picker"))
             {
                 if (PlayerSignals.Instance.onListCount?.Invoke() <= 14)
                 {

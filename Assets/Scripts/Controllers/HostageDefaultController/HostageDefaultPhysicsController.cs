@@ -1,5 +1,6 @@
 using System;
 using Controllers.HostageController;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Controllers.HostageDefaultController
@@ -12,6 +13,7 @@ namespace Controllers.HostageDefaultController
         
         [SerializeField] private HostageDefaultAIController hostageAIController;
         [SerializeField] private HostageDefaultController hostageDefaultController;
+        [SerializeField] private HostageDefaultAnimationController hostageDefaultAnimationController;
 
         #endregion
 
@@ -23,6 +25,7 @@ namespace Controllers.HostageDefaultController
             {
                 hostageAIController.PlayerTarget();
                 hostageDefaultController.Trigger();
+                hostageDefaultController.Decrease();
             }
         }
 

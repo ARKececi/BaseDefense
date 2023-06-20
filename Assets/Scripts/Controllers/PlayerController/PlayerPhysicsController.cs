@@ -56,7 +56,7 @@ namespace Controllers
 
             if (other.CompareTag("Mining"))
             {
-                playerController.ChangeHostage();
+                playerController.MinerHostageChange();
                 playerController.ResetHostageList();
             }
         }

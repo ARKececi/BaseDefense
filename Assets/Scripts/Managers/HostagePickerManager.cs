@@ -28,14 +28,12 @@ namespace Managers
         {
             HostagePickerSignalable.Instance.onMoneyListAdd += OnMoneyListAdd;
             HostagePickerSignalable.Instance.onMoneyListRemove += OnMoneyListRemove;
-            HostagePickerSignalable.Instance.onHome += OnHome;
         }
 
         private void UnsubscribeEvents()
         {
             HostagePickerSignalable.Instance.onMoneyListAdd -= OnMoneyListAdd;
             HostagePickerSignalable.Instance.onMoneyListRemove -= OnMoneyListRemove;
-            HostagePickerSignalable.Instance.onHome -= OnHome;
         }
 
         private void OnDisable()
@@ -54,10 +52,6 @@ namespace Managers
         {
             hostagePickerAIController.MoneyListRemove(money);
         }
-
-        private void OnHome(GameObject home)
-        {
-            hostagePickerAIController.Home(home);
-        }
+        
     }
 }

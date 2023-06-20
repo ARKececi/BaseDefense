@@ -18,15 +18,15 @@ MonoBehaviour:
     - PoolObj: {fileID: 3787873134178958844, guid: 1a675837f9d7b4a488a74c2315a248e5, type: 3}
       PoolCount: 10
     - PoolObj: {fileID: 1472610121256327742, guid: 2bc1868a5f6ef0a46a9235e26a2d49b2, type: 3}
-      PoolCount: 20
+      PoolCount: 100
     - PoolObj: {fileID: 4048595076606031853, guid: c043eb8b3b2264d428ecaedd86491593, type: 3}
       PoolCount: 40
     - PoolObj: {fileID: 6841694606635307699, guid: ba9513ad7db187a4b9dd0f182d876d1c, type: 3}
-      PoolCount: 10
+      PoolCount: 20
     - PoolObj: {fileID: 1314519170327248581, guid: 2f7c4d4756d100b4f94a20b444fece90, type: 3}
       PoolCount: 100
     - PoolObj: {fileID: 8243024553147758302, guid: 4d14e42067b339748b6c53c16ddc08e3, type: 3}
-      PoolCount: 10
+      PoolCount: 12
     - PoolObj: {fileID: 4048595076606031853, guid: d556f77ace486c5419185e225d80df85, type: 3}
       PoolCount: 50
     - PoolObj: {fileID: 5495938375531215040, guid: 45775c9401a6a2244aa8711639ad2dd9, type: 3}

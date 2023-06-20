@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Signals;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,6 +32,12 @@ namespace Controllers.HostagePickerController
 
         #endregion
 
+        private void Start()
+        {
+            _home = HostagePickerSignalable.Instance.onHome?.Invoke();
+            TargetMy();
+        }
+
         private void Update()
         {
             agent.destination = _target.position;
@@ -43,33 +50,38 @@ namespace Controllers.HostagePickerController
             if (MoneyList.Count == 1)
             {
                 hostagePickerAnimationController.Walking();
+                TargetMoney();
             }
         }
 
         public void MoneyListRemove(GameObject money)
         {
-            MoneyList.Remove(money);
-            MoneyList.TrimExcess();
-            if (MoneyList.Count == 0)
+            if (MoneyList.Contains(money))
             {
-                hostagePickerAnimationController.Idle();
+                MoneyList.Remove(money);
+                MoneyList.TrimExcess();
+                if (MoneyList.Count == 0)
+                {
+                    hostagePickerAnimationController.Idle();
+                    TargetMy();
+                }
             }
         }
 
         public void TargetHome()
         {
-            
+            _target = _home.transform;
         }
 
         private void TargetMoney()
         {
-            if (MoneyList.Count > 0) { _target = MoneyList[0].transform; }
-            else _target = transform;
+            _target = MoneyList[0].transform;
         }
 
-        public void Home(GameObject home)
+        public void TargetMy()
         {
-            _home = home;
+            _target = transform;
         }
+        
     }
 }

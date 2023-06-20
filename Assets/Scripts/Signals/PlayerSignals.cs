@@ -20,5 +20,6 @@ namespace Signals
         
         public Func<GameObject,GameObject> onLastHostage = delegate { return null;};
         public UnityAction<bool> onAmmoFull = delegate { };
+        public UnityAction<GameObject> hostageMinerSpawn = delegate { };
     }
 }

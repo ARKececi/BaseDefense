@@ -28,7 +28,6 @@ namespace Controllers.HostageController
         #endregion
         
         private bool _playerTrigger;
-        private bool _miningTrigger;
 
         #endregion
 
@@ -69,8 +68,7 @@ namespace Controllers.HostageController
         public void Reset()
         {
             _playerTrigger = false;
-            _miningTrigger = false;
-            _target = transform.gameObject;
+            TargetMe();
         }
     }
 }

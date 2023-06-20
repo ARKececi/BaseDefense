@@ -38,11 +38,6 @@ namespace Controllers.HostageDefaultController
             _hostageDefaultAnimationHostageState = new HostageDefaultAnimationHostageState();
         }
 
-        public void Start()
-        {
-            Hostage();
-        }
-
         public void Idle()
         {
             _currentState = _hostageDefaultAnimationIdleState;

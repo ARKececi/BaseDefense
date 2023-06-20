@@ -64,11 +64,13 @@ namespace Managers
             return Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
         }
 
-        public void Reset()
+        public void Reset(GameObject hostage)
         {
-            hostageDefaultAIController.Reset();
-            hostageDefaultController.Reset();
-            hostageDefaultAnimationController.Reset();
+            if (hostage == transform.gameObject)
+            {
+                hostageDefaultAIController.Reset();
+                hostageDefaultController.Reset();
+            }
         }
     }
 }

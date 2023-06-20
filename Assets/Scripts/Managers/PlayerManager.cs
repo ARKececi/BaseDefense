@@ -56,6 +56,7 @@ namespace Managers
             TurretSignals.Instance.onRemoveAmmo += OnRemoveAmmo;
             EnemySignals.Instance.onReturnSafeHouse += OnReturnSafeHouse;
             TurretSignals.Instance.onTurretHold += OnTurretHold;
+            SpawnerSignals.Instance.onFullMiner += OnFullMinner;
         }
 
         private void UnsubscribeEvents()
@@ -77,6 +78,7 @@ namespace Managers
             AmmoBoxSignals.Instance.onAddAmmo -= OnAddAmmo;
             TurretSignals.Instance.onRemoveAmmo -= OnRemoveAmmo;
             EnemySignals.Instance.onReturnSafeHouse -= OnReturnSafeHouse;
+            SpawnerSignals.Instance.onFullMiner -= OnFullMinner;
         }
 
         private void OnDisable()
@@ -142,6 +144,11 @@ namespace Managers
         private void OnTurretHold(bool hold, GameObject turret)
         {
             playerController.TurretHold(hold, turret);
+        }
+
+        public void OnFullMinner(bool full)
+        {
+            playerController.FullMinner(full);
         }
     }
 }

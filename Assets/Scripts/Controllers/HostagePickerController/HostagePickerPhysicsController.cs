@@ -24,7 +24,7 @@ namespace Controllers.HostagePickerController
 
             if (other.CompareTag("SafeHouse"))
             {
-                
+                hostagePickerController.MoneyListRemove();
             }
         }
     }

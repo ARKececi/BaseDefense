@@ -1,4 +1,5 @@
 using System;
+using Signals;
 using UnityEngine;
 
 namespace Controllers.HostageDefaultController
@@ -43,6 +44,15 @@ namespace Controllers.HostageDefaultController
                 }
                 worldPosition = rigidbody.worldCenterOfMass;
             }
+            else
+            {
+                hostageDefaultAnimationController.Hostage();
+            }
+        }
+        
+        public void Decrease()
+        {
+            HostageDefaultSignalable.Instance.hostageStackRemove?.Invoke();
         }
 
         public void Reset()

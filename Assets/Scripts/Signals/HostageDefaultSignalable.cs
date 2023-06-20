@@ -6,6 +6,7 @@ namespace Signals
 {
     public class HostageDefaultSignalable : MonoSingleton<HostageDefaultSignalable>
     {
-        public UnityAction Reset = delegate { };
+        public UnityAction<GameObject> Reset = delegate { };
+        public UnityAction hostageStackRemove = delegate { };
     }
 }

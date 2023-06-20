@@ -2544,6 +2544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hostageAIController: {fileID: -4848243039691011220}
   hostageDefaultController: {fileID: 2605063981251952373}
+  hostageDefaultAnimationController: {fileID: 6316917582477162566}
 --- !u!136 &311989560462362109
 CapsuleCollider:
   m_ObjectHideFlags: 0

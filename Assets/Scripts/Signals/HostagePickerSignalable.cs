@@ -1,3 +1,4 @@
+using System;
 using Extentions;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,6 +9,6 @@ namespace Signals
     {
         public UnityAction<GameObject> onMoneyListAdd = delegate { };
         public UnityAction<GameObject> onMoneyListRemove = delegate { };
-        public UnityAction<GameObject> onHome = delegate { };
+        public Func<GameObject> onHome = delegate { return null;};
     }
 }

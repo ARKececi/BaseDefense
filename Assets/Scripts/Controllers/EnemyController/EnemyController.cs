@@ -105,6 +105,7 @@ namespace Controllers.EnemyController
             int count = Money.Count;
             for (int i = 0; i < count; i++)
             {
+                HostagePickerSignalable.Instance.onMoneyListAdd?.Invoke(Money[0]);
                 Money[0].transform.SetParent(transform.parent);
                 Money[0].SetActive(true);
                 Money.Remove(Money[0]);

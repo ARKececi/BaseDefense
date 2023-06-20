@@ -35,6 +35,7 @@ namespace Controllers
         private int _healt;
         private Transform _playerSpawn;
         private bool _safeHouse;
+        private bool _fullMiner;
 
         #endregion
 
@@ -48,6 +49,11 @@ namespace Controllers
         public void SafeHouse(bool safehouse)
         {
             _safeHouse = safehouse;
+        }
+
+        public void FullMinner(bool minerFull)
+        {
+            _fullMiner = minerFull;
         }
 
         public bool ReturnSafeHose()
@@ -103,23 +109,31 @@ namespace Controllers
                     transform.tag = "Player";
                     playerMovementController.DeadPlayer();
                     playerAnimatorController.Dead(false);
-                    HostageDefaultSignalable.Instance.Reset?.Invoke();
+                    foreach (var VARIABLE in HostageList)
+                    {
+                        HostageDefaultSignalable.Instance.Reset?.Invoke(VARIABLE);   
+                    }
                     ResetHostageList();
                 });
                 _healt = 100;
             }
         }
 
-        public void ChangeHostage()
+        public void MinerHostageChange()
         {
-            int count = HostageList.Count;
-            for (int i = 0; i < count; i++)
+            int count = HostageList.Count - 1;
+            for (int i = 0; i <= count; i++)
             {
-                var position = HostageList[0].transform.position;
-                PoolSignalable.Instance.onListAdd?.Invoke(HostageList[0],PoolType.HostageDefault);
-                HostageList.Remove(HostageList[0]);
-                var minner = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.HostageMinner);
-                minner.transform.position = position;
+                if (_fullMiner != true)
+                {
+                    PlayerSignals.Instance.hostageMinerSpawn?.Invoke(HostageList[count - i]);
+                    HostageList.Remove(HostageList[count - i]);
+                    HostageList.TrimExcess();
+                }
+                else
+                {
+                    break;
+                }
             }
         }
 
