@@ -101,7 +101,6 @@ namespace Controllers
                 playerPhysics.SetActive(false);
                 transform.tag = "Dead";
                 playerStackController.ResetList();
-                PlayerSignals.Instance.onMoneyReset?.Invoke();
                 playerAnimatorController.Dead(true);
                 DOVirtual.DelayedCall(1.30f, () => PlayerReset()).OnComplete(() =>
                 {

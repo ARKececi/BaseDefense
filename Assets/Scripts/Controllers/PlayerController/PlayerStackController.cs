@@ -44,6 +44,7 @@ namespace Controllers
                 CollectedMoneyList.Add(other);
                 other.transform.tag = "Collected";
                 other.transform.SetParent(moneyBag.transform);
+                HostagePickerSignalable.Instance.onMoneyListRemove?.Invoke(other);
                 other.transform.DOLocalMove(new Vector3(0,_countY += .3f,_countZ), 1);
                 other.transform.DOLocalRotate(Vector3.zero, 1);
                 if (_countY > 1.8f) { _countY = 0; _countZ -= +0.3f; }
@@ -118,6 +119,7 @@ namespace Controllers
             int count = CollectedMoneyList.Count;
             for (int i = 0; i < count; i++)
             {
+                PlayerSignals.Instance.onMoneyReset?.Invoke(CollectedMoneyList[0]);
                 CollectedMoneyList[0].transform.SetParent(transform.parent);
                 CollectedMoneyList.Remove(CollectedMoneyList[0]);
             }

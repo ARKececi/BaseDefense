@@ -35,7 +35,7 @@ namespace Controllers.HostagePickerController
 
         public void MoneyListAdd(GameObject money)
         {
-            if (MoneyList.Count < 14)
+            if (MoneyList.Count <= 14)
             {
                 MoneyList.Add(money);
                 MoneyList.TrimExcess();
@@ -45,7 +45,7 @@ namespace Controllers.HostagePickerController
                 money.transform.DOLocalMove(new Vector3(0,_countY += .3f,_countZ), 1);
                 money.transform.DOLocalRotate(Vector3.zero, 1);
                 if (_countY > 1.8f) { _countY = 0; _countZ -= +0.3f; }
-                if (MoneyList.Count == 13) hostagePickerAIController.TargetHome();
+                if (MoneyList.Count >= 14) hostagePickerAIController.TargetHome();
             }
         }
 

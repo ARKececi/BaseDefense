@@ -10,6 +10,7 @@ namespace Controllers.HostagePickerController
         #region Serialized Variables
 
         [SerializeField] private HostagePickerController hostagePickerController;
+        [SerializeField] private HostagePickerAIController hostagePickerAIController;
 
         #endregion
 
@@ -25,6 +26,7 @@ namespace Controllers.HostagePickerController
             if (other.CompareTag("SafeHouse"))
             {
                 hostagePickerController.MoneyListRemove();
+                hostagePickerAIController.GoalSetting();
             }
         }
     }

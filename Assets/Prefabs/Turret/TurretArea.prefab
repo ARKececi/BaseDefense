@@ -968,6 +968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8872663077083134839}
   - component: {fileID: 6370774284175624877}
+  - component: {fileID: 1830915493}
   m_Layer: 0
   m_Name: Gataling
   m_TagString: Turret
@@ -1006,6 +1007,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.105516, y: 2.2387059, z: 1.4962778}
   m_Center: {x: 0.0686245, y: 0.61935294, z: -0.22797534}
+--- !u!114 &1830915493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100243602412921293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4918e9142de74258828ab2b750bc5b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretController: {fileID: 6624764336884804181}
 --- !u!1 &8142810819587380753
 GameObject:
   m_ObjectHideFlags: 0

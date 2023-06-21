@@ -39,11 +39,14 @@ namespace Controllers
         
         #endregion
 
-        private void OnMoneyReset()
+        private void OnMoneyReset(GameObject money)
         {
-            moneyController.ColliderTrigger(false);
-            moneyController.UseKinematic(false);
-            transform.tag = "Money";
+            if (money == gameObject)
+            {
+                moneyController.ColliderTrigger(false);
+                moneyController.UseKinematic(false);
+                transform.tag = "Money";
+            }
         }
     }
 }

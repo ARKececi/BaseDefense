@@ -33,7 +33,7 @@ namespace Managers
         private void UnsubscribeEvents()
         {
             EnemySignals.Instance.onEnemyRemove -= OnRemoveEnemy;
-            InputSignals.Instance.onInputDragged -= OnInputController;;
+            InputSignals.Instance.onInputDragged -= OnInputController;
         }
 
         private void OnDisable()

@@ -65,6 +65,22 @@ namespace Controllers.HostagePickerController
                     hostagePickerAnimationController.Idle();
                     TargetMy();
                 }
+                else
+                {
+                    TargetMoney(); 
+                }
+            }
+        }
+
+        public void GoalSetting()
+        {
+            if (MoneyList.Count > 0)
+            {
+                TargetMoney();
+            }
+            else
+            {
+                TargetMy();
             }
         }
 
@@ -73,7 +89,7 @@ namespace Controllers.HostagePickerController
             _target = _home.transform;
         }
 
-        private void TargetMoney()
+        public void TargetMoney()
         {
             _target = MoneyList[0].transform;
         }
