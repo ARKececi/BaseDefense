@@ -12,6 +12,8 @@ namespace Controllers
 
         #region Serialized Variables
 
+        [SerializeField] private BulletController bulletController;
+
         #endregion
 
         #endregion
@@ -20,7 +22,7 @@ namespace Controllers
         {
             if (other.CompareTag("Plane"))
             {
-                PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.BulletNormal);
+                bulletController.RemoveAmmo();
             }
         }
     }

@@ -8,7 +8,7 @@ namespace Signals
 {
     public class TurretSignals : MonoSingleton<TurretSignals>
     {
-        public Func<GameObject> onRemoveAmmo = delegate { return null;};
         public UnityAction<bool, GameObject> onTurretHold = delegate { };
+        public UnityAction<GameObject> onPullAmmo = delegate { };
     }
 }

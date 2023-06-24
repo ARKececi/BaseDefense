@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Enums;
@@ -6,6 +7,7 @@ using Signals;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Controllers
 {
@@ -17,6 +19,7 @@ namespace Controllers
 
         public List<GameObject> CollectedMoneyList;
         public List<GameObject> CollectedAmmoList;
+        public float Timer;
 
         #endregion
 
@@ -32,10 +35,31 @@ namespace Controllers
         private float _countY;
         private float _countZ;
         private int _moneyCount;
+        private float _timer;
+        private bool _ammobox;
+        private bool _turretStack;
 
         #endregion
 
         #endregion
+
+        private void FixedUpdate()
+        {
+            if (_ammobox)
+            {
+                PullAmmo();
+            }
+
+            if (_turretStack)
+            {
+                PushAmmo();
+            }
+        }
+
+        public void TrueAmmoBox() { _ammobox = true; }
+        public void FalseAmmoBox() { _ammobox = false; }
+        public void TrueTurretStack(){_turretStack = true;}
+        public void FalseTurretStack(){_turretStack = false;}
 
         public void AddMoney(GameObject other)
         {
@@ -85,28 +109,42 @@ namespace Controllers
                 _countY += .6f;
                 if (_countY > 2.4f) { _countY = 0; _countZ -= +0.3f; }
             }
-            else
-            {
-                PlayerSignals.Instance.onAmmoFull?.Invoke(true);
-            }
         }
 
-        public GameObject RemoveAmmo()
+        public void PullAmmo()
         {
-            if (CollectedAmmoList.Count > 0)
+            if (_timer < 0)
             {
-                var ammo = CollectedAmmoList[CollectedAmmoList.Count - 1];
-                CollectedAmmoList.Remove(ammo);
-                PlayerSignals.Instance.onAmmoFull?.Invoke(false);
-                _countY -= .6f;
-                if (_countY <= 0f) { _countY = 2.4f; _countZ -= -0.3f; }
-                if (CollectedAmmoList.Count == 0) { _countY = 0; _countZ = 0; }
-                return ammo;
+                if (CollectedAmmoList.Count < 4)
+                {
+                    GameObject ammo = AmmoBoxSignals.Instance.onPushAmmo?.Invoke();
+                    AddAmmo(ammo);
+                    _timer = Timer;
+                }
             }
-            else
+            _timer -= UnityEngine.Time.deltaTime;
+        }
+
+        public void PushAmmo()
+        {
+            if (_timer < 0)
             {
-                return null;
+                if (CollectedAmmoList.Count > 0)
+                {
+                    DellAmmo();
+                    _timer = Timer;
+                }
             }
+            _timer -= UnityEngine.Time.deltaTime;
+        }
+
+        public void DellAmmo()
+        {
+            var ammo = CollectedAmmoList[CollectedAmmoList.Count - 1];
+            CollectedAmmoList.Remove(ammo);
+            TurretSignals.Instance.onPullAmmo?.Invoke(ammo);
+            if (_countY <= 0f) { _countY = 2.4f; _countZ -= -0.3f; }
+            if (CollectedAmmoList.Count == 0) { _countY = 0; _countZ = 0; }
         }
 
         public bool OnContain(GameObject money)

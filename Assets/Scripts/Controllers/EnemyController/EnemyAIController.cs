@@ -22,6 +22,7 @@ namespace Controllers.EnemyController
         #region Serialized Variables
 
         [SerializeField] private Transform target;
+        [SerializeField] private EnemyAnimationController enemyAnimationController;
 
         #endregion
 
@@ -65,9 +66,13 @@ namespace Controllers.EnemyController
 
         public void TargetWall()
         {
-            int count = Random.Range(0, _wall.Count);
-            target = _wall[count].transform;
-            _agent.speed = _normalSpeed;
+            if (_wall.Contains(target.gameObject) == false)
+            {
+                int count = Random.Range(0, _wall.Count);
+                target = _wall[count].transform;
+                _agent.speed = _normalSpeed;
+                enemyAnimationController.Walking();
+            }
         }
 
         public void OnTaretPlayer()
@@ -76,6 +81,7 @@ namespace Controllers.EnemyController
             {
                 target = EnemySignals.Instance.onEnemyTarget?.Invoke();
                 _agent.speed = _fastSpeed;
+                enemyAnimationController.Run();
             }
         }
 

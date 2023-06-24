@@ -108,6 +108,12 @@ namespace Controllers.TurretController
             }
         }
 
+        public void PullAmmo(GameObject ammo)
+        {
+            AddAmmo(ammo);
+        }
+
+
         private void Update()
         {
             Target();

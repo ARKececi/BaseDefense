@@ -12,7 +12,6 @@ namespace Controllers.EnemyController
         #region Serialized Variables
 
         [SerializeField] private EnemyController enemyController;
-        [SerializeField] private EnemyAnimationController enemyAnimationController;
 
         #endregion
 

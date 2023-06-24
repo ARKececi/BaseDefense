@@ -23,7 +23,6 @@ namespace Controllers.EnemyController
                 if (enemyAIController.ReSafeHouse() == false)
                 {
                     enemyAIController.OnTaretPlayer();
-                    enemyAnimationController.Run();
                 }
             }
 
@@ -42,7 +41,6 @@ namespace Controllers.EnemyController
                 if (enemyAIController.ReSafeHouse() == false)
                 {
                     enemyAIController.TargetWall();
-                    enemyAnimationController.Walking();
                 }
             }
             

@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyController: {fileID: 4542451750248319499}
-  enemyAnimationController: {fileID: 3787873134178958823}
 --- !u!136 &3111165252338674594
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2296,7 +2295,6 @@ GameObject:
   - component: {fileID: 3787873134178958843}
   - component: {fileID: 4647224271439544227}
   - component: {fileID: 3787873134178958841}
-  - component: {fileID: 3787873134178958823}
   - component: {fileID: 4542451750248319499}
   - component: {fileID: 3787873134178958842}
   - component: {fileID: 3787873134178958840}
@@ -2355,20 +2353,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 3787873134178958842}
-  target: {fileID: 0}
---- !u!114 &3787873134178958823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3787873134178958844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08b5a5b3849a4e3fa8b868d4219b1e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 3787873134189591606}
+  target: {fileID: 3787873134178958843}
+  enemyAnimationController: {fileID: 2019505155971673480}
 --- !u!114 &4542451750248319499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2386,7 +2372,7 @@ MonoBehaviour:
     m_Keys: 
     m_Values: []
   enemyAIController: {fileID: 3787873134178958841}
-  enemyAnimationController: {fileID: 3787873134178958823}
+  enemyAnimationController: {fileID: 2019505155971673480}
   enemyAtackController: {fileID: 5696734103236503496}
   moneyBag: {fileID: 7769401543472002791}
   enemyPhysics: {fileID: 3787873134400118517}
@@ -2485,6 +2471,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3787873134189591607}
   - component: {fileID: 3787873134189591606}
+  - component: {fileID: 2019505155971673480}
   m_Layer: 0
   m_Name: Character_18
   m_TagString: Untagged
@@ -2529,6 +2516,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2019505155971673480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3787873134189591624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b5a5b3849a4e3fa8b868d4219b1e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3787873134189591606}
 --- !u!1 &3787873134311600424
 GameObject:
   m_ObjectHideFlags: 0
@@ -2719,7 +2719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 428a876bdf634151aa9c0eae8857df93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAnimationController: {fileID: 3787873134178958823}
+  enemyAnimationController: {fileID: 2019505155971673480}
 --- !u!1 &3787873134444817833
 GameObject:
   m_ObjectHideFlags: 0
@@ -2972,7 +2972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAIController: {fileID: 3787873134178958841}
-  enemyAnimationController: {fileID: 3787873134178958823}
+  enemyAnimationController: {fileID: 2019505155971673480}
 --- !u!1 &7769401543472002791
 GameObject:
   m_ObjectHideFlags: 0

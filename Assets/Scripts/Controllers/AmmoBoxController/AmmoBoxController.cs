@@ -17,25 +17,15 @@ namespace Controllers.AmmoBoxController
 
         #region Private Variables
 
-        private bool _full;
-
         #endregion
 
         #endregion
 
-        public void Full(bool AmmoFull)
+        public GameObject PushAmmo()
         {
-            _full = AmmoFull;
-        }
-
-        public void CreateAmmo()
-        {
-            if (_full == false)
-            {
-                var ammo = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.AmmoPackage);
-                ammo.transform.position = dot.transform.position;
-                AmmoBoxSignals.Instance.onAddAmmo?.Invoke(ammo);
-            }
+            var ammo = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.AmmoPackage);
+            ammo.transform.position = dot.transform.position;
+            return ammo;
         }
     }
 }

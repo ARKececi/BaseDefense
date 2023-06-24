@@ -1,3 +1,5 @@
+using Enums;
+using Signalable;
 using Signals;
 using UnityEngine;
 
@@ -10,6 +12,7 @@ namespace Controllers
         #region Public Variables
 
         public int _damage;
+        public PoolType Type;
 
         #endregion
 
@@ -45,6 +48,11 @@ namespace Controllers
         public void ZeroVelocty()
         {
             rigidbody.velocity = Vector3.zero;
+        }
+        
+        public void RemoveAmmo()
+        {
+            PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,Type);
         }
     }
 }

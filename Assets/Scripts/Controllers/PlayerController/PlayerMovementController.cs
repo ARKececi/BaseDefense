@@ -32,6 +32,8 @@ namespace Controllers
         private int _moveSpeed;
         private PlayerData _playerData;
         private bool _turretHold;
+        private bool _dead;
+        private bool _safeHouse;
         
         #endregion
         
@@ -43,9 +45,11 @@ namespace Controllers
         public void DeactiveMovement() { _isReadyToMove = false; }
         public void EnablePlay() { _isReadyToPlay = true; }
         public void DeactivePlay() { _isReadyToPlay = false; }
+        public void TrueDead(){_dead = true;}
+        public void FalseDead(){_dead = false;}
 
         #endregion
-
+        
         public void GetMoveSpeed(int Speed)
         {
             _moveSpeed = Speed;
@@ -55,14 +59,29 @@ namespace Controllers
         {
             _moveInput = inputParams.MoveValues;
         }
-
+        
+        public void TrueSafeHouse(){_safeHouse = true;}
+        public void FalseSafeHouse(){_safeHouse = false;}
+        
         private void Move()
         {
             move.velocity = new Vector3(_moveInput.x * _moveSpeed, move.velocity.y, _moveInput.z * _moveSpeed);
             Vector3 direction = Vector3.forward * _moveInput.z + Vector3.right * _moveInput.x;
-            if (Enemy.Count != 0)
+
+            if (_safeHouse == false)
             {
-                transform.LookAt(Enemy[0].gameObject.transform);
+                if (Enemy.Count != 0)
+                {
+                    transform.LookAt(Enemy[0].gameObject.transform);
+                }
+                else
+                {
+                    playerAnimatorController.OnAimTrigger(false);
+                    if (direction != Vector3.zero)
+                    {
+                        character.transform.localRotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(direction), 6 * Time.deltaTime);
+                    }
+                }
             }
             else
             {
@@ -81,7 +100,7 @@ namespace Controllers
         
         private void FixedUpdate()
         {
-            if (_turretHold == false)
+            if (_turretHold == false && _dead == false)
             {
                 if (_isReadyToPlay)
                 {
@@ -128,6 +147,7 @@ namespace Controllers
         public void DeadPlayer()
         {
             Enemy.Clear();
+            EnemyTrigger = false;
         }
 
         public List<GameObject> EnemyList()

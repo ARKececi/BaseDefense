@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 50
+  Type: 6
   rigidbody: {fileID: 992212146944610911}
 --- !u!114 &5001740311483072011
 MonoBehaviour:
@@ -64,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229516ab25674c8f878f013178d0c5a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletController: {fileID: 3068549942906034091}
 --- !u!33 &345498423325106930
 MeshFilter:
   m_ObjectHideFlags: 0

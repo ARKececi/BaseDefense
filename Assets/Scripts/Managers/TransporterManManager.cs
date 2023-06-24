@@ -1,18 +1,12 @@
-using Controllers.AmmoBoxController;
-using Signals;
 using UnityEngine;
 
 namespace Managers
 {
-    public class AmmoBoxManager : MonoBehaviour
+    public class TransporterManManager : MonoBehaviour
     {
         #region Self Variables
 
-        #region Serialized Variables
-
-        [SerializeField] private AmmoBoxController ammoBoxController;
-
-        #endregion
+        
 
         #endregion
         
@@ -25,12 +19,12 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            AmmoBoxSignals.Instance.onPushAmmo += OnPushAmmo;
+
         }
 
         private void UnsubscribeEvents()
         {
-            AmmoBoxSignals.Instance.onPushAmmo -= OnPushAmmo;
+
         }
 
         private void OnDisable()
@@ -39,10 +33,5 @@ namespace Managers
         }
         
         #endregion
-        
-        private GameObject OnPushAmmo()
-        {
-            return ammoBoxController.PushAmmo();
-        }
     }
 }

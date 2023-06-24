@@ -101,12 +101,14 @@ namespace Controllers
                 playerPhysics.SetActive(false);
                 transform.tag = "Dead";
                 playerStackController.ResetList();
+                playerMovementController.DeadPlayer();
                 playerAnimatorController.Dead(true);
+                playerMovementController.TrueDead();
                 DOVirtual.DelayedCall(1.30f, () => PlayerReset()).OnComplete(() =>
                 {
                     playerPhysics.SetActive(true);
+                    playerMovementController.FalseDead();
                     transform.tag = "Player";
-                    playerMovementController.DeadPlayer();
                     playerAnimatorController.Dead(false);
                     foreach (var VARIABLE in HostageList)
                     {

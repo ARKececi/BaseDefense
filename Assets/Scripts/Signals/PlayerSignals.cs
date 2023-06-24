@@ -19,7 +19,6 @@ namespace Signals
         public Func<int> onListCount = delegate { return 0;};
         
         public Func<GameObject,GameObject> onLastHostage = delegate { return null;};
-        public UnityAction<bool> onAmmoFull = delegate { };
         public UnityAction<GameObject> hostageMinerSpawn = delegate { };
     }
 }
