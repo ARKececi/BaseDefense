@@ -6,9 +6,9 @@ using UnityEngine.Events;
 
 namespace Signals
 {
-    public class AmmoBoxSignals : MonoSingleton<AmmoBoxSignals>
+    public class AmmoBoxSignalable : MonoSingleton<AmmoBoxSignalable>
     {
-        public UnityAction<GameObject> onAddAmmo = delegate { };
         public Func<GameObject> onPushAmmo = delegate { return null; };
+        public Func<GameObject> onPlace = delegate { return null;};
     }
 }

@@ -29,6 +29,7 @@ namespace Managers
             EnemySignals.Instance.onEnemyRemove += OnRemoveEnemy;
             InputSignals.Instance.onInputDragged += OnInputController;
             TurretSignals.Instance.onPullAmmo += OnPullAmmo;
+            TurretSignals.Instance.onFullAmmo += OnFullAmmo;
         }
 
         private void UnsubscribeEvents()
@@ -36,6 +37,7 @@ namespace Managers
             EnemySignals.Instance.onEnemyRemove -= OnRemoveEnemy;
             InputSignals.Instance.onInputDragged -= OnInputController;
             TurretSignals.Instance.onPullAmmo -= OnPullAmmo;
+            TurretSignals.Instance.onFullAmmo -= OnFullAmmo;
         }
 
         private void OnDisable()
@@ -62,6 +64,11 @@ namespace Managers
         private void OnPullAmmo(GameObject ammo)
         {
             turretController.PullAmmo(ammo);
+        }
+
+        private bool OnFullAmmo()
+        {
+            return turretController.FullAmmo();
         }
     }
 }

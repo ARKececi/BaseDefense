@@ -10,6 +10,7 @@ namespace Controllers.TransporterManController
         #region Serialized Variables
 
         [SerializeField] private TransporterManController transporterManController;
+        [SerializeField] private TransporterManAnimationController transporterManAnimationController;
 
         #endregion
 
@@ -20,12 +21,14 @@ namespace Controllers.TransporterManController
             if (other.CompareTag("BulletArea"))
             {
                 transporterManController.TrueAmmoBox();
+                transporterManAnimationController.Idle();
             }
             
                         
             if (other.CompareTag("TurretStack"))
             {
                 transporterManController.TrueTurretStack();
+                transporterManAnimationController.Idle();
             }
         }
 

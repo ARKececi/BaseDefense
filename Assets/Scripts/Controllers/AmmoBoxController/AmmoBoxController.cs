@@ -12,6 +12,7 @@ namespace Controllers.AmmoBoxController
         #region Serialized Variables
 
         [SerializeField] private GameObject dot;
+        [SerializeField] private GameObject place;
 
         #endregion
 
@@ -26,6 +27,11 @@ namespace Controllers.AmmoBoxController
             var ammo = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.AmmoPackage);
             ammo.transform.position = dot.transform.position;
             return ammo;
+        }
+
+        public GameObject Place()
+        {
+            return place;
         }
     }
 }

@@ -25,12 +25,14 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            AmmoBoxSignals.Instance.onPushAmmo += OnPushAmmo;
+            AmmoBoxSignalable.Instance.onPushAmmo += OnPushAmmo;
+            AmmoBoxSignalable.Instance.onPlace += OnPlace;
         }
 
         private void UnsubscribeEvents()
         {
-            AmmoBoxSignals.Instance.onPushAmmo -= OnPushAmmo;
+            AmmoBoxSignalable.Instance.onPushAmmo -= OnPushAmmo;
+            AmmoBoxSignalable.Instance.onPlace -= OnPlace;
         }
 
         private void OnDisable()
@@ -43,6 +45,11 @@ namespace Managers
         private GameObject OnPushAmmo()
         {
             return ammoBoxController.PushAmmo();
+        }
+
+        private GameObject OnPlace()
+        {
+            return ammoBoxController.Place();
         }
     }
 }

@@ -117,7 +117,7 @@ namespace Controllers
             {
                 if (CollectedAmmoList.Count < 4)
                 {
-                    GameObject ammo = AmmoBoxSignals.Instance.onPushAmmo?.Invoke();
+                    GameObject ammo = AmmoBoxSignalable.Instance.onPushAmmo?.Invoke();
                     AddAmmo(ammo);
                     _timer = Timer;
                 }

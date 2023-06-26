@@ -611,6 +611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dot: {fileID: 2617680973048980311}
+  place: {fileID: 6614473821776809386}
 --- !u!1 &6614473821776809386
 GameObject:
   m_ObjectHideFlags: 0

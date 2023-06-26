@@ -48,6 +48,7 @@ namespace Controllers.TurretController
         private Vector3 _rotateInput;
         private bool _turretHold;
         private GameObject _player;
+        private bool _needAmmo;
 
         #endregion
 
@@ -59,6 +60,7 @@ namespace Controllers.TurretController
             _plusX = -1;
             _plusY = 1;
             _plusZ = 0;
+            TransporterManSignalable.Instance.onTurretList?.Invoke(ammoDot);
         }
         
         public void InputController( InputParams inputParams)
@@ -77,6 +79,12 @@ namespace Controllers.TurretController
             {
                 Enemys.Remove(enemy);
             }
+        }
+
+        public bool FullAmmo()
+        {
+            if (Ammo.Count > 12)  return true;
+            else  return false;
         }
 
         public void AddAmmo(GameObject ammo)
@@ -105,6 +113,12 @@ namespace Controllers.TurretController
                         _plusZ -= .5f;
                     }
                 }
+            }
+
+            if (Ammo.Count > 12)
+            {
+                TransporterManSignalable.Instance.onRemoveTurretList?.Invoke(ammoDot);
+                _needAmmo = true;
             }
         }
 
@@ -194,6 +208,12 @@ namespace Controllers.TurretController
                         }
                         _timer -= UnityEngine.Time.deltaTime;
                     }
+                }
+
+                if (_needAmmo)
+                {
+                    TransporterManSignalable.Instance.onTurretList?.Invoke(ammoDot);
+                    _needAmmo = false;
                 }
             }
         }

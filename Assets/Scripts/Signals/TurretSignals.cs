@@ -10,5 +10,6 @@ namespace Signals
     {
         public UnityAction<bool, GameObject> onTurretHold = delegate { };
         public UnityAction<GameObject> onPullAmmo = delegate { };
+        public Func<bool> onFullAmmo = delegate { return true; };
     }
 }

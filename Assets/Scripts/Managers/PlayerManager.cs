@@ -52,7 +52,6 @@ namespace Managers
             EnemySignals.Instance.onContains += playerStackController.OnContain;
             PlayerSignals.Instance.onListCount += OnListCount;
             PlayerSignals.Instance.onLastHostage += OnLastHostage;
-            AmmoBoxSignals.Instance.onAddAmmo += OnAddAmmo;
             EnemySignals.Instance.onReturnSafeHouse += OnReturnSafeHouse;
             TurretSignals.Instance.onTurretHold += OnTurretHold;
             SpawnerSignals.Instance.onFullMiner += OnFullMinner;
@@ -74,7 +73,6 @@ namespace Managers
             EnemySignals.Instance.onContains -= playerStackController.OnContain;
             PlayerSignals.Instance.onListCount -= OnListCount;
             PlayerSignals.Instance.onLastHostage -= OnLastHostage;
-            AmmoBoxSignals.Instance.onAddAmmo -= OnAddAmmo;
             EnemySignals.Instance.onReturnSafeHouse -= OnReturnSafeHouse;
             SpawnerSignals.Instance.onFullMiner -= OnFullMinner;
         }
@@ -123,12 +121,7 @@ namespace Managers
         {
             return playerController.LastHostage(Hostage);
         }
-
-        private void OnAddAmmo(GameObject ammo)
-        {
-            playerStackController.AddAmmo(ammo);
-        }
-
+        
         private bool OnReturnSafeHouse()
         {
             return playerController.ReturnSafeHose();

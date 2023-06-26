@@ -1,3 +1,5 @@
+using Controllers.TransporterManController;
+using Signals;
 using UnityEngine;
 
 namespace Managers
@@ -6,7 +8,11 @@ namespace Managers
     {
         #region Self Variables
 
-        
+        #region Serialized Variables
+
+        [SerializeField] private TransporterManAIController transporterManAIController;
+
+        #endregion        
 
         #endregion
         
@@ -19,12 +25,16 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-
+            TransporterManSignalable.Instance.onTurretList += OnTurretList;
+            TransporterManSignalable.Instance.onRemoveTurretList += OnRemoveTurretList;
+            TransporterManSignalable.Instance.onTarget += OnTarget;
         }
 
         private void UnsubscribeEvents()
         {
-
+            TransporterManSignalable.Instance.onTurretList -= OnTurretList;
+            TransporterManSignalable.Instance.onRemoveTurretList -= OnRemoveTurretList;
+            TransporterManSignalable.Instance.onTarget -= OnTarget;
         }
 
         private void OnDisable()
@@ -33,5 +43,20 @@ namespace Managers
         }
         
         #endregion
+
+        private void OnTurretList(GameObject turret)
+        {
+            transporterManAIController.AddTurretList(turret);
+        }
+
+        private void OnRemoveTurretList(GameObject turret)
+        {
+            transporterManAIController.RemoveTurretList(turret);
+        }
+
+        private void OnTarget()
+        {
+            transporterManAIController.Target();
+        }
     }
 }
