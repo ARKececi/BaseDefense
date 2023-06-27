@@ -319,6 +319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6729319388626319883}
   - component: {fileID: 9205557333660393669}
+  - component: {fileID: 1020423532221502319}
   m_Layer: 0
   m_Name: TurretStack
   m_TagString: TurretStack
@@ -355,6 +356,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.9544854, y: 2.4550827, z: 2.070459}
   m_Center: {x: 0.06982088, y: 0.7275411, z: 0.6086862}
+--- !u!114 &1020423532221502319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775444326498894798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 380a3bebd3264091a96504e213793ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretController: {fileID: 6624764336884804181}
 --- !u!1 &5476099527289290346
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,8 +677,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemys: []
-  Timer: 0.5
-  Price: 50
+  FireTimer: 0.5
+  PullTimer: 0.1
+  Price: 20
   Piece:
   - {fileID: 973221461645940826}
   - {fileID: 1196809937337320227}

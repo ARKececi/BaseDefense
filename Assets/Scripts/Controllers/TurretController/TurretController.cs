@@ -18,7 +18,8 @@ namespace Controllers.TurretController
         #region Public Variables
 
         public List<GameObject> Enemys;
-        public float Timer;
+        public float FireTimer;
+        public float PullTimer;
         public int Price;
         public List<GameObject> Piece;
         public List<GameObject> Ammo;
@@ -40,7 +41,8 @@ namespace Controllers.TurretController
 
         #region Private Variables
 
-        private float _timer;
+        private float _fireTimer;
+        private float _pullTimer;
         private float _plusX;
         private float _plusY;
         private float _plusZ;
@@ -49,6 +51,8 @@ namespace Controllers.TurretController
         private bool _turretHold;
         private GameObject _player;
         private bool _needAmmo;
+        private bool _playerAmmo;
+        private bool _transporterManAmmo;
 
         #endregion
 
@@ -62,7 +66,22 @@ namespace Controllers.TurretController
             _plusZ = 0;
             TransporterManSignalable.Instance.onTurretList?.Invoke(ammoDot);
         }
+
+        private void Update()
+        {
+            Target();
+            Fire();
+            TurretClose();
+            if (_playerAmmo || _transporterManAmmo)
+            {
+                PullAmmoTimer();
+            }
+        }
         
+        public void TruePlayerAmmo(){_playerAmmo = true;}
+        public void FalsePlayerAmmo(){_playerAmmo = false;}
+        public void TrueTransporterManAmmo(){_transporterManAmmo = true;}
+        public void FalseTransporterManAmmo(){_transporterManAmmo = false;}
         public void InputController( InputParams inputParams)
         {
             _rotateInput = inputParams.MoveValues;
@@ -114,25 +133,37 @@ namespace Controllers.TurretController
                     }
                 }
             }
-
-            if (Ammo.Count > 12)
+        }
+        
+        public void PullAmmoTimer()
+        {
+            if (_pullTimer < 0)
             {
-                TransporterManSignalable.Instance.onRemoveTurretList?.Invoke(ammoDot);
-                _needAmmo = true;
+                if (Ammo.Count < 12)
+                {
+                    if (_playerAmmo)
+                    {
+                        AddAmmo(TurretSignals.Instance.onPushAmmo?.Invoke());
+                        _pullTimer = PullTimer;
+                    }
+                    else if (_transporterManAmmo)
+                    {
+                        AddAmmo(TransporterManSignalable.Instance.onPushAmmo?.Invoke());
+                        _pullTimer = PullTimer;
+                    }
+                }
+                else
+                {
+                    TransporterManSignalable.Instance.onRemoveTurretList?.Invoke(ammoDot);
+                    _pullTimer = PullTimer;
+                }
             }
+            _pullTimer -= UnityEngine.Time.deltaTime;
         }
 
         public void PullAmmo(GameObject ammo)
         {
             AddAmmo(ammo);
-        }
-
-
-        private void Update()
-        {
-            Target();
-            Fire();
-            TurretClose();
         }
 
         public void PlayerTrigger()
@@ -168,7 +199,7 @@ namespace Controllers.TurretController
                 {
                     if (Enemys.Count > 0)
                     {
-                        if (_timer < 0)
+                        if (_fireTimer < 0)
                         {
                             var bullet = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.BulletTurret);
                             BulletController bulletController = bullet.GetComponent<BulletController>();
@@ -204,9 +235,9 @@ namespace Controllers.TurretController
                                 }
                                 
                             }
-                            _timer = Timer;
+                            _fireTimer = FireTimer;
                         }
-                        _timer -= UnityEngine.Time.deltaTime;
+                        _fireTimer -= UnityEngine.Time.deltaTime;
                     }
                 }
 

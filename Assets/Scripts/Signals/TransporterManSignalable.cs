@@ -1,3 +1,4 @@
+using System;
 using Extentions;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,5 +10,6 @@ namespace Signals
         public UnityAction<GameObject> onTurretList = delegate { };
         public UnityAction<GameObject> onRemoveTurretList = delegate { };
         public UnityAction onTarget = delegate { };
+        public Func<GameObject> onPushAmmo = delegate { return null; };
     }
 }

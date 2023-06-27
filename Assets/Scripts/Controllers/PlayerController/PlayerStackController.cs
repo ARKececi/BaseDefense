@@ -52,7 +52,7 @@ namespace Controllers
 
             if (_turretStack)
             {
-                PushAmmo();
+                //PushAmmoTimer();
             }
         }
 
@@ -125,7 +125,7 @@ namespace Controllers
             _timer -= UnityEngine.Time.deltaTime;
         }
 
-        public void PushAmmo()
+        public void PushAmmoTimer()
         {
             if (_timer < 0)
             {
@@ -145,6 +145,36 @@ namespace Controllers
             TurretSignals.Instance.onPullAmmo?.Invoke(ammo);
             if (_countY <= 0f) { _countY = 2.4f; _countZ -= -0.3f; }
             if (CollectedAmmoList.Count == 0) { _countY = 0; _countZ = 0; }
+        }
+
+        public GameObject PushAmmo()
+        {
+            if (_turretStack)
+            {
+                if (CollectedAmmoList.Count > 0)
+                {
+                    var ammo = CollectedAmmoList[CollectedAmmoList.Count - 1];
+                    CollectedAmmoList.Remove(ammo);
+                    if (_countY <= 0f)
+                    {
+                        _countY = 2.4f;
+                        _countZ -= -0.3f;
+                    }
+
+                    if (CollectedAmmoList.Count == 0)
+                    {
+                        _countY = 0;
+                        _countZ = 0;
+                    }
+
+                    return ammo;
+                }
+                else return null;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public bool OnContain(GameObject money)

@@ -21,6 +21,7 @@ namespace Controllers.TransporterManController
         #region Serialized Variables
         
         [SerializeField] private NavMeshAgent agent;
+        [SerializeField] private TransporterManController transporterManController;
 
         #endregion
 
@@ -43,6 +44,14 @@ namespace Controllers.TransporterManController
         {
             _ammoBox = AmmoBoxSignalable.Instance.onPlace?.Invoke();
             TargetDefinition(_ammoBox);
+        }
+
+        public void TargetNull()
+        {
+            if (transporterManController.AmmoListCount() <= 0)
+            {
+                TargetBox();
+            }
         }
 
         public void TargetDefinition(GameObject target)

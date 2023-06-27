@@ -11,6 +11,7 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private TransporterManAIController transporterManAIController;
+        [SerializeField] private TransporterManController transporterManController;
 
         #endregion        
 
@@ -28,6 +29,7 @@ namespace Managers
             TransporterManSignalable.Instance.onTurretList += OnTurretList;
             TransporterManSignalable.Instance.onRemoveTurretList += OnRemoveTurretList;
             TransporterManSignalable.Instance.onTarget += OnTarget;
+            TransporterManSignalable.Instance.onPushAmmo += OnPushAmmo;
         }
 
         private void UnsubscribeEvents()
@@ -35,6 +37,7 @@ namespace Managers
             TransporterManSignalable.Instance.onTurretList -= OnTurretList;
             TransporterManSignalable.Instance.onRemoveTurretList -= OnRemoveTurretList;
             TransporterManSignalable.Instance.onTarget -= OnTarget;
+            TransporterManSignalable.Instance.onPushAmmo -= OnPushAmmo;
         }
 
         private void OnDisable()
@@ -52,6 +55,11 @@ namespace Managers
         private void OnRemoveTurretList(GameObject turret)
         {
             transporterManAIController.RemoveTurretList(turret);
+        }
+
+        private GameObject OnPushAmmo()
+        {
+            return transporterManController.PushAmmo();
         }
 
         private void OnTarget()

@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transporterManAIController: {fileID: 6217662992748196599}
+  transporterManController: {fileID: 1547241659989246188}
 --- !u!114 &1547241659989246188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _turretList: []
   agent: {fileID: 6728744052327291860}
+  transporterManController: {fileID: 1547241659989246188}
 --- !u!195 &6728744052327291860
 NavMeshAgent:
   m_ObjectHideFlags: 0
