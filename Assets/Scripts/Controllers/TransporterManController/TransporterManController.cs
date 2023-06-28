@@ -43,10 +43,6 @@ namespace Controllers.TransporterManController
             {
                 PullAmmo();
             }
-            if (_turretStack)
-            {
-                //PushAmmoTimer();
-            }
         }
         
         public void TrueAmmoBox() { _ammobox = true; }
@@ -86,38 +82,6 @@ namespace Controllers.TransporterManController
                 }
             }
             _timer -= UnityEngine.Time.deltaTime;
-        }
-
-        public void PushAmmoTimer()
-        {
-            if (_timer < 0)
-            {
-                if (CollectedAmmoList.Count > 0)
-                {
-                    DellAmmo();
-                    _timer = Timer;
-                }
-                else
-                {
-                    transporterManAIController.TargetBox();
-                    transporterManAnimationController.Walking();
-                    _timer = Timer;
-                    _turretStack = false;
-                }
-            }
-            _timer -= UnityEngine.Time.deltaTime;
-        }
-
-        public void DellAmmo()
-        {
-            if ((bool)TurretSignals.Instance.onFullAmmo?.Invoke() == false)
-            {
-                var ammo = CollectedAmmoList[CollectedAmmoList.Count - 1];
-                CollectedAmmoList.Remove(ammo);
-                TurretSignals.Instance.onPullAmmo?.Invoke(ammo);
-                if (_countY <= 0f) { _countY = 2.4f; _countZ -= -0.3f; }
-                if (CollectedAmmoList.Count == 0) { _countY = 0; _countZ = 0; }
-            }
         }
 
         public int AmmoListCount()

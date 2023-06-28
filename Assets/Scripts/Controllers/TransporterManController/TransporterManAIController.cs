@@ -22,6 +22,7 @@ namespace Controllers.TransporterManController
         
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private TransporterManController transporterManController;
+        [SerializeField] private TransporterManAnimationController transporterManAnimationController;
 
         #endregion
 
@@ -79,6 +80,10 @@ namespace Controllers.TransporterManController
         {
             _turretList.Remove(turret);
             _turretList.TrimExcess();;
+            if (_target != _ammoBox)
+            {
+                Target();
+            }
         }
 
         public void Target()
@@ -86,6 +91,7 @@ namespace Controllers.TransporterManController
             if (_turretList.Count > 0)
             {
                 _target = _turretList[0];
+                transporterManAnimationController.Walking();
             }
             else
             {

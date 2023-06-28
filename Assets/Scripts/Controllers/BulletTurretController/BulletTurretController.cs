@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class BulletController : MonoBehaviour
+    public class BulletTurretController : MonoBehaviour
     {
         #region Self Variables
 
@@ -51,7 +51,7 @@ namespace Controllers
         
         public void RemoveAmmo()
         {
-            PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.BulletNormal);
+            PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.BulletTurret);
         }
     }
 }

@@ -29,6 +29,7 @@ TagManager:
   - Picker
   - MainDoor
   - TransporterMan
+  - BulletTurret
   layers:
   - Default
   - TransparentFX

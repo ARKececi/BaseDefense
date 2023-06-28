@@ -19,10 +19,16 @@ namespace Controllers.EnemyController
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<BulletController>(out BulletController bullet))
+            if (other.TryGetComponent<BulletController>(out var bullet))
             {
                 enemyController.HealtDamage(bullet.SetDamage());
                 PoolSignalable.Instance.onListAdd?.Invoke(other.gameObject, PoolType.BulletNormal);
+            }
+
+            if (other.TryGetComponent<BulletTurretController>(out var BulletTurret))
+            {
+                enemyController.HealtDamage(BulletTurret.SetDamage());
+                PoolSignalable.Instance.onListAdd?.Invoke(other.gameObject, PoolType.BulletTurret);
             }
 
             if (other.CompareTag("Plane"))

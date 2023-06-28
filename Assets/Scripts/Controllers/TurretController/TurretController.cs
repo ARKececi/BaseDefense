@@ -202,11 +202,11 @@ namespace Controllers.TurretController
                         if (_fireTimer < 0)
                         {
                             var bullet = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.BulletTurret);
-                            BulletController bulletController = bullet.GetComponent<BulletController>();
-                            Rigidbody bulletRigidbody = bulletController.SetRigidbody();
-                            bulletController.ZeroVelocty();
-                            bulletController.transform.gameObject.SetActive(true);
-                            bulletController.transform.position = barrel.transform.position;
+                            BulletTurretController bulletTurretController = bullet.GetComponent<BulletTurretController>();
+                            Rigidbody bulletRigidbody = bulletTurretController.SetRigidbody();
+                            bulletTurretController.ZeroVelocty();
+                            bulletTurretController.transform.gameObject.SetActive(true);
+                            bulletTurretController.transform.position = barrel.transform.position;
                             bulletRigidbody.AddForce(barrel.transform.forward * 20,ForceMode.VelocityChange);
                             _ammoCount++;
                             if (_ammoCount > 3)

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3703277659360275799}
-  - component: {fileID: 3068549942906034091}
-  - component: {fileID: 5001740311483072011}
+  - component: {fileID: 6427714576698849614}
+  - component: {fileID: 4398007445137492425}
   - component: {fileID: 345498423325106930}
   - component: {fileID: 2535389931376793144}
   - component: {fileID: 2495106496413994968}
@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 213381069977233595}
   m_Layer: 7
   m_Name: Bullet
-  m_TagString: Bullet
+  m_TagString: BulletTurret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &3068549942906034091
+--- !u!114 &6427714576698849614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,13 +47,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4048595076606031853}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e662c1205bf4163a18b067e9d71a605, type: 3}
+  m_Script: {fileID: 11500000, guid: e369d748cf3f48a99d67479910a25eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 50
-  Type: 6
   rigidbody: {fileID: 992212146944610911}
---- !u!114 &5001740311483072011
+--- !u!114 &4398007445137492425
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,10 +61,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4048595076606031853}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 229516ab25674c8f878f013178d0c5a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 65e711e431a648d8a6be55ec7781c3e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletController: {fileID: 3068549942906034091}
+  bulletTurretController: {fileID: 6427714576698849614}
 --- !u!33 &345498423325106930
 MeshFilter:
   m_ObjectHideFlags: 0
