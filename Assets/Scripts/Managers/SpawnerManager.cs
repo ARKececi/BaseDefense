@@ -16,6 +16,8 @@ namespace Controllers
         #region Public Variables
 
         public float Time = 0.05f;
+        public int EnemyCount;
+        public int HostageCount;
 
         #endregion
 
@@ -106,7 +108,7 @@ namespace Controllers
 
         private void EnemyTimer()
         {
-            if (_enemyStackCount < 9)
+            if (_enemyStackCount < EnemyCount)
             {
                 while(_enemyTimer < 0)
                 {
@@ -145,7 +147,7 @@ namespace Controllers
 
         private void HostageTimer()
         {
-            if (_hostageDefaultStackCount < 3)
+            if (_hostageDefaultStackCount < HostageCount)
             {
                 while(_hostageTimer < 0)
                 {

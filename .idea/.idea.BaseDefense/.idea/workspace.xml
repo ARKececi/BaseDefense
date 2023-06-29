@@ -11,6 +11,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Packages/BOXOPHOBIC/Polyverse Skies/Core/Editor/PolyverseSkiesCreate.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Packages/BOXOPHOBIC/Polyverse Skies/Core/Runtime/PolyverseSkies.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Samples/Unity Recorder/2.5.7/Recorder Editor Sample/RecorderEditorExample.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.8.9/Runtime/Core/CameraState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/sınav1/Assets/Player.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -215,6 +218,7 @@
       <workItem from="1687864051014" duration="10496000" />
       <workItem from="1687887181424" duration="617000" />
       <workItem from="1687956077665" duration="16445000" />
+      <workItem from="1688039648287" duration="2780000" />
     </task>
     <servers />
   </component>
