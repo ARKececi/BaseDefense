@@ -187,6 +187,7 @@ namespace Controllers
             int count = CollectedMoneyList.Count;
             for (int i = 0; i < count; i++)
             {
+                HostagePickerSignalable.Instance.onMoneyListAdd?.Invoke(CollectedMoneyList[0]);
                 PlayerSignals.Instance.onMoneyReset?.Invoke(CollectedMoneyList[0]);
                 CollectedMoneyList[0].transform.SetParent(transform.parent);
                 CollectedMoneyList.Remove(CollectedMoneyList[0]);

@@ -78,6 +78,18 @@ namespace Controllers.EnemyController
             }
         }
 
+        public bool Dead()
+        {
+            if (_healt < 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public void GetMoneyObj()
         {
             for (int i = 0; i < 3; i++)

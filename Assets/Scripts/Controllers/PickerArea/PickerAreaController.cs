@@ -57,7 +57,7 @@ namespace Controllers.PickerArea
 
         public void PlayerTrigger()
         {
-            if ((bool)ScoreSignalable.Instance.onMoneyScoreCalculation?.Invoke())
+            if ((bool)ScoreSignalable.Instance.onDecreaseMoneyCount?.Invoke())
             {
                 uıBuyPickerController.OnPrice(Price--);
                 if (Price <= 0)

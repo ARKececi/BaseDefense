@@ -73,10 +73,12 @@ namespace Controllers
                 if (Enemy.Count != 0)
                 {
                     transform.LookAt(Enemy[0].gameObject.transform);
+                    playerAnimatorController.WeaponAimingState();
                 }
                 else
                 {
                     playerAnimatorController.OnAimTrigger(false);
+                    playerAnimatorController.WeaponIdleState();
                     if (direction != Vector3.zero)
                     {
                         character.transform.localRotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(direction), 6 * Time.deltaTime);
@@ -86,6 +88,7 @@ namespace Controllers
             else
             {
                 playerAnimatorController.OnAimTrigger(false);
+                playerAnimatorController.WeaponIdleState();
                 if (direction != Vector3.zero)
                 {
                     character.transform.localRotation = Quaternion.Slerp(character.transform.rotation, Quaternion.LookRotation(direction), 6 * Time.deltaTime);

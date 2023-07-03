@@ -61,7 +61,7 @@ namespace Controllers.TransporterManAreaController
         
         private void PlayerTrigger()
         {
-            if ((bool)ScoreSignalable.Instance.onMoneyScoreCalculation?.Invoke())
+            if ((bool)ScoreSignalable.Instance.onDecreaseMoneyCount?.Invoke())
             {
                 uıBuyTransportManController.OnPrice(Price--);
                 if (Price <= 0)

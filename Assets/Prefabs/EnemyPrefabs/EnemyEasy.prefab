@@ -2973,6 +2973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAIController: {fileID: 3787873134178958841}
   enemyAnimationController: {fileID: 2019505155971673480}
+  enemyController: {fileID: 4542451750248319499}
 --- !u!1 &7769401543472002791
 GameObject:
   m_ObjectHideFlags: 0

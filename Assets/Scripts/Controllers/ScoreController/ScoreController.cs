@@ -47,13 +47,30 @@ namespace Controllers.ScoreController
         {
             if (_moneyScore > 0)
             {
-                int count = _moneyScore--;
+                _moneyScore--;
+                int count = _moneyScore;
                 moneyScore.text = count.ToString();
                 return true;
             }
             else
             {
                 _moneyScore = 0;
+                return false;
+            }
+        }
+        
+        public bool DecreaseDiamondCount()
+        {
+            if (_diamondScore > 0)
+            {
+                _diamondScore--;
+                int count = _diamondScore;
+                diamondScore.text = count.ToString();
+                return true;
+            }
+            else
+            {
+                _diamondScore = 0;
                 return false;
             }
         }

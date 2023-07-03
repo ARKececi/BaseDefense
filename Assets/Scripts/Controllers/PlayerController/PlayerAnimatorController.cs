@@ -124,6 +124,7 @@ namespace Controllers
                                 PlayerAngelMovement();
                                 if (!_trigger)
                                 {
+                                    _velocityX = 0;
                                     WeaponIdleState();
                                 }
                                 _trigger = true;
@@ -153,6 +154,7 @@ namespace Controllers
                             {
                                 if (!_trigger)
                                 {
+                                    _velocityX = 0;
                                     WeaponIdleState();
                                 }
                                 _trigger = true;
@@ -220,7 +222,7 @@ namespace Controllers
             _currentState.EnterState(this);
         }
         
-        private void WeaponIdleState()
+        public void WeaponIdleState()
         {
             if (_pistolIdle)
             {
@@ -234,7 +236,7 @@ namespace Controllers
             }
         }
 
-        private void WeaponAimingState()
+        public void WeaponAimingState()
         {
             if (_pistolIdle)
             {

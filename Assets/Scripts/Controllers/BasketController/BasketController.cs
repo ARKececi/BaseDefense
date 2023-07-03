@@ -61,7 +61,6 @@ namespace Controllers.BasketController
             {
                 if (DiamondList.Count > 0)
                 {
-                    Debug.Log(_timer);
                     if (_timer < 0)
                     {
                         RemoveDiamond();

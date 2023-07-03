@@ -168,7 +168,7 @@ namespace Controllers.TurretController
 
         public void PlayerTrigger()
         {
-            if ((bool)ScoreSignalable.Instance.onMoneyScoreCalculation?.Invoke())
+            if ((bool)ScoreSignalable.Instance.onDecreaseMoneyCount?.Invoke())
             {
                 uıBuyOperatorController.OnPrice(Price--);
                 if (Price <= 0)

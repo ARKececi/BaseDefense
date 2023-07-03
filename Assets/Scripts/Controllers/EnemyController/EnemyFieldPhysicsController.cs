@@ -11,6 +11,7 @@ namespace Controllers.EnemyController
 
         [SerializeField] private EnemyAIController enemyAIController;
         [SerializeField] private EnemyAnimationController enemyAnimationController;
+        [SerializeField] private EnemyController enemyController;
 
         #endregion
 
@@ -34,11 +35,9 @@ namespace Controllers.EnemyController
 
         private void OnTriggerExit(Collider other)
         {
-            
-            
             if (other.CompareTag("Player"))
             {
-                if (enemyAIController.ReSafeHouse() == false)
+                if (enemyAIController.ReSafeHouse() == false && enemyController.Dead() == false)
                 {
                     enemyAIController.TargetWall();
                 }

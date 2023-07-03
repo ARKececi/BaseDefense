@@ -7,6 +7,7 @@ namespace Signals
 {
     public class ScoreSignalable : MonoSingleton<ScoreSignalable>
     {
-       public Func<bool> onMoneyScoreCalculation = delegate { return false;};
+       public Func<bool> onDecreaseMoneyCount = delegate { return false; };
+       public Func<bool> onDecreaseDiamondCount = delegate { return false; };
     }
 }
