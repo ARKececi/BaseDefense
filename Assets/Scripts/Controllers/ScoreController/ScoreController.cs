@@ -74,5 +74,19 @@ namespace Controllers.ScoreController
                 return false;
             }
         }
+
+        public bool EvaluationMoney(int buy)
+        {
+            if (_moneyScore > buy)
+            {
+                _moneyScore -= buy;
+                moneyScore.text = _moneyScore.ToString();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

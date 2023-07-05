@@ -1,4 +1,6 @@
 using Controllers.UIManager;
+using Enums;
+using Signals;
 using UnityEngine;
 
 namespace Managers
@@ -24,12 +26,14 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-
+            UISignals.Instance.onOpenPanel += OnOpenPanel;
+            UISignals.Instance.onClosePanel += OnClosePanel;
         }
 
         private void UnsubscribeEvents()
         {
-
+            UISignals.Instance.onOpenPanel -= OnOpenPanel;
+            UISignals.Instance.onClosePanel -= OnClosePanel;
         }
 
         private void OnDisable()
@@ -37,5 +41,15 @@ namespace Managers
             UnsubscribeEvents();
         }
         #endregion
+
+        private void OnOpenPanel(UIPanel panel)
+        {
+            panelController.OpenPanel(panel);
+        }
+
+        private void OnClosePanel(UIPanel panel)
+        {
+            panelController.ClosePanel(panel);
+        }
     }
 }

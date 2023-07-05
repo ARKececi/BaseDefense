@@ -9,6 +9,8 @@ using Signals;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
+using Slider = UnityEngine.UI.Slider;
 
 namespace Controllers.EnemyController
 {
@@ -19,7 +21,7 @@ namespace Controllers.EnemyController
         #region Public Variables
 
         public List<GameObject> Money;
-
+        public Slider Slider;
         public SerializedDictionary<EnemyEnum, EnemyData> Enemy;
 
         #endregion
@@ -32,6 +34,7 @@ namespace Controllers.EnemyController
         
         [SerializeField] private GameObject moneyBag;
         [SerializeField] private GameObject enemyPhysics;
+        [SerializeField] private GameObject healtBar;
         [SerializeField] private EnemyEnum enemyEnum;
         
         #endregion
@@ -52,15 +55,31 @@ namespace Controllers.EnemyController
             enemyAtackController.GetDamage(Enemy[enemyEnum].Damage);
             enemyAIController.OnSpeed(Enemy[enemyEnum].NormalSpeed,Enemy[enemyEnum].FastSpeed);
         }
-        
+
+        private void Update()
+        {
+            HealtBarRotation();
+        }
+
         private SerializedDictionary<EnemyEnum, EnemyData> GetEnemyData()
         {
             return Resources.Load<CD_Enemy>("Data/CD_Enemy").EnemyDatas;
         }
 
+        public void SetHealt(float healt)
+        {
+            Slider.value = healt / 100;
+        }
+        
+        private void HealtBarRotation()
+        {
+            healtBar.transform.localEulerAngles = new Vector3(0, -transform.eulerAngles.y, 0);
+        }
+        
         public void HealtDamage(int damage)
         {
             _healt -= damage;
+            SetHealt(_healt);
             if (_healt < 0)
             {
                 enemyPhysics.SetActive(false);
@@ -73,6 +92,7 @@ namespace Controllers.EnemyController
                 {
                     PoolSignalable.Instance.onListAdd?.Invoke(transform.gameObject,PoolType.EnemyEasy);
                     EnemySignals.Instance.onStackRemove?.Invoke();
+                    SetHealt(100);
                 });
                 _healt = Enemy[enemyEnum].Healt;
             }

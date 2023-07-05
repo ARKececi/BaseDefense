@@ -4,9 +4,11 @@ using DG.Tweening;
 using Enums;
 using Signalable;
 using Signals;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
+using Slider = UnityEngine.UI.Slider;
 
 namespace Controllers
 {
@@ -17,6 +19,7 @@ namespace Controllers
         #region Public Variables
 
         public List<GameObject> HostageList;
+        public Slider Slider;
 
         #endregion
 
@@ -27,6 +30,7 @@ namespace Controllers
         [SerializeField] private GameObject player;
         [SerializeField] private PlayerMovementController playerMovementController;
         [SerializeField] private PlayerAnimatorController playerAnimatorController;
+        [SerializeField] private GameObject healtBar;
 
         #endregion
 
@@ -41,6 +45,11 @@ namespace Controllers
 
         #endregion
 
+        private void Update()
+        {
+            HealtBarRotation();
+        }
+
         public void GetHealt(int Healt)
         {
             _healt = Healt;
@@ -54,6 +63,16 @@ namespace Controllers
         public void FullMinner(bool minerFull)
         {
             _fullMiner = minerFull;
+        }
+
+        public void SetHealt(float healt)
+        {
+            Slider.value = healt / 100;
+        }
+
+        private void HealtBarRotation()
+        {
+            healtBar.transform.localEulerAngles = new Vector3(0, -transform.eulerAngles.y, 0);
         }
 
         public bool ReturnSafeHose()
@@ -96,6 +115,7 @@ namespace Controllers
         public void HealtDamage(int damage)
         {
             _healt -= damage;
+            SetHealt(_healt);
             if (_healt <= 0)
             {
                 playerPhysics.SetActive(false);
@@ -115,6 +135,7 @@ namespace Controllers
                         HostageDefaultSignalable.Instance.Reset?.Invoke(VARIABLE);   
                     }
                     ResetHostageList();
+                    SetHealt(100);
                 });
                 _healt = 100;
             }

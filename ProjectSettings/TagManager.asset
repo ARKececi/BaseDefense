@@ -30,6 +30,8 @@ TagManager:
   - MainDoor
   - TransporterMan
   - BulletTurret
+  - Ground
+  - Military
   layers:
   - Default
   - TransparentFX

@@ -16,12 +16,12 @@ namespace Controllers.UIManager
 
         #endregion
 
-        public void OnOpenPanel(UIPanel panelParam )
+        public void OpenPanel(UIPanel panelParam )
         {
             panels[(int) panelParam].SetActive(true);
         }
 
-        public void OnClosePanel(UIPanel panelParam)
+        public void ClosePanel(UIPanel panelParam)
         {
             panels[(int) panelParam].SetActive(false);
         }

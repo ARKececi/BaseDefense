@@ -14,5 +14,6 @@ namespace Signals
         public UnityAction<Rigidbody> onBulletEntry = delegate { };
         public Func<GameObject> onBarrel = delegate { return null;};
         public UnityAction<int> onDamageAssigment = delegate { };
+        public UnityAction<string> onSetWeaponFunction = delegate { };
     }
 }

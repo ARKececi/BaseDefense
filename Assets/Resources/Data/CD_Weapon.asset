@@ -22,11 +22,14 @@ MonoBehaviour:
       FlicTime: 0.6
       Damage: 10
       Weapon: {fileID: 2986922479471474074, guid: 0d02d33752c1a4447b9e34b7206681e0, type: 3}
+      Image: {fileID: 2800000, guid: 82f1fe144f4e8ca4d8c26dae8c4b3e66, type: 3}
     - WeaponType: 2
       FlicTime: 1
       Damage: 30
       Weapon: {fileID: 6330641848157515356, guid: e9daed0793ab2614b9997baa0c064c6c, type: 3}
+      Image: {fileID: 0}
     - WeaponType: 0
       FlicTime: 0.4
       Damage: 35
       Weapon: {fileID: 7880851608456770711, guid: 93ed9a34097fb714bb54762b2478c530, type: 3}
+      Image: {fileID: 2800000, guid: 91b34fb1c292b304db633c4b26f36e9a, type: 3}

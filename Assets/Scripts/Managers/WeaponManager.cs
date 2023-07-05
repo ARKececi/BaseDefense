@@ -35,6 +35,7 @@ namespace Managers
             WeaponSignals.Instance.onBulletExit += weaponController.BulletPoolExit;
             WeaponSignals.Instance.onBulletEntry += weaponController.BulletPoolEntry;
             WeaponSignals.Instance.onBarrel += weaponController.Barrel;
+            WeaponSignals.Instance.onSetWeaponFunction += OnSetWeaponFunction;
         }
 
         private void UnsubscribeEvents()
@@ -43,6 +44,7 @@ namespace Managers
             WeaponSignals.Instance.onBulletExit -= weaponController.BulletPoolExit;
             WeaponSignals.Instance.onBulletEntry -= weaponController.BulletPoolEntry;
             WeaponSignals.Instance.onBarrel -= weaponController.Barrel;
+            WeaponSignals.Instance.onSetWeaponFunction -= OnSetWeaponFunction;
         }
 
         private void OnDisable()
@@ -51,5 +53,10 @@ namespace Managers
         }
         
         #endregion
+
+        private void OnSetWeaponFunction(string weapon)
+        {
+            weaponController.SetWeaponFunction(weapon);
+        }
     }
 }

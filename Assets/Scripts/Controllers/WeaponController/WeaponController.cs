@@ -52,7 +52,7 @@ namespace Controllers.WeaponController
 
         private void Start()
         {
-            SetWeaponFunction(Weapons[WeaponsName.IndexOf("AK_47")]);
+            SetWeaponFunction("P250");
             arm = WeaponSignals.Instance.onArm?.Invoke();
             weaponBag.transform.SetParent(arm.transform);
             weaponBag.transform.localPosition = Vector3.zero;
@@ -115,9 +115,10 @@ namespace Controllers.WeaponController
             bullet.transform.gameObject.SetActive(false);
         }
         
-        private void SetWeaponFunction(GameObject Weapon)
+        public void SetWeaponFunction(string Weapon)
         {
-            _weapon = Weapon;
+            GameObject weaponObj = Weapons[WeaponsName.IndexOf(Weapon)];
+            _weapon = weaponObj;
             WeaponSignals.Instance.onDamageAssigment?.Invoke(WeaponData[WeaponsName[Weapons.IndexOf(_weapon)]].Damage);
             if (WeaponData[WeaponsName[Weapons.IndexOf(_weapon)]].WeaponType == WeaponType.Pistol)
             {
