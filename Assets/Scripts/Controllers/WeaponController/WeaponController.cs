@@ -75,14 +75,14 @@ namespace Controllers.WeaponController
                     weapon.transform.SetParent(weaponSlot[0].transform);
                     weapon.transform.localPosition = new Vector3(0, 0, -0);
                     weapon.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                    weapon.SetActive(false);
+                    weapon.transform.GetChild(0).gameObject.SetActive(false);
                 }
                 else if (Weapon.Value.WeaponType == WeaponType.Rifle)
                 {
                     weapon.transform.SetParent(weaponSlot[1].transform);
                     weapon.transform.localPosition = new Vector3(0, 0, -0);
                     weapon.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                    weapon.SetActive(false);
+                    weapon.transform.GetChild(0).gameObject.SetActive(false);
                 }
                 WeaponsName.Add(Weapon.Key);
                 
@@ -137,7 +137,7 @@ namespace Controllers.WeaponController
 
         public void WeaponSetActive(bool safebool)
         {
-            _weapon.SetActive(safebool);
+            _weapon.transform.GetChild(0).gameObject.SetActive(safebool);
         }
         
     }

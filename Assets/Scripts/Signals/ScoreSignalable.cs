@@ -9,5 +9,6 @@ namespace Signals
     {
        public Func<bool> onDecreaseMoneyCount = delegate { return false; };
        public Func<bool> onDecreaseDiamondCount = delegate { return false; };
+       public Func<int,bool> onEvaluationMoney = delegate { return false; };
     }
 }

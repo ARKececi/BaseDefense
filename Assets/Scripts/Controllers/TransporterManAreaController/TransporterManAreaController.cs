@@ -53,7 +53,7 @@ namespace Controllers.TransporterManAreaController
 
         public void AddTurretList(GameObject turret)
         {
-            if (Price > 0)
+            if (Price > 0 || !TurretList.Contains(turret))
             {
                 TurretList.Add(turret);
             }

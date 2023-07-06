@@ -72,8 +72,11 @@ namespace Controllers.TransporterManController
 
         public void AddTurretList(GameObject turret)
         {
-            _turretList.Add(turret);
-            _turretList.TrimExcess();
+            if (!_turretList.Contains(turret))
+            {
+                _turretList.Add(turret);
+                _turretList.TrimExcess();
+            }
         }
 
         public void RemoveTurretList(GameObject turret)

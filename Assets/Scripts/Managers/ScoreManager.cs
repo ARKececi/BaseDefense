@@ -29,6 +29,7 @@ namespace Managers
             BasketSignalable.Instance.onDiamondScoreCalculation += OnDiamondScoreCalculation;
             ScoreSignalable.Instance.onDecreaseMoneyCount += OnDecreaseMoneyCount;
             ScoreSignalable.Instance.onDecreaseDiamondCount += OnDecreaseDiamondCount;
+            ScoreSignalable.Instance.onEvaluationMoney += OnEvaluationMoney;
         }
 
         private void UnsubscribeEvents()
@@ -36,7 +37,8 @@ namespace Managers
             PlayerSignals.Instance.onMoneyScoreCalculation -= OnMoneyScoreCalculation;
             BasketSignalable.Instance.onDiamondScoreCalculation -= OnDiamondScoreCalculation;
             ScoreSignalable.Instance.onDecreaseMoneyCount -= OnDecreaseMoneyCount;
-            ScoreSignalable.Instance.onDecreaseDiamondCount += OnDecreaseDiamondCount;
+            ScoreSignalable.Instance.onDecreaseDiamondCount -= OnDecreaseDiamondCount;
+            ScoreSignalable.Instance.onEvaluationMoney -= OnEvaluationMoney;
         }
 
         private void OnDisable()
@@ -63,6 +65,11 @@ namespace Managers
         private bool OnDecreaseDiamondCount()
         {
             return scoreController.DecreaseDiamondCount();
+        }
+
+        private bool OnEvaluationMoney(int buy)
+        {
+            return scoreController.EvaluationMoney(buy);
         }
     }
 }

@@ -211,6 +211,7 @@ namespace Controllers.TurretController
                             _ammoCount++;
                             if (_ammoCount > 3)
                             {
+                                _needAmmo = true;
                                 Ammo[Ammo.Count - 1].transform.DOKill();
                                 PoolSignalable.Instance.onListAdd?.Invoke(Ammo[Ammo.Count -1],PoolType.AmmoPackage);
                                 Ammo.Remove(Ammo[Ammo.Count - 1]);

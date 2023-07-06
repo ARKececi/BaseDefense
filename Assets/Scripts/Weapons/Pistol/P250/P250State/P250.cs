@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using Extentions;
 using Signals;
 using UnityEngine;
 
-namespace States.WeaponStates
+namespace Weapons.Pistol.P250.P250State
 {
-    public class AK_47 : WeaponBaseState
+    public class P250 : WeaponBaseState
     {
         #region Self Variables
 
@@ -16,6 +15,7 @@ namespace States.WeaponStates
         #region Serialized Variables
 
         [SerializeField] private GameObject barrel;
+        [SerializeField] private GameObject weapon;
 
         #endregion
 
@@ -26,18 +26,23 @@ namespace States.WeaponStates
         #endregion
 
         #endregion
-
+        
         private void Start()
         {
             barrelBase = barrel;
-            fireRate = WeaponData["AK_47"].FlicTime;
-            damage = WeaponData["AK_47"].Damage;
+            fireRate = WeaponData["P250"].FlicTime;
+            damage = WeaponData["P250"].Damage;
             _timer = fireRate;
+        }
+
+        public void Upgrade()
+        {
+            damage += 10;
         }
 
         private void Update()
         {
-            if ((bool)WeaponSignals.Instance.onEnemyTrigger?.Invoke())
+            if ((bool)WeaponSignals.Instance.onEnemyTrigger?.Invoke() && weapon.activeSelf)
             {
                 Timer();
             }
