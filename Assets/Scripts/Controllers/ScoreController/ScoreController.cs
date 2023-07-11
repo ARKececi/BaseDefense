@@ -1,3 +1,6 @@
+using System;
+using Keys;
+using Signals;
 using TMPro;
 using UnityEngine;
 
@@ -29,11 +32,33 @@ namespace Controllers.ScoreController
 
         #endregion
 
+        private void Awake()
+        {
+            _moneyScore = GetMoneyScoreSave();
+            moneyScore.text = _moneyScore.ToString();
+            _diamondScore = GetDiamondScoreSave();
+            diamondScore.text = _diamondScore.ToString();
+        }
+
+        public int GetMoneyScoreSave()
+        {
+            if (!ES3.FileExists()) return 0;
+            return ES3.KeyExists("MoneyScore") ? ES3.Load<int>("MoneyScore") : 0;
+        }
+
+        public int GetDiamondScoreSave()
+        {
+            if (!ES3.FileExists()) return 0;
+            return ES3.KeyExists("DiamondScore") ? ES3.Load<int>("DiamondScore") : 0;
+        }
+
         public void MoneyScoreCalculation(int moneyCount)
         {
             int score = Multiplier * moneyCount;
             _moneyScore += score;
             moneyScore.text = _moneyScore.ToString();
+            SaveSignals.Instance.onSaveMoneyScore?.Invoke(_moneyScore);
+
         }
 
         public void DiamondScoreCalculation(int diamondCount)
@@ -41,6 +66,7 @@ namespace Controllers.ScoreController
             int score = diamondCount;
             _diamondScore += score;
             diamondScore.text = _diamondScore.ToString();
+            SaveSignals.Instance.onSaveDiamondScore?.Invoke(_diamondScore);
         }
 
         public bool DecreaseMoneyCount()
@@ -50,6 +76,7 @@ namespace Controllers.ScoreController
                 _moneyScore--;
                 int count = _moneyScore;
                 moneyScore.text = count.ToString();
+                SaveSignals.Instance.onSaveMoneyScore?.Invoke(_moneyScore);
                 return true;
             }
             else
@@ -66,6 +93,7 @@ namespace Controllers.ScoreController
                 _diamondScore--;
                 int count = _diamondScore;
                 diamondScore.text = count.ToString();
+                SaveSignals.Instance.onSaveDiamondScore?.Invoke(_diamondScore);
                 return true;
             }
             else
@@ -77,10 +105,11 @@ namespace Controllers.ScoreController
 
         public bool EvaluationMoney(int buy)
         {
-            if (_moneyScore > buy)
+            if (_moneyScore >= buy)
             {
                 _moneyScore -= buy;
                 moneyScore.text = _moneyScore.ToString();
+                SaveSignals.Instance.onSaveMoneyScore?.Invoke(_moneyScore);
                 return true;
             }
             else

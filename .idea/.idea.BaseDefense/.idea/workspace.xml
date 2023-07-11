@@ -11,6 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../ATMRush3D/Assets/Scripts/Managers/SaveManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Packages/BOXOPHOBIC/Polyverse Skies/Core/Editor/PolyverseSkiesCreate.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Packages/BOXOPHOBIC/Polyverse Skies/Core/Runtime/PolyverseSkies.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Samples/Unity Recorder/2.5.7/Recorder Editor Sample/RecorderEditorExample.cs" root0="FORCE_HIGHLIGHTING" />
@@ -225,6 +226,12 @@
       <workItem from="1688494962610" duration="595000" />
       <workItem from="1688544413269" duration="18088000" />
       <workItem from="1688628549967" duration="20655000" />
+      <workItem from="1688732475334" duration="5824000" />
+      <workItem from="1688756159566" duration="984000" />
+      <workItem from="1688836502912" duration="1250000" />
+      <workItem from="1688979227592" duration="16170000" />
+      <workItem from="1689016778434" duration="877000" />
+      <workItem from="1689064572232" duration="9666000" />
     </task>
     <servers />
   </component>

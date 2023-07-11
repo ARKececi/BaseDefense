@@ -79,11 +79,18 @@ namespace Controllers.WeaponShopUIController
         
         public void AK47Upgrade()
         {
-            if ((bool)ScoreSignalable.Instance.onEvaluationMoney?.Invoke((AK_47UpgradeMoney * _ak47UpgradeCount)) && _ak47UpgradeCount < 5)
+            if (_ak47UpgradeCount < 5)
             {
-                AK_47Signalable.Instance.onUpgrade?.Invoke();
-                _ak47UpgradeCount++;
-                TextDatas[WeaponType.Rifle].Update.text = (AK_47UpgradeMoney *_ak47UpgradeCount).ToString();
+                if ((bool)ScoreSignalable.Instance.onEvaluationMoney?.Invoke((AK_47UpgradeMoney * _ak47UpgradeCount)))
+                {
+                    AK_47Signalable.Instance.onUpgrade?.Invoke();
+                    _ak47UpgradeCount++;
+                    TextDatas[WeaponType.Rifle].Update.text = (AK_47UpgradeMoney *_ak47UpgradeCount).ToString();
+                    if (_p250UpgradeCount >= 5)
+                    {
+                        TextDatas[WeaponType.Pistol].Update.text = ("MAX");
+                    }
+                }
             }
         }
         
@@ -110,12 +117,18 @@ namespace Controllers.WeaponShopUIController
 
         public void PistolUpgrade()
         {
-            if ((bool)ScoreSignalable.Instance.onEvaluationMoney?.Invoke((P250UpgradeMoney * _ak47UpgradeCount)) && _p250UpgradeCount < 5)
+            if (_p250UpgradeCount < 5)
             {
-                P250Signalable.Instance.onUpgrade?.Invoke();
-                _p250UpgradeCount++;
-                TextDatas[WeaponType.Pistol].Update.text = (P250UpgradeMoney * _p250UpgradeCount).ToString();
-                
+                if ((bool)ScoreSignalable.Instance.onEvaluationMoney?.Invoke((P250UpgradeMoney * _ak47UpgradeCount)))
+                {
+                    P250Signalable.Instance.onUpgrade?.Invoke();
+                    _p250UpgradeCount++;
+                    TextDatas[WeaponType.Pistol].Update.text = (P250UpgradeMoney * _p250UpgradeCount).ToString();
+                    if (_p250UpgradeCount >= 5)
+                    {
+                        TextDatas[WeaponType.Pistol].Update.text = ("MAX");
+                    }
+                }
             }
         }
         
