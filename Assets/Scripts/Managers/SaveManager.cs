@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Controllers.SaveController;
+using Enums;
 using Keys;
 using Signals;
 using UnityEngine;
@@ -8,6 +10,12 @@ namespace Managers
     public class SaveManager : MonoBehaviour
     {
         #region Serl Variables
+
+        #region Public Variables
+
+        public List<WeaponType> Weapons;
+
+        #endregion
 
         #region Serialized Variables
 
@@ -28,12 +36,16 @@ namespace Managers
         {
             SaveSignals.Instance.onSaveMoneyScore += OnSaveMoneyScore;
             SaveSignals.Instance.onSaveDiamondScore += OnSaveDiamondScore;
+            SaveSignals.Instance.onSaveWeaponName += OnSaveWeapon;
+            SaveSignals.Instance.onSaveBuyingWeapon += OnSaveBuyingWeapon;
         }
 
         private void UnsubscribeEvents()
         {
             SaveSignals.Instance.onSaveMoneyScore -= OnSaveMoneyScore;
             SaveSignals.Instance.onSaveDiamondScore -= OnSaveDiamondScore;
+            SaveSignals.Instance.onSaveWeaponName -= OnSaveWeapon;
+            SaveSignals.Instance.onSaveBuyingWeapon -= OnSaveBuyingWeapon;
         }
 
         private void OnDisable()
@@ -55,6 +67,11 @@ namespace Managers
         private void OnSaveWeapon(string weaponName)
         {
             saveController.SaveWeapon(weaponName);
+        }
+
+        private void OnSaveBuyingWeapon(List<WeaponType> weapon)
+        {
+            saveController.SaveBuyingWeapon(weapon);
         }
     }
 }

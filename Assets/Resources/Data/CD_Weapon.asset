@@ -17,7 +17,7 @@ MonoBehaviour:
     - P250
     - AK_47
     m_Values:
-    - WeaponType: 2
+    - WeaponType: 1
       FlicTime: 0.6
       Damage: 10
       Weapon: {fileID: 1278731020258698035, guid: 84c62fc018ee3f04f8b9f18365aa7d44, type: 3}

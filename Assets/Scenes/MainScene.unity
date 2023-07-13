@@ -3616,6 +3616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f22c32288c04bfd8425fd775495fbc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Weapons: 
   saveController: {fileID: 745928473}
 --- !u!114 &745928473
 MonoBehaviour:
@@ -8144,7 +8145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseAndUpgrade:
-    m_Keys: 0000000002000000
+    m_Keys: 0000000001000000
     m_Values:
     - Buttons:
       - {fileID: 949054906}
@@ -8154,13 +8155,16 @@ MonoBehaviour:
       - {fileID: 1240780023}
       - {fileID: 201627817}
       - {fileID: 1674241169}
-  Buying: 02000000
+  WeaponData:
+    m_Keys: []
+    m_Values: []
+  Buying: 
   AK_47BuyMoney: 200
   P250BuyMoney: 0
   AK_47UpgradeMoney: 150
   P250UpgradeMoney: 75
   TextDatas:
-    m_Keys: 0000000002000000
+    m_Keys: 0000000001000000
     m_Values:
     - Buy: {fileID: 421126541}
       Update: {fileID: 644083068}

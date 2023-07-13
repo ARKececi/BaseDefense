@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Enums;
 using Keys;
 using UnityEngine;
 
@@ -14,6 +16,11 @@ namespace Controllers.SaveController
         public void SaveDiamondScore(int diamonCount)
         {
             ES3.Save("DiamondScore", diamonCount);
+        }
+
+        public void SaveBuyingWeapon(List<WeaponType> weapons)
+        {
+            if (weapons != null) ES3.Save<List<WeaponType>>("WeaponBuyList" ,weapons);
         }
         
         public void SaveWeapon(string weaponName)

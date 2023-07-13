@@ -38,6 +38,7 @@ namespace Controllers.WeaponController
 
         private GameObject _weaponPoint;
         private GameObject _weapon;
+        private string _weaponName;
 
         #endregion
 
@@ -46,17 +47,26 @@ namespace Controllers.WeaponController
         private void Awake()
         {
             WeaponData = GetWeaponData();
+            _weaponName = GetWeaponSave();
             WeaponInstantiate();
             BulletInstantiate();
         }
+        
+        public string GetWeaponSave()
+        {
+            if (!ES3.FileExists()) return null;
+            return ES3.KeyExists("WeaponName") ? ES3.Load<string>("WeaponName") : null;
+        }
+
 
         private void Start()
         {
-            SetWeaponFunction("P250");
             arm = WeaponSignals.Instance.onArm?.Invoke();
             weaponBag.transform.SetParent(arm.transform);
             weaponBag.transform.localPosition = Vector3.zero;
             weaponBag.transform.localRotation = Quaternion.Euler(0,0,0);
+            if (_weaponName != null) SetWeaponFunction(_weaponName);
+            else SetWeaponFunction("P250");
         }
         
         private SerializedDictionary<string, WeaponData> GetWeaponData()
@@ -118,6 +128,7 @@ namespace Controllers.WeaponController
         public void SetWeaponFunction(string Weapon)
         {
             GameObject weaponObj = Weapons[WeaponsName.IndexOf(Weapon)];
+            SaveSignals.Instance.onSaveWeaponName?.Invoke(Weapon);
             _weapon = weaponObj;
             WeaponSignals.Instance.onDamageAssigment?.Invoke(WeaponData[WeaponsName[Weapons.IndexOf(_weapon)]].Damage);
             if (WeaponData[WeaponsName[Weapons.IndexOf(_weapon)]].WeaponType == WeaponType.Pistol)

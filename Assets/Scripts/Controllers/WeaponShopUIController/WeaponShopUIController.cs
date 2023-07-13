@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Data.UnityObject;
 using Data.ValueObject;
 using Enums;
 using Signals;
@@ -18,6 +19,7 @@ namespace Controllers.WeaponShopUIController
         #region Public Variables
 
         public SerializedDictionary<WeaponType, ButtonLists > UseAndUpgrade;
+        public SerializedDictionary<string, WeaponData> WeaponData = new SerializedDictionary<string, WeaponData>();
         public List<WeaponType> Buying;
 
         public int AK_47BuyMoney;
@@ -43,14 +45,86 @@ namespace Controllers.WeaponShopUIController
 
         #endregion
 
+        private void Awake()
+        {
+            WeaponData = GetWeaponData();
+            GetSaveWeaponList();
+            Buying.Add(WeaponType.Pistol);
+        }
+
         private void Start()
         {
+            UseAndUpgrade[WeaponType.Pistol].Buttons[1].SetActive(false);
+            foreach (var VARIABLE in Buying)
+            {
+                WeaponBuyingSaveController(VARIABLE);
+            }
+
+            foreach (var VARIABLE in WeaponData.Keys)
+            {
+                if (VARIABLE == GetWeaponSave())
+                {
+                    WeaponSaveController(WeaponData[VARIABLE].WeaponType);
+                }
+            }
             _ak47UpgradeCount++;
             _p250UpgradeCount++;
 
             TextDatas[WeaponType.Pistol].Update.text = P250UpgradeMoney.ToString();
             TextDatas[WeaponType.Rifle].Buy.text = AK_47BuyMoney.ToString();
             TextDatas[WeaponType.Rifle].Update.text = AK_47UpgradeMoney.ToString();
+        }
+        
+        private SerializedDictionary<string, WeaponData> GetWeaponData()
+        {
+            return Resources.Load<CD_Weapon>("Data/CD_Weapon").WeaponDatas;
+        }
+        
+        public string GetWeaponSave()
+        {
+            if (!ES3.FileExists()) return null;
+            return ES3.KeyExists("WeaponName") ? ES3.Load<string>("WeaponName") : null;
+        }
+        
+        public List<WeaponType> GetBuyWeaponWeaponListSave()
+        {
+            if (!ES3.FileExists()) return null;
+            return ES3.Load<List<WeaponType>>("WeaponBuyList",new List<WeaponType>());
+            //return ES3.KeyExists("WeaponBuyList") ? ES3.Load<List<WeaponType>>("WeaponBuyList") : new List<WeaponType>();
+        }
+
+        private void BuyingSave(WeaponType weapon)
+        {
+            Buying.Add(weapon);
+            SaveSignals.Instance.onSaveBuyingWeapon?.Invoke(Buying);
+        }
+
+        private void GetSaveWeaponList()
+        {
+            Buying = GetBuyWeaponWeaponListSave();
+        }
+
+        private void WeaponBuyingSaveController(WeaponType weaponType)
+        {
+            UseAndUpgrade[weaponType].Buttons[2].SetActive(true);
+            UseAndUpgrade[weaponType].Buttons[0].SetActive(false);
+        }
+
+        private void WeaponSaveController(WeaponType weapon)
+        {
+            foreach (var VARIABLE in UseAndUpgrade.Keys)
+            {
+                if (VARIABLE != weapon && Buying.Contains(VARIABLE))
+                {
+                    foreach (var weaponUI in UseAndUpgrade[VARIABLE].Buttons)
+                    {
+                        if (UseAndUpgrade[VARIABLE].Buttons[0] != weaponUI)
+                        {
+                            weaponUI.SetActive(true);
+                        }
+                    }
+                }
+            }
         }
 
         public void AK47Buy()
@@ -60,7 +134,7 @@ namespace Controllers.WeaponShopUIController
                 WeaponSignals.Instance.onSetWeaponFunction?.Invoke("AK_47");
                 UseAndUpgrade[WeaponType.Rifle].Buttons[2].SetActive(true);
                 UseAndUpgrade[WeaponType.Rifle].Buttons[0].SetActive(false);
-                Buying.Add(WeaponType.Rifle);
+                BuyingSave(WeaponType.Rifle);
                 foreach (var VARIABLE in UseAndUpgrade.Keys)
                 {
                     if (VARIABLE != WeaponType.Rifle && Buying.Contains(VARIABLE))
@@ -99,7 +173,6 @@ namespace Controllers.WeaponShopUIController
             WeaponSignals.Instance.onSetWeaponFunction?.Invoke("AK_47");
             UseAndUpgrade[WeaponType.Rifle].Buttons[2].SetActive(true);
             UseAndUpgrade[WeaponType.Rifle].Buttons[1].SetActive(false);
-            Buying.Add(WeaponType.Rifle);
             foreach (var VARIABLE in UseAndUpgrade.Keys)
             {
                 if (VARIABLE != WeaponType.Rifle && Buying.Contains(VARIABLE))
@@ -137,7 +210,6 @@ namespace Controllers.WeaponShopUIController
             WeaponSignals.Instance.onSetWeaponFunction?.Invoke("P250");
             UseAndUpgrade[WeaponType.Pistol].Buttons[2].SetActive(true);
             UseAndUpgrade[WeaponType.Pistol].Buttons[1].SetActive(false);
-            Buying.Add(WeaponType.Pistol);
             foreach (var VARIABLE in UseAndUpgrade.Keys)
             {
                 if (VARIABLE != WeaponType.Pistol && Buying.Contains(VARIABLE))
