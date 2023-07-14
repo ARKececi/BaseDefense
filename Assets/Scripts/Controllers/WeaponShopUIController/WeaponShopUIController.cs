@@ -29,17 +29,18 @@ namespace Controllers.WeaponShopUIController
         public int P250UpgradeMoney;
 
         #endregion
+        
+        #region Serialized Variables
+
+        [SerializeField] private SerializedDictionary<WeaponType, WeaponsUITextData> TextDatas;
+
+        #endregion
 
         #region Private Variables
 
         private int _ak47UpgradeCount;
         private int _p250UpgradeCount;
-
-        #endregion
-
-        #region Serialized Variables
-
-        [SerializeField] private SerializedDictionary<WeaponType, WeaponsUITextData> TextDatas;
+        private bool _save;
 
         #endregion
 
@@ -67,14 +68,50 @@ namespace Controllers.WeaponShopUIController
                     WeaponSaveController(WeaponData[VARIABLE].WeaponType);
                 }
             }
-            _ak47UpgradeCount++;
-            _p250UpgradeCount++;
 
             TextDatas[WeaponType.Pistol].Update.text = P250UpgradeMoney.ToString();
             TextDatas[WeaponType.Rifle].Buy.text = AK_47BuyMoney.ToString();
             TextDatas[WeaponType.Rifle].Update.text = AK_47UpgradeMoney.ToString();
+            
+            foreach (var VARIABLE in GetBuyWeaponWeaponUpgradeSave())
+            {
+                for (int i = 0; i < VARIABLE.Value; i++)
+                {
+                    SaveUpgrade(VARIABLE.Key);
+                }
+            }
+            
+            if(_ak47UpgradeCount == 0)_ak47UpgradeCount++;
+            if(_p250UpgradeCount == 0)_p250UpgradeCount++;
         }
-        
+
+        private void SaveUpgrade(WeaponType weapon)
+        {
+            if (weapon == WeaponType.Pistol)
+            {
+                SaveSignals.Instance.onSaveWeaponUpgrade?.Invoke(WeaponType.Pistol, _p250UpgradeCount);
+                P250Signalable.Instance.onUpgrade?.Invoke();
+                _p250UpgradeCount++;
+                TextDatas[WeaponType.Pistol].Update.text = (P250UpgradeMoney * _p250UpgradeCount).ToString();
+                if (_p250UpgradeCount >= 5)
+                {
+                    TextDatas[WeaponType.Pistol].Update.text = ("MAX");
+                }
+            }
+            
+            else if(weapon == WeaponType.Rifle)
+            {
+                SaveSignals.Instance.onSaveWeaponUpgrade?.Invoke(WeaponType.Rifle, _ak47UpgradeCount);
+                AK_47Signalable.Instance.onUpgrade?.Invoke();
+                _ak47UpgradeCount++;
+                TextDatas[WeaponType.Rifle].Update.text = (AK_47UpgradeMoney *_ak47UpgradeCount).ToString();
+                if (_p250UpgradeCount >= 5)
+                {
+                    TextDatas[WeaponType.Pistol].Update.text = ("MAX");
+                }
+            }
+        }
+
         private SerializedDictionary<string, WeaponData> GetWeaponData()
         {
             return Resources.Load<CD_Weapon>("Data/CD_Weapon").WeaponDatas;
@@ -91,6 +128,12 @@ namespace Controllers.WeaponShopUIController
             if (!ES3.FileExists()) return null;
             return ES3.Load<List<WeaponType>>("WeaponBuyList",new List<WeaponType>());
             //return ES3.KeyExists("WeaponBuyList") ? ES3.Load<List<WeaponType>>("WeaponBuyList") : new List<WeaponType>();
+        }
+        
+        public Dictionary<WeaponType,int> GetBuyWeaponWeaponUpgradeSave()
+        {
+            if (!ES3.FileExists()) return null;
+            return ES3.Load<Dictionary<WeaponType,int>>("Upgrade",new Dictionary<WeaponType, int>());
         }
 
         private void BuyingSave(WeaponType weapon)
@@ -157,6 +200,7 @@ namespace Controllers.WeaponShopUIController
             {
                 if ((bool)ScoreSignalable.Instance.onEvaluationMoney?.Invoke((AK_47UpgradeMoney * _ak47UpgradeCount)))
                 {
+                    SaveSignals.Instance.onSaveWeaponUpgrade?.Invoke(WeaponType.Rifle, _ak47UpgradeCount);
                     AK_47Signalable.Instance.onUpgrade?.Invoke();
                     _ak47UpgradeCount++;
                     TextDatas[WeaponType.Rifle].Update.text = (AK_47UpgradeMoney *_ak47UpgradeCount).ToString();
@@ -194,6 +238,7 @@ namespace Controllers.WeaponShopUIController
             {
                 if ((bool)ScoreSignalable.Instance.onEvaluationMoney?.Invoke((P250UpgradeMoney * _ak47UpgradeCount)))
                 {
+                    SaveSignals.Instance.onSaveWeaponUpgrade?.Invoke(WeaponType.Pistol, _p250UpgradeCount);
                     P250Signalable.Instance.onUpgrade?.Invoke();
                     _p250UpgradeCount++;
                     TextDatas[WeaponType.Pistol].Update.text = (P250UpgradeMoney * _p250UpgradeCount).ToString();

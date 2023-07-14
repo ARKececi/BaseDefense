@@ -4,6 +4,7 @@ using Enums;
 using Keys;
 using Signals;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Managers
 {
@@ -38,6 +39,7 @@ namespace Managers
             SaveSignals.Instance.onSaveDiamondScore += OnSaveDiamondScore;
             SaveSignals.Instance.onSaveWeaponName += OnSaveWeapon;
             SaveSignals.Instance.onSaveBuyingWeapon += OnSaveBuyingWeapon;
+            SaveSignals.Instance.onSaveWeaponUpgrade += OnSaveWeaponUpgrade;
         }
 
         private void UnsubscribeEvents()
@@ -46,6 +48,7 @@ namespace Managers
             SaveSignals.Instance.onSaveDiamondScore -= OnSaveDiamondScore;
             SaveSignals.Instance.onSaveWeaponName -= OnSaveWeapon;
             SaveSignals.Instance.onSaveBuyingWeapon -= OnSaveBuyingWeapon;
+            SaveSignals.Instance.onSaveWeaponUpgrade -= OnSaveWeaponUpgrade;
         }
 
         private void OnDisable()
@@ -73,5 +76,11 @@ namespace Managers
         {
             saveController.SaveBuyingWeapon(weapon);
         }
+
+        private void OnSaveWeaponUpgrade(WeaponType weapon, int count)
+        {
+            saveController.SaveWeaponUpgrade(weapon,count);
+        }
+        
     }
 }

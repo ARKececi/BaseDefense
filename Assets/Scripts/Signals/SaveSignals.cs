@@ -4,6 +4,7 @@ using Extentions;
 using Keys;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 namespace Signals
 {
@@ -13,5 +14,6 @@ namespace Signals
         public UnityAction<int> onSaveDiamondScore = delegate { };
         public UnityAction<string> onSaveWeaponName = delegate { };
         public UnityAction<List<WeaponType>> onSaveBuyingWeapon = delegate { };
+        public UnityAction<WeaponType, int> onSaveWeaponUpgrade = delegate { };
     }
 }
