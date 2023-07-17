@@ -40,6 +40,10 @@ namespace Managers
             SaveSignals.Instance.onSaveWeaponName += OnSaveWeapon;
             SaveSignals.Instance.onSaveBuyingWeapon += OnSaveBuyingWeapon;
             SaveSignals.Instance.onSaveWeaponUpgrade += OnSaveWeaponUpgrade;
+            SaveSignals.Instance.onSavePickerMan += OnSavePickerMan;
+            SaveSignals.Instance.onSaveTransporterMan += OnSaveTransporterMan;
+            SaveSignals.Instance.onSaveTurretArea += OnSaveTaretArea;
+            SaveSignals.Instance.onSaveOperatorMan += OnSaveOperatorMan;
         }
 
         private void UnsubscribeEvents()
@@ -49,6 +53,10 @@ namespace Managers
             SaveSignals.Instance.onSaveWeaponName -= OnSaveWeapon;
             SaveSignals.Instance.onSaveBuyingWeapon -= OnSaveBuyingWeapon;
             SaveSignals.Instance.onSaveWeaponUpgrade -= OnSaveWeaponUpgrade;
+            SaveSignals.Instance.onSavePickerMan -= OnSavePickerMan;
+            SaveSignals.Instance.onSaveTransporterMan -= OnSaveTransporterMan;
+            SaveSignals.Instance.onSaveTurretArea -= OnSaveTaretArea;
+            SaveSignals.Instance.onSaveOperatorMan -= OnSaveOperatorMan;
         }
 
         private void OnDisable()
@@ -80,6 +88,26 @@ namespace Managers
         private void OnSaveWeaponUpgrade(WeaponType weapon, int count)
         {
             saveController.SaveWeaponUpgrade(weapon,count);
+        }
+
+        private void OnSavePickerMan()
+        {
+            saveController.SavePickerMan();
+        }
+
+        private void OnSaveTransporterMan()
+        {
+            saveController.SaveTransporterMan();
+        }
+
+        private void OnSaveTaretArea(GameObject turret, GameObject buy)
+        {
+            saveController.SaveTaretArea(turret,buy);
+        }
+
+        private void OnSaveOperatorMan(GameObject operatorMan, GameObject buy)
+        {
+            saveController.SaveOperatorMan(operatorMan,buy);
         }
         
     }

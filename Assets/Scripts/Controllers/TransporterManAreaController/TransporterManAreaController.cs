@@ -38,6 +38,22 @@ namespace Controllers.TransporterManAreaController
         private void Awake()
         {
             uıBuyTransportManController.OnPrice(Price);
+            SaveOpen();
+        }
+        
+        public bool GetTransporterManSave()
+        {
+            if (!ES3.FileExists()) return false;
+            return ES3.KeyExists("TransporterMan") ? ES3.Load<bool>("TransporterMan") : false;
+        }
+
+        private void SaveOpen()
+        {
+            if (GetTransporterManSave())
+            {
+                buyPhysics.SetActive(false);
+                TransporterManSpawn();
+            }
         }
 
         public void BuyTimer()
@@ -48,7 +64,6 @@ namespace Controllers.TransporterManAreaController
                 PlayerTrigger();
             }
             _timer -= UnityEngine.Time.deltaTime;
-            
         }
 
         public void AddTurretList(GameObject turret)
@@ -66,6 +81,7 @@ namespace Controllers.TransporterManAreaController
                 uıBuyTransportManController.OnPrice(Price--);
                 if (Price <= 0)
                 {
+                    SaveSignals.Instance.onSaveTransporterMan?.Invoke();
                     buyPhysics.SetActive(false);
                     TransporterManSpawn();
                     foreach (var turret in TurretList)

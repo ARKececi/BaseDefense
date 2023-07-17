@@ -35,6 +35,22 @@ namespace Controllers.PickerArea
         private void Start()
         {
             uıBuyPickerController.OnPrice(Price);
+            SaveOpen();
+        }
+        
+        public bool GetPickerManSave()
+        {
+            if (!ES3.FileExists()) return false;
+            return ES3.KeyExists("PickerMan") ? ES3.Load<bool>("PickerMan") : false;
+        }
+        
+        private void SaveOpen()
+        {
+            if (GetPickerManSave())
+            {
+                buyPhysics.SetActive(false);
+                PickerManSpawn();
+            }
         }
 
         public void MoneyListAdd(GameObject money)
@@ -62,15 +78,21 @@ namespace Controllers.PickerArea
                 uıBuyPickerController.OnPrice(Price--);
                 if (Price <= 0)
                 {
+                    SaveSignals.Instance.onSavePickerMan?.Invoke();
                     buyPhysics.SetActive(false);
-                    var picker = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.HostagePicker);
-                    picker.transform.position = transform.position;
+                    PickerManSpawn();
                     foreach (var money in MoneyList)
                     {
                         HostagePickerSignalable.Instance.onMoneyListAdd?.Invoke(money);   
                     }
                 }
             }
+        }
+
+        private void PickerManSpawn()
+        {
+            var picker = PoolSignalable.Instance.onListRemove?.Invoke(PoolType.HostagePicker);
+            picker.transform.position = transform.position;
         }
     }
 }

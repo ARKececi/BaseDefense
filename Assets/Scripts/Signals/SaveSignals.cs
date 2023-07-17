@@ -15,5 +15,9 @@ namespace Signals
         public UnityAction<string> onSaveWeaponName = delegate { };
         public UnityAction<List<WeaponType>> onSaveBuyingWeapon = delegate { };
         public UnityAction<WeaponType, int> onSaveWeaponUpgrade = delegate { };
+        public UnityAction onSavePickerMan = delegate { };
+        public UnityAction onSaveTransporterMan = delegate { };
+        public UnityAction<GameObject,GameObject> onSaveTurretArea = delegate { };
+        public UnityAction<GameObject, GameObject> onSaveOperatorMan = delegate { };
     }
 }

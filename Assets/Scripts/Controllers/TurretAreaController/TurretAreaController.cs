@@ -36,6 +36,7 @@ namespace Controllers.TurretAreaController
                 uıBuyController.OnPrice(Price--);
                 if (Price <= 0)
                 {
+                    SaveSignals.Instance.onSaveTurretArea?.Invoke(piece[1],piece[0]);
                     piece[1].SetActive(true);
                     piece[0].gameObject.SetActive(false);
                 }

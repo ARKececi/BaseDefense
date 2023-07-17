@@ -190,12 +190,12 @@ TrailRenderer:
   m_Time: 0.25
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.2
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.030733109
+        time: 0.016276784
         value: 1
         inSlope: 0
         outSlope: 0

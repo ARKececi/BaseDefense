@@ -173,6 +173,7 @@ namespace Controllers.TurretController
                 uıBuyOperatorController.OnPrice(Price--);
                 if (Price <= 0)
                 {
+                    SaveSignals.Instance.onSaveOperatorMan?.Invoke(Piece[1],Piece[0]);
                     Piece[1].SetActive(true);
                     Piece[0].gameObject.SetActive(false);
                 }
@@ -207,6 +208,8 @@ namespace Controllers.TurretController
                             bulletTurretController.ZeroVelocty();
                             bulletTurretController.transform.gameObject.SetActive(true);
                             bulletTurretController.transform.position = barrel.transform.position;
+                            bulletTurretController.transform.eulerAngles = new Vector3(bulletTurretController.transform.eulerAngles.x,
+                                barrel.transform.eulerAngles.y, barrel.transform.eulerAngles.z);
                             bulletRigidbody.AddForce(barrel.transform.forward * 20,ForceMode.VelocityChange);
                             _ammoCount++;
                             if (_ammoCount > 3)
@@ -272,7 +275,7 @@ namespace Controllers.TurretController
                     turret.transform.LookAt(Enemys[0].transform);
                 }
             }
-            else if (_turretHold)
+            else if (_turretHold && _rotateInput != Vector3.zero)
             {
                 turret.transform.eulerAngles = new Vector3(0, _rotateInput.x * 45, 0);
             }
