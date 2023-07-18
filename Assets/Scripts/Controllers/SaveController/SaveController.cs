@@ -16,6 +16,7 @@ namespace Controllers.SaveController
         public Dictionary<WeaponType, int> Upgrade;
         public Dictionary<int, List<GameObject>> TurretArea;
         public Dictionary<int, List<GameObject>> OperatorMans;
+        public List<GameObject> Gates;
 
         #endregion
 
@@ -33,6 +34,7 @@ namespace Controllers.SaveController
             Upgrade = GetBuyWeaponWeaponUpgradeSave();
             TurretArea = GetBuyTurretAreaSave();
             OperatorMans = GetBuyOperatorSave();
+            Gates = GetGateSave();
             for (int i = 0; i < TurretArea.Count; i++) { _countTurret++; }
             for (int i = 0; i < OperatorMans.Count; i++) {_countOperator++; }
             if (TurretArea != null)
@@ -50,6 +52,14 @@ namespace Controllers.SaveController
                 {
                     OperatorMans[VARIABLE][0].SetActive(true);
                     OperatorMans[VARIABLE][1].SetActive(false);
+                }
+            }
+            
+            if (Gates != null)
+            {
+                foreach (var VARIABLE in Gates)
+                {
+                    VARIABLE.SetActive(false);
                 }
             }
         }
@@ -70,6 +80,12 @@ namespace Controllers.SaveController
         {
             if (!ES3.FileExists()) return null;
             return ES3.Load<Dictionary<int,List<GameObject>>>("OperatorMan",new Dictionary<int, List<GameObject>>());
+        }
+        
+        public List<GameObject> GetGateSave()
+        {
+            if (!ES3.FileExists()) return null;
+            return ES3.Load<List<GameObject>>("Gate",new List<GameObject>());
         }
 
         public void SaveMoneyScore(int moneyCount)
@@ -134,6 +150,12 @@ namespace Controllers.SaveController
             OperatorMans.Add(_countOperator,opratorMans);
             _countOperator++;
             if (operatorMan != null || buy != null) ES3.Save<Dictionary<int,List<GameObject>>>("OperatorMan",OperatorMans);
+        }
+
+        public void SaveGate(GameObject gate)
+        {
+            Gates.Add(gate);
+            if (gate != null) ES3.Save<List<GameObject>>("Gate",Gates);
         }
     }
 }

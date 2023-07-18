@@ -19,5 +19,6 @@ namespace Signals
         public UnityAction onSaveTransporterMan = delegate { };
         public UnityAction<GameObject,GameObject> onSaveTurretArea = delegate { };
         public UnityAction<GameObject, GameObject> onSaveOperatorMan = delegate { };
+        public UnityAction<GameObject> onSaveGate = delegate { };
     }
 }

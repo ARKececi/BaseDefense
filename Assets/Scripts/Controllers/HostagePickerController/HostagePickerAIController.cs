@@ -63,7 +63,7 @@ namespace Controllers.HostagePickerController
                 if (MoneyList.Count == 0)
                 {
                     hostagePickerAnimationController.Idle();
-                    TargetMy();
+                    TargetHome();
                 }
                 else
                 {

@@ -36,10 +36,8 @@ namespace Controllers.GateController
                 uıBuyGateController.OnPrice(Price);
                 if (Price <= 0)
                 {
-                    foreach (var VARIABLE in piece)
-                    {
-                        VARIABLE.gameObject.SetActive(false);
-                    }
+                    SaveSignals.Instance.onSaveGate?.Invoke(gameObject);
+                    gameObject.SetActive(false);
                 }
             }
         }

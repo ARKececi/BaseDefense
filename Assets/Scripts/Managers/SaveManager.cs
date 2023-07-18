@@ -44,6 +44,7 @@ namespace Managers
             SaveSignals.Instance.onSaveTransporterMan += OnSaveTransporterMan;
             SaveSignals.Instance.onSaveTurretArea += OnSaveTaretArea;
             SaveSignals.Instance.onSaveOperatorMan += OnSaveOperatorMan;
+            SaveSignals.Instance.onSaveGate += OnSaveGate;
         }
 
         private void UnsubscribeEvents()
@@ -57,6 +58,7 @@ namespace Managers
             SaveSignals.Instance.onSaveTransporterMan -= OnSaveTransporterMan;
             SaveSignals.Instance.onSaveTurretArea -= OnSaveTaretArea;
             SaveSignals.Instance.onSaveOperatorMan -= OnSaveOperatorMan;
+            SaveSignals.Instance.onSaveGate -= OnSaveGate;
         }
 
         private void OnDisable()
@@ -108,6 +110,11 @@ namespace Managers
         private void OnSaveOperatorMan(GameObject operatorMan, GameObject buy)
         {
             saveController.SaveOperatorMan(operatorMan,buy);
+        }
+
+        private void OnSaveGate(GameObject gate)
+        {
+            saveController.SaveGate(gate);
         }
         
     }

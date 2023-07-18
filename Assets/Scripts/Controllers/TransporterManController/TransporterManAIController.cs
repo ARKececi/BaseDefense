@@ -98,7 +98,7 @@ namespace Controllers.TransporterManController
             }
             else
             {
-                TargetMy();
+                TargetBox();
             }
             
         }

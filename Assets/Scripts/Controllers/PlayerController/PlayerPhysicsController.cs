@@ -49,6 +49,7 @@ namespace Controllers
                 PlayerSignals.Instance.onPlayerSafeHouse?.Invoke(true);
                 PlayerSignals.Instance.onTargetWall?.Invoke();
                 PlayerSignals.Instance.onSafeHouse?.Invoke();
+                playerController.GetHealt(100);
             }
 
             if (other.TryGetComponent<EnemyAtackController>(out EnemyAtackController damage))

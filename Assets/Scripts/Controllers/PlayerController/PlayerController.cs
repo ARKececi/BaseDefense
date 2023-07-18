@@ -53,6 +53,7 @@ namespace Controllers
         public void GetHealt(int Healt)
         {
             _healt = Healt;
+            SetHealt(100);
         }
 
         public void SafeHouse(bool safehouse)
